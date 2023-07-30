@@ -18,7 +18,6 @@
       { "allowConstantExport": true }
     ],
     "semi": ["error", "always"],
-    "quotes": ["error", "double"],
     "no-console": "warn",
     "no-unused-vars": "off",
     "unused-imports/no-unused-imports": "error",
