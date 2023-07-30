@@ -14,18 +14,41 @@
     /* --color-dark-3: #a2a2a2; */
 
     --color-bg: theme(colors.slate.900);
-    --color-bg-secondary: theme(colors.slate.800);
-    --color-accent: theme(colors.sky.400);
-    --color-accent-light: theme(colors.sky.400/0.1);
+    --color-bg-secondary: theme(colors.slate.800/0.6);
+    --color-accent: theme(colors.teal.300);
+    --color-accent-light: theme(colors.teal.400/0.1);
     --color-text: theme(colors.slate.400);
     --color-dark-1: theme(colors.slate.200);
     --color-dark-2: theme(colors.slate.300);
     --color-dark-3: theme(colors.slate.700);
   }
 
-  /* Dark Theme */
-
   * {
-    @apply focus:outline-dashed outline-[3px] outline-offset-4 outline-accent;
+    @apply focus:outline-none outline-[3px] outline-offset-4 outline-accent;
   }
+}
+
+.container {
+  @apply mx-auto px-6 sm:px-8 md:px-28 lg:px-20 xl:px-0 max-w-screen-xl;
+}
+
+/* Typography */
+h1,
+.h1 {
+  @apply text-3xl leading-relaxed sm:text-4xl  capitalize font-medium text-dark-1;
+}
+
+h2,
+.h2 {
+  @apply text-xl md:text-2xl;
+}
+
+h3,
+.h3 {
+  @apply text-lg md:text-xl;
+}
+
+h4,
+.h4 {
+  @apply text-base font-bold md:text-lg;
 }
