@@ -1,30 +1,25 @@
-import { useEffect, useState } from 'react';
-import { FETCH } from '../utils/helper';
-import Issue from '../components/Issue';
+import { Loader, Issue } from '../components';
 import useUrl from '../hooks/use-url';
+import useFetch from '../hooks/use-fetch';
 
 const Issues = () => {
-  const [issues, setIssues] = useState([]);
   const { url } = useUrl();
+  const { data, loading, error } = useFetch(url);
 
-  useEffect(() => {
-    const load = async () => {
-      try {
-        const data = await FETCH(url);
-        setIssues(data.items);
-      } catch (err) {
-        console.error(err);
-      }
-    };
+  if (error) return <h1>{error.message}</h1>;
 
-    load();
-  }, [url]);
+  if (loading)
+    return (
+      <div className=' flex items-center justify-center h-[80vh]'>
+        <Loader />
+      </div>
+    );
 
-  if (!issues.length) return <h1>no data</h1>;
+  if (!data) return <h1>no data</h1>;
 
   return (
     <div className='py-5 space-y-3'>
-      {issues.map((issue) => (
+      {data.items.map((issue) => (
         <Issue
           key={issue.html_url}
           url={issue.html_url}
