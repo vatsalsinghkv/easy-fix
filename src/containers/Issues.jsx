@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { FETCH } from '../utils/helper';
 import Issue from '../components/Issue';
+import request from '../api/request';
 
 const Issues = () => {
   const [issues, setIssues] = useState([]);
@@ -8,9 +9,7 @@ const Issues = () => {
   useEffect(() => {
     const load = async () => {
       try {
-        const data = await FETCH(
-          'https://api.github.com/search/issues?q=bug+label:bug+page=1+language=javascript&per_page=5'
-        );
+        const data = await FETCH(request.searchIssues.url);
 
         setIssues(data.items);
       } catch (err) {
