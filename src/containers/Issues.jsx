@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
 import { FETCH } from '../utils/helper';
 import Issue from '../components/Issue';
-import request from '../api/request';
+import useUrl from '../hooks/use-url';
 
 const Issues = () => {
   const [issues, setIssues] = useState([]);
+  const { url } = useUrl();
 
   useEffect(() => {
     const load = async () => {
       try {
-        const data = await FETCH(request.searchIssues.url);
-
+        const data = await FETCH(url);
         setIssues(data.items);
       } catch (err) {
         console.error(err);
@@ -18,7 +18,7 @@ const Issues = () => {
     };
 
     load();
-  }, []);
+  }, [url]);
 
   if (!issues.length) return <h1>no data</h1>;
 
