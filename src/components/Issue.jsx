@@ -3,7 +3,7 @@ import Label from './Label';
 const Issue = ({ title, url, labels }) => {
   return (
     <a
-      className='block p-5 border rounded-md border-dark-3 hover:bg-bg-secondary focus:bg-bg-secondary group'
+      className='block p-5 border rounded-md border-dark-3 hover:bg-bg-secondary min-h-[105px] focus:bg-bg-secondary group'
       href={url}
       target='_blank'
       rel='noreferrer'
