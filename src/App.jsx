@@ -1,5 +1,17 @@
-function App() {
-  return <h1 className='text-3xl text-blue-400'>Hello world!</h1>;
-}
+import { Header, Issues } from './containers';
+
+const App = () => {
+  return (
+    <>
+      <Header />
+      <main className='container'>
+        {/* Filter (Aside) */}
+        {/* Issues */}
+        <Issues />
+        {/* Pagination */}
+      </main>
+    </>
+  );
+};
 
 export default App;
