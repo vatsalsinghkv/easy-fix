@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { request } from '../api/request';
 import { DEFAULT_LANGUAGE } from '../utils/config';
 
@@ -8,6 +8,10 @@ export default function UseUrlProvider({ children }) {
   const [language, setLanguage] = useState(DEFAULT_LANGUAGE);
   const [page, setPage] = useState(1);
   const url = request.searchIssues(language, page);
+
+  useEffect(() => {
+    setPage(1);
+  }, [language]);
 
   const changePage = (no) => {
     no >= 1 && setPage(no);
