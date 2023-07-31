@@ -8,7 +8,7 @@ const Issue = ({ title, url, labels }) => {
       target='_blank'
       rel='noreferrer'
     >
-      <h3 className='text-base font-medium  text-dark-2 group-hover:text-accent group-focus:text-accent'>
+      <h3 className='text-base font-medium text-dark-1 group-hover:text-accent group-focus:text-accent'>
         {title}
       </h3>
       <div className='flex flex-wrap mt-1'>

@@ -11,7 +11,7 @@ const Select = ({ name, value }) => {
         id={toId(name)}
       />
       <label
-        className='inline-block p-3 py-1 font-mono text-sm capitalize transition-all border rounded cursor-pointer hover:text-accent hover:border-accent focus:text-accent focus:border-accent border-text peer-checked:text-accent peer-checked:border-accent peer-checked:bg-accent-light'
+        className='inline-block p-3 py-1.5 font-mono text-xs capitalize transition-all border rounded cursor-pointer hover:text-accent hover:border-accent focus:text-accent focus:border-accent border-slate-400  2eer-checked:text-accent peer-checked:text-accent peer-checked:border-accent peer-checked:bg-accent-light'
         htmlFor={toId(name)}
       >
         {name}

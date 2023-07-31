@@ -14,7 +14,7 @@ const Issues = () => {
       )}
 
       {loading && (
-        <div className='flex items-center justify-center h-[75vh] md:h-[80vh]'>
+        <div className='flex items-center justify-center h-[65vh] md:h-[80vh]'>
           <Loader />
         </div>
       )}
