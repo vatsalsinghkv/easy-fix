@@ -12,3 +12,4 @@ export const LANGUAGES = [
 ];
 export const ISSUE_PER_PAGE = 5;
 export const TIMEOUT_SEC = 10;
+export const TOTAL_SIBLING_BUTTONS = 1;

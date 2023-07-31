@@ -21,7 +21,7 @@ export default function UseUrlProvider({ children }) {
   };
 
   return (
-    <UrlContext.Provider value={{ url, changePage }}>
+    <UrlContext.Provider value={{ url, changePage, page }}>
       {children}
     </UrlContext.Provider>
   );

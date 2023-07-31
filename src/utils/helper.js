@@ -1,4 +1,4 @@
-import { TIMEOUT_SEC } from './config';
+import { ISSUE_PER_PAGE, TIMEOUT_SEC } from './config';
 
 /**
  * Returns a rejected Promise after given seconds
@@ -31,3 +31,11 @@ export const FETCH = async (url) => {
   // Returns Resolved value (Promise)
   return data;
 };
+
+/**
+ * Returns total pages according to the no of data el
+ * @param {Number} length - Number of data
+ * @returns {Number} Total pages
+ */
+
+export const getTotalPages = (length) => Math.ceil(length / ISSUE_PER_PAGE);

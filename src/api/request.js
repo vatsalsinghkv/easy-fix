@@ -6,9 +6,6 @@ export const request = {
       ','
     )}&per_page=${ISSUE_PER_PAGE}`,
     parameters: {
-      language(langs) {
-        return `&language=${langs.join(',')}`;
-      },
       page(no = 1) {
         return `&page=${no}`;
       },
