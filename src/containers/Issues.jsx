@@ -27,10 +27,12 @@ const Issues = () => {
         <div className='py-5 space-y-3'>
           {data.items.map((issue) => (
             <Issue
+              repoUrl={issue.repository_url}
               key={issue.html_url}
               url={issue.html_url}
               labels={issue.labels}
               title={issue.title}
+              date={issue.created_at}
             />
           ))}
         </div>
