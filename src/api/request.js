@@ -1,15 +1,12 @@
 import { ISSUE_PER_PAGE, ISSUE_URL, LABELS, QUERIES } from '../utils/config';
 
 export const request = {
-  searchIssues: {
-    url: `${ISSUE_URL}?q=${QUERIES.join(',')}+state:open+label:${LABELS.join(
+  searchIssues(lang, page) {
+    return `${ISSUE_URL}?q=${QUERIES.join(',')}+state:open${
+      lang && lang !== 'all' ? '+language:' + lang : ''
+    }+label:${LABELS.join(
       ','
-    )}&per_page=${ISSUE_PER_PAGE}`,
-    parameters: {
-      page(no = 1) {
-        return `&page=${no}`;
-      },
-    },
+    )}&per_page=${ISSUE_PER_PAGE}&page=${page}&sort=created`;
   },
 };
 

@@ -49,7 +49,7 @@ const PaginationButton = ({
     }
     return (
       <button
-        className={`flex items-center justify-center h-10 w-10 text-sm border rounded ${
+        className={`flex items-center justify-center h-8 w-8 md:h-10 md:w-10 text-sm border rounded ${
           selected ? 'bg-accent-light text-accent border-accent' : 'border-text'
         } ${
           disable

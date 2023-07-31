@@ -1,27 +1,22 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useState } from 'react';
 import { request } from '../api/request';
+import { DEFAULT_LANGUAGE } from '../utils/config';
 
 export const UrlContext = createContext();
 
 export default function UseUrlProvider({ children }) {
-  const {
-    url: baseUrl,
-    parameters: { page: urlPage },
-  } = request.searchIssues;
-
+  const [language, setLanguage] = useState(DEFAULT_LANGUAGE);
   const [page, setPage] = useState(1);
-  const [url, setUrl] = useState(baseUrl);
-
-  useEffect(() => {
-    setUrl(`${baseUrl}${urlPage(page)}`);
-  }, [page, baseUrl, urlPage]);
+  const url = request.searchIssues(language, page);
 
   const changePage = (no) => {
     no >= 1 && setPage(no);
   };
 
   return (
-    <UrlContext.Provider value={{ url, changePage, page }}>
+    <UrlContext.Provider
+      value={{ url, changePage, language, setLanguage, page }}
+    >
       {children}
     </UrlContext.Provider>
   );

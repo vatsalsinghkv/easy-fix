@@ -5,7 +5,7 @@ const Pagination = ({ totalPages, currentPage, onChange }) => {
   if (totalPages <= 1) return;
 
   return (
-    <div className='flex items-center justify-center gap-3'>
+    <div className='flex items-center justify-center gap-3 py-3 mb-5'>
       {
         <PaginationButton
           onChange={onChange}

@@ -8,10 +8,10 @@ const Issue = ({ title, url, labels }) => {
       target='_blank'
       rel='noreferrer'
     >
-      <h3 className='text-xl font-medium text-dark-2 group-hover:text-accent group-focus:text-accent'>
+      <h3 className='text-base font-medium  text-dark-2 group-hover:text-accent group-focus:text-accent'>
         {title}
       </h3>
-      <div className='flex flex-wrap mt-2'>
+      <div className='flex flex-wrap mt-1'>
         {labels.map((label) => (
           <Label key={label.name.replaceAll(' ', '')} className='mr-1.5 mt-2'>
             {label.name}

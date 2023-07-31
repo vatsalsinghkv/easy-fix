@@ -2,7 +2,7 @@ import { Logo } from '../components';
 
 const Header = () => {
   return (
-    <header className='p-5 border-b border-dark-3'>
+    <header className='py-1 border-b sm:py-5 border-dark-3'>
       <Logo title='Easy Fix' classNme='container' />
     </header>
   );

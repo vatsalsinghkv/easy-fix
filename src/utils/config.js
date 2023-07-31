@@ -4,12 +4,14 @@ export const LABELS = ['easy', 'first', 'good'];
 export const QUERIES = ['web'];
 export const LANGUAGES = [
   'javascript',
-  'html',
   'css',
-  'sass',
+  'html',
   'typescript',
   'python',
+  'java',
+  'all',
 ];
-export const ISSUE_PER_PAGE = 5;
+export const DEFAULT_LANGUAGE = 'javascript';
+export const ISSUE_PER_PAGE = 10;
 export const TIMEOUT_SEC = 10;
 export const TOTAL_SIBLING_BUTTONS = 1;

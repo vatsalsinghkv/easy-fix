@@ -39,3 +39,11 @@ export const FETCH = async (url) => {
  */
 
 export const getTotalPages = (length) => Math.ceil(length / ISSUE_PER_PAGE);
+
+/**
+ * Returns a string by joining a the given sentence with underscores
+ * @param {String} text - text to be formatted
+ * @returns {String} id - joined with _
+ */
+
+export const toId = (text) => text.toLowerCase().replace(' ', '_');
