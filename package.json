@@ -13,8 +13,8 @@
     "prepare": "husky install"
   },
   "lint-staged": {
-    "**/*": "yarn format",
-    "src/**/*.js": "yarn lint"
+    "**/*": "prettier --write",
+    "src/**/*": "yarn lint"
   },
   "husky": {
     "hooks": {
