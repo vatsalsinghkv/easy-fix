@@ -1,4 +1,5 @@
 import { Icon } from '@iconify-icon/react';
+
 import PaginationButton from './PaginationButton';
 
 const Pagination = ({ totalPages, currentPage, onChange }) => {

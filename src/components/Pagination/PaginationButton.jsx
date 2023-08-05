@@ -1,4 +1,5 @@
 import { Icon } from '@iconify-icon/react';
+
 import { TOTAL_SIBLING_BUTTONS } from '../../utils/config';
 
 // https://www.freecodecamp.org/news/build-a-custom-pagination-component-in-react/

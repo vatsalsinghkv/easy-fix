@@ -1,6 +1,6 @@
-import useUrl from '../hooks/use-url';
+import { Error, Issue, Loader, Pagination } from '../components';
 import useFetch from '../hooks/use-fetch';
-import { Loader, Issue, Error, Pagination } from '../components';
+import useUrl from '../hooks/use-url';
 import { getTotalPages } from '../utils/helper';
 
 const Issues = () => {
