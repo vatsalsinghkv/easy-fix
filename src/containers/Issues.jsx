@@ -1,6 +1,7 @@
 import { Error, Issue, Loader, Pagination } from '../components';
 import useFetch from '../hooks/use-fetch';
 import useUrl from '../hooks/use-url';
+import { MAX_ISSUES_ALLOWED } from '../utils/config';
 import { getTotalPages } from '../utils/helper';
 
 const Issues = () => {
@@ -40,7 +41,11 @@ const Issues = () => {
       {data && (
         <Pagination
           currentPage={page}
-          totalPages={getTotalPages(data.total_count)}
+          totalPages={getTotalPages(
+            data.total_count > MAX_ISSUES_ALLOWED
+              ? MAX_ISSUES_ALLOWED
+              : data.total_count
+          )}
           onChange={changePage}
         />
       )}
