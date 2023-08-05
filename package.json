@@ -13,8 +13,14 @@
     "prepare": "husky install"
   },
   "lint-staged": {
-    "**/*": "prettier --write",
-    "src/**/*": "yarn lint"
+    "*.html": [
+      "yarn lint",
+      "prettier --write"
+    ],
+    "src/**/*": [
+      "yarn lint",
+      "prettier --write"
+    ]
   },
   "husky": {
     "hooks": {
@@ -38,7 +44,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
     "eslint-plugin-unused-imports": "^3.0.0",
-    "husky": "^8.0.3",
+    "husky": "^8.0.0",
     "lint-staged": "^13.2.3",
     "postcss": "^8.4.27",
     "prettier": "3.0.0",
