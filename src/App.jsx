@@ -1,5 +1,5 @@
-import { Label, MiniContainer } from './components';
-import { Filter, Header, Issues } from './containers';
+import { MiniContainer } from './components';
+import { Filter, Footer, Header, Issues } from './containers';
 
 const App = () => {
   return (
@@ -19,6 +19,7 @@ const App = () => {
           <Issues />
         </div>
       </main>
+      <Footer />
     </>
   );
 };
