@@ -20,7 +20,8 @@ Easy Fix
 
 - [React.js](https://react.dev/)
 - [TailwindCSS](https://tailwindcss.com/)
-- [Iconify](https://icon-sets.iconify.design/) - For icons
+- [Github API](https://docs.github.com/en/rest)
+- [Iconify](https://icon-sets.iconify.design/)
 
 ## Process
 
@@ -33,12 +34,9 @@ Easy Fix
 
 ### Features
 
-- Data Fetching
-  App fetches the relevant issues from api.
-- Pagination
-  App renders the specific number of issues per page.
-- Filter
-  App fetches the required issues according to the selected language.
+- **Data Fetching:** App fetches the relevant issues from api.
+- **Pagination:** App renders the specific number of issues per page.
+- **Filter:** App fetches the required issues according to the selected language.
 
 ### Work Flow
 
