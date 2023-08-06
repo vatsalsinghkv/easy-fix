@@ -17,7 +17,7 @@
       "yarn lint",
       "prettier --write"
     ],
-    "src/**/*": [
+    "src/**/*.{js,jsx,ts,tsx}": [
       "yarn lint",
       "prettier --write"
     ]
