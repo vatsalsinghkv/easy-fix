@@ -5,7 +5,7 @@ const Footer = () => {
         href='https://github.com/vatsalsinghkv/easy-fix'
         target='_blank'
         rel='noreferrer'
-        className='transition hover:text-accent'
+        className='transition focus:text-accent hover:text-accent'
       >
         Design &amp; Built by Vatsal Singh
       </a>
