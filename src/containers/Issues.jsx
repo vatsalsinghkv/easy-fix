@@ -1,6 +1,6 @@
 import { Error, Issue, Loader, Pagination } from '../components';
 import useFetch from '../hooks/use-fetch';
-import useUrl from '../hooks/use-url';
+import { useUrl } from '../hooks/use-url';
 import { MAX_ISSUES_ALLOWED } from '../utils/config';
 import { getTotalPages } from '../utils/helper';
 

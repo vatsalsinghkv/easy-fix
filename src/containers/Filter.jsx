@@ -1,5 +1,5 @@
 import { MiniContainer, Select } from '../components';
-import useUrl from '../hooks/use-url';
+import { useUrl } from '../hooks/use-url';
 import { LANGUAGES } from '../utils/config';
 import { toId } from '../utils/helper';
 
