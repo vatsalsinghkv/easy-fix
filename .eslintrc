@@ -6,7 +6,8 @@
     "plugin:react/recommended",
     "plugin:react/jsx-runtime",
     "plugin:react-hooks/recommended",
-    "prettier"
+    "prettier",
+    "plugin:vitest/recommended"
   ],
   "ignorePatterns": ["dist", ".eslintrc.cjs", "**/*.html"],
   "parserOptions": { "ecmaVersion": "latest", "sourceType": "module" },
