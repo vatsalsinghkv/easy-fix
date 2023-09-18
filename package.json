@@ -8,6 +8,7 @@
     "build": "vite build",
     "format": "prettier -w .",
     "test": "vitest",
+    "test:build": "vitest run",
     "format:check": "prettier -c .",
     "lint": "eslint src --fix --report-unused-disable-directives",
     "preview": "vite preview",
@@ -16,8 +17,8 @@
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx}": [
       "yarn lint",
-      "yarn test",
-      "prettier --write"
+      "prettier --write",
+      "yarn test:build"
     ]
   },
   "dependencies": {
