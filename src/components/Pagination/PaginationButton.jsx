@@ -1,7 +1,5 @@
 import { Icon } from '@iconify-icon/react';
 
-import { TOTAL_SIBLING_BUTTONS } from '../../utils/config';
-
 // https://www.freecodecamp.org/news/build-a-custom-pagination-component-in-react/
 const PaginationButton = ({
   num = null,
@@ -10,6 +8,7 @@ const PaginationButton = ({
   totalPages,
   currentPage,
   onChange,
+  siblings = 0,
 }) => {
   const selected = currentPage === num;
 
@@ -33,13 +32,13 @@ const PaginationButton = ({
     num === 1 ||
     num === 2 ||
     num === totalPages ||
-    num === currentPage - TOTAL_SIBLING_BUTTONS ||
-    num === currentPage + TOTAL_SIBLING_BUTTONS ||
-    num === currentPage + TOTAL_SIBLING_BUTTONS + 1 ||
+    num === currentPage - siblings ||
+    num === currentPage + siblings ||
+    num === currentPage + siblings + 1 ||
     type
   ) {
     if (
-      (num > currentPage + TOTAL_SIBLING_BUTTONS && num < totalPages) ||
+      (num > currentPage + siblings && num < totalPages) ||
       (num === 2 && currentPage > 3)
     ) {
       return (

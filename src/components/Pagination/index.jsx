@@ -1,5 +1,6 @@
 import { Icon } from '@iconify-icon/react';
 
+import { TOTAL_SIBLING_BUTTONS } from '../../utils/config';
 import PaginationButton from './PaginationButton';
 
 const Pagination = ({ totalPages, currentPage, onChange }) => {
@@ -9,6 +10,7 @@ const Pagination = ({ totalPages, currentPage, onChange }) => {
     <div className='flex items-center justify-center gap-3 py-3 mb-5'>
       {
         <PaginationButton
+          siblings={TOTAL_SIBLING_BUTTONS}
           onChange={onChange}
           totalPages={totalPages}
           currentPage={currentPage}
@@ -19,6 +21,7 @@ const Pagination = ({ totalPages, currentPage, onChange }) => {
       }
       {[...Array(totalPages)].map((_, i) => (
         <PaginationButton
+          siblings={TOTAL_SIBLING_BUTTONS}
           onChange={onChange}
           key={i + 1}
           num={i + 1}
@@ -28,6 +31,7 @@ const Pagination = ({ totalPages, currentPage, onChange }) => {
       ))}
       {
         <PaginationButton
+          siblings={TOTAL_SIBLING_BUTTONS}
           onChange={onChange}
           totalPages={totalPages}
           currentPage={currentPage}
