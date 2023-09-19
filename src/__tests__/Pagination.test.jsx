@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
 import { Pagination } from '../components';
+import { TOTAL_SIBLING_BUTTONS } from '../utils/config';
 
 describe('Pagination', () => {
   const firstPage = 1;
@@ -18,8 +19,8 @@ describe('Pagination', () => {
     expect(+lastBtn.textContent).toBe(totalPage);
   });
 
-  it('renders the given siblings button', () => {
-    const siblings = 1;
+  it(`renders the given i.e. ${TOTAL_SIBLING_BUTTONS} siblings button`, () => {
+    const siblings = TOTAL_SIBLING_BUTTONS;
     const currentPage = 5;
     // [4, 5, 6]
     const btns = [...Array(2 * siblings + 1)].map(
@@ -29,7 +30,7 @@ describe('Pagination', () => {
     // Arrange
     render(
       <Pagination
-        siblings={siblings}
+        siblings={TOTAL_SIBLING_BUTTONS}
         totalPages={totalPage}
         currentPage={currentPage}
       />
