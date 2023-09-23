@@ -24,15 +24,17 @@ Easy Fix
 - [Vitest](https://vitest.dev/) - Testing library
 - [Iconify](https://icon-sets.iconify.design/) - Icon library
 
-## Contribution
+## Contributing
 
 ###### Join Our Discord: [https://discord.gg/St2dHg9YwA](https://discord.gg/St2dHg9YwA)
+
+Remember, Good PR makes you a Good contributor !
+
+### 1. Setting up the project locally
 
 ###### To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [yarn](https://yarnpkg.com) installed on your computer).
 
 1. Fork this repository and clone the project
-
-###### Please give me proper credit by linking back to [easy-fix.vercel.app](https://easy-fix.vercel.app).
 
 ```bash
   git clone https://github.com/<YOUR USERNAME>/easy-fix.git
@@ -58,7 +60,11 @@ Easy Fix
 
 - To change the **configuration**, edit `src/utils/config.js`
 
-## Process
+### 2. Contributing Guidelines
+
+- [Contributing Guidelines](/CONTRIBUTING.md) to be followed.
+
+## The Process
 
 ### User Stories
 
