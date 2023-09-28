@@ -11,8 +11,8 @@ describe('Pagination', () => {
   it('renders the first and the last page button', () => {
     // ARRANGE
     render(<Pagination totalPages={totalPage} currentPage={firstPage} />);
-    const firstBtn = screen.getByText(firstPage);
-    const lastBtn = screen.getByText(totalPage);
+    const firstBtn = screen.getByRole('button', { name: firstPage });
+    const lastBtn = screen.getByRole('button', { name: totalPage });
 
     // ASSERT
     expect(+firstBtn.textContent).toBe(firstPage);
@@ -38,7 +38,7 @@ describe('Pagination', () => {
 
     const btnsEl = [];
     btns.forEach((i) => {
-      btns.push(screen.getByText(i));
+      btns.push(screen.getByRole('button', { name: i }));
     });
 
     // ASSERT
