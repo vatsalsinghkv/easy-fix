@@ -1,5 +1,6 @@
 import { MiniContainer } from './components';
 import { Filter, Footer, Header, Issues } from './containers';
+import ScrollUpButton from './components/ScrollUpButton'; 
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
           <Issues />
         </div>
       </main>
+      <ScrollUpButton />
       <Footer />
     </>
   );
