@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-import App from './App.jsx';
+import App from './App';
 import UseUrlProvider from './hooks/use-url.jsx';
 import './index.css';
 
