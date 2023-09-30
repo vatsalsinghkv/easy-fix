@@ -15,4 +15,4 @@ export const DEFAULT_LANGUAGE = 'all';
 export const ISSUE_PER_PAGE = 10;
 export const MAX_ISSUES_ALLOWED = 1000;
 export const TIMEOUT_SEC = 10;
-export const TOTAL_SIBLING_BUTTONS = 1;
+export const TOTAL_SIBLING_BUTTONS = 2;
