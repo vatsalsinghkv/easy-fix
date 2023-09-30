@@ -15,10 +15,10 @@
     "prepare": "husky install"
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx}": [
+    "/src/**/*.{js,jsx,ts,tsx}": [
       "yarn lint",
       "prettier --write",
-      "npm run test"
+      "yarn test"
     ]
   },
   "dependencies": {
