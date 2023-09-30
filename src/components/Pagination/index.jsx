@@ -1,42 +1,71 @@
 import { Icon } from '@iconify-icon/react';
+import { useMemo } from 'react';
 
 import { TOTAL_SIBLING_BUTTONS } from '../../utils/config';
 import PaginationButton from './PaginationButton';
 
 const Pagination = ({ totalPages, currentPage, onChange }) => {
+  /**
+    * Generating an array of pagination buttons based on the current page and total number of pages.
+   */
+  const items = useMemo(() => {
+    const startIdx =
+      currentPage - TOTAL_SIBLING_BUTTONS < 1
+        ? 1
+        : currentPage - TOTAL_SIBLING_BUTTONS;
+    const endIdx =
+      currentPage + TOTAL_SIBLING_BUTTONS > totalPages
+        ? totalPages
+        : currentPage + TOTAL_SIBLING_BUTTONS;
+    const arr = [];
+
+    for (let i = startIdx; i <= endIdx; i++) {
+      arr.push({ label: i, isClickable: true });
+    }
+
+    const lastItemLabel = arr[arr.length - 1].label;
+    if (lastItemLabel + 1 < totalPages)
+      arr.push({ label: lastItemLabel + 1, isClickable: false });
+    const firstItemLabel = arr[0].label;
+    if (firstItemLabel - 1 > 1)
+      arr.unshift({ label: firstItemLabel - 1, isClickable: false });
+
+    if (!arr.some(({ label }) => label === 1))
+      arr.unshift({ label: 1, isClickable: true });
+
+    if (!arr.some(({ label }) => label === totalPages))
+      arr.push({ label: totalPages, isClickable: true });
+
+    return arr;
+  }, [currentPage, totalPages]);
+
   if (totalPages <= 1) return;
 
   return (
     <div className='flex items-center justify-center gap-3 py-3 mb-5'>
       {
         <PaginationButton
-          siblings={TOTAL_SIBLING_BUTTONS}
           onChange={onChange}
-          totalPages={totalPages}
           currentPage={currentPage}
           type='prev'
-          num={<Icon height={24} width={24} icon='ic:sharp-chevron-left' />}
+          icon={<Icon height={24} width={24} icon='ic:sharp-chevron-left' />}
           disable={currentPage === 1}
         />
       }
-      {[...Array(totalPages)].map((_, i) => (
+      {items.map((item) => (
         <PaginationButton
-          siblings={TOTAL_SIBLING_BUTTONS}
+          item={item}
           onChange={onChange}
-          key={i + 1}
-          num={i + 1}
-          totalPages={totalPages}
+          key={item.label}
           currentPage={currentPage}
         />
       ))}
       {
         <PaginationButton
-          siblings={TOTAL_SIBLING_BUTTONS}
           onChange={onChange}
-          totalPages={totalPages}
           currentPage={currentPage}
           type='next'
-          num={<Icon height={24} width={24} icon='ic:sharp-chevron-right' />}
+          icon={<Icon height={24} width={24} icon='ic:sharp-chevron-right' />}
           disable={currentPage === totalPages}
         />
       }
