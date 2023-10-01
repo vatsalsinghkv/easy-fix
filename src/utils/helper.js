@@ -7,7 +7,7 @@ import { ISSUE_PER_PAGE, TIMEOUT_SEC } from './config';
  * @returns {Promise} Settled (Rejected) Promise
  */
 
-const timeout = async (sec) =>
+export const timeout = async (sec) =>
   new Promise((_, reject) => {
     setTimeout(() => {
       reject(new Error(`Request took too long! Timeout after ${sec} second`));
@@ -48,11 +48,17 @@ export const getTotalPages = (length) => Math.ceil(length / ISSUE_PER_PAGE);
 
 export const toId = (text) => text.toLowerCase().replace(' ', '_');
 
-export const dateFormatter = (date) => {
-  return new Intl.DateTimeFormat(
-    navigator.language || navigator.userLanguage || 'en-US',
+export const dateFormatter = (date, language = navigator.language || navigator.userLanguage || 'en-US') => {
+  const parsedDate = new Date(date);
+
+  if (isNaN(parsedDate)) {
+    return 'Invalid Date';
+  }
+
+  return parsedDate.toLocaleDateString(
+    language,
     { day: 'numeric', month: 'short', year: 'numeric' }
-  ).format(new Date(date));
+  );
 };
 
 export const timeSince = (time) => {
