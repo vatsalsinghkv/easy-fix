@@ -1,5 +1,6 @@
 import { MiniContainer } from './components';
 import { Filter, Footer, Header, Issues } from './containers';
+import Sort from './containers/Sort';
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
               community.
             </MiniContainer>
             <Filter />
+            <Sort />
           </aside>
           <Issues />
         </div>
