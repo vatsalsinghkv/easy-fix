@@ -16,7 +16,7 @@
     "prepare": "husky install"
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx}": [
+    "/src/**/*.{js,jsx,ts,tsx}": [
       "yarn lint",
       "prettier --write",
       "yarn test"

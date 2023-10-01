@@ -1,52 +1,44 @@
 import { Icon } from '@iconify-icon/react';
+import { useMemo } from 'react';
 
 // https://www.freecodecamp.org/news/build-a-custom-pagination-component-in-react/
 const PaginationButton = ({
-  num = null,
+  item,
   type,
+  icon = null,
   disable = false,
-  totalPages,
   currentPage,
   onChange,
-  siblings = 0,
 }) => {
-  const selected = currentPage === num;
+  /**
+   * True if the button is the current page.
+   */
+  const selected = useMemo(() => {
+    if (type) return false;
+    if (!item) return false;
 
+    return currentPage === item.label;
+  }, [currentPage, type, item]);
+
+/**
+ * Updates the current page based on the type of button clicked.
+ */
   const clickHandler = (e) => {
     if (disable) return;
-
-    if (type) {
-      if (type === 'prev') {
-        onChange(currentPage - 1);
-      } else if (type === 'next') {
-        onChange(currentPage + 1);
-      }
+    if (!type) {
+      onChange(+e.target.id);
       return;
     }
-
-    onChange(+e.target.id);
+    if (type === 'prev') {
+      onChange(currentPage - 1);
+    } else if (type === 'next') {
+      onChange(currentPage + 1);
+    }
   };
 
-  if (
-    num === currentPage ||
-    num === 1 ||
-    num === 2 ||
-    num === totalPages ||
-    num === currentPage - siblings ||
-    num === currentPage + siblings ||
-    num === currentPage + siblings + 1 ||
-    type
-  ) {
-    if (
-      (num > currentPage + siblings && num < totalPages) ||
-      (num === 2 && currentPage > 3)
-    ) {
-      return (
-        <p className=''>
-          <Icon icon='pepicons-pop:dots-x' />
-        </p>
-      );
-    }
+  if (!item && !type) return null;
+
+  if (item?.isClickable || type) {
     return (
       <button
         className={`flex items-center justify-center h-8 w-8 md:h-9 md:w-9 font-mono text-sm border rounded ${
@@ -58,13 +50,19 @@ const PaginationButton = ({
             ? 'cursor-not-allowed opacity-50'
             : 'hover:text-accent focus:border-accent focus:text-accent hover:border-accent'
         }`}
-        id={num}
+        id={type || item.label}
         onClick={clickHandler}
       >
-        {num}
+        {type ? icon : item?.label}
       </button>
     );
   }
+
+  return (
+    <p className=''>
+      <Icon icon='pepicons-pop:dots-x' />
+    </p>
+  );
 };
 
 export default PaginationButton;
