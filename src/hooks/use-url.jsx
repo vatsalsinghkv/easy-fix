@@ -7,7 +7,6 @@ export const UrlContext = createContext();
 
 export default function UseUrlProvider({ children }) {
   const [language, setLanguage] = useState(DEFAULT_LANGUAGE);
-  const [sort, setSort] = useState(DEFAULT_SORT_TAG);
 
   const [page, setPage] = useState(1);
   const [sortBy, setSortBy] = useState(DEFAULT_SORT_BY);
