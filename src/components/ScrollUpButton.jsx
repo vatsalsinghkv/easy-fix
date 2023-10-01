@@ -12,7 +12,7 @@ const ScrollUpButton = () => {
     zIndex: 99,
     border: 'none',
     outline: 'none',
-    color: 'var(--color-text)',          // Set text color
+    color: 'var(--color-text)',        
     cursor: 'pointer',
     padding: '15px',
     borderRadius: '50%',
@@ -22,8 +22,8 @@ const ScrollUpButton = () => {
     textAlign: 'center',
     lineHeight: '30px',
     fontSize: '30px',
-    boxShadow: hovered ? '0 4px 8px var(--color-dark-3)' : '0 2px 5px var(--color-dark-2)', // Darker shadow on hover
-    backgroundColor: hovered ? 'var(--color-dark-3)' : 'var(--color-bg)', // Darker background on hover
+    boxShadow: hovered ? '0 4px 8px var(--color-dark-3)' : '0 2px 5px var(--color-dark-2)', 
+    backgroundColor: hovered ? 'var(--color-dark-3)' : 'var(--color-bg)', 
   };
 
   useEffect(() => {
