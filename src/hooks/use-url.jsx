@@ -1,18 +1,19 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
 import { request } from '../api/request';
-import { DEFAULT_LANGUAGE } from '../utils/config';
+import { DEFAULT_LANGUAGE, DEFAULT_SORT_BY } from '../utils/config';
 
 export const UrlContext = createContext();
 
 export default function UseUrlProvider({ children }) {
   const [language, setLanguage] = useState(DEFAULT_LANGUAGE);
   const [page, setPage] = useState(1);
-  const url = request.searchIssues(language, page);
+  const [sortBy, setSortBy] = useState(DEFAULT_SORT_BY);
+  const url = request.searchIssues(language, page, sortBy);
 
   useEffect(() => {
     setPage(1);
-  }, [language]);
+  }, [language, sortBy]);
 
   const changePage = (no) => {
     no >= 1 && setPage(no);
@@ -20,7 +21,15 @@ export default function UseUrlProvider({ children }) {
 
   return (
     <UrlContext.Provider
-      value={{ url, changePage, language, setLanguage, page }}
+      value={{
+        url,
+        changePage,
+        language,
+        setLanguage,
+        page,
+        sortBy,
+        setSortBy,
+      }}
     >
       {children}
     </UrlContext.Provider>

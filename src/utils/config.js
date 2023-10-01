@@ -11,6 +11,15 @@ export const LANGUAGES = [
   'java',
   'all',
 ];
+export const SORT_BY = [
+  { sortKey: 'updated', displayKey: 'updated', direction: 'asc' },
+  { sortKey: 'comments', displayKey: 'activity', direction: 'asc' },
+];
+export const DEFAULT_SORT_BY = {
+  sortKey: 'updated',
+  displayKey: 'updated',
+  direction: 'asc',
+};
 export const DEFAULT_LANGUAGE = 'all';
 export const ISSUE_PER_PAGE = 10;
 export const MAX_ISSUES_ALLOWED = 1000;
