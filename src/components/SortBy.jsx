@@ -1,22 +1,17 @@
 import { toId } from '../utils/helper';
 
-const SortBy = ({ name, value, setDirection, direction }) => {
+const SortBy = ({ name, value, setOrder, order, onSortChange }) => {
+  const activeClasses ="text-accent border-accent bg-accent-light";
   return (
     <div>
-      <input
-        className='hidden peer'
-        type='radio'
-        defaultChecked={value === name}
-        name='sortBy'
-        id={toId(name)}
-      />
-      <div className='flex p-3 py-1.5 font-mono text-xs capitalize transition-all border rounded hover:text-accent hover:border-accent focus:text-accent focus:border-accent border-slate-400  2eer-checked:text-accent peer-checked:text-accent peer-checked:border-accent peer-checked:bg-accent-light relative group'>
-        <label className='cursor-pointer' htmlFor={toId(name)}>
+      <div className={`flex p-3 py-1.5 font-mono text-xs capitalize transition-all border rounded hover:text-accent hover:border-accent focus:text-accent focus:border-accent border-slate-400 relative group ${name == value ? activeClasses : ''}`}>
+        <label className='cursor-pointer'  onClick={() => onSortChange(toId(name))}>
           {name}
         </label>
         <span
           className='group text-accent ml-2 cursor-pointer'
-          onClick={() => setDirection(toId(name))}
+          onClick={() => setOrder(toId(name))}
+          htmlFor={toId(name)}
         >
           <svg
             fill='currentColor'
@@ -39,7 +34,7 @@ const SortBy = ({ name, value, setDirection, direction }) => {
           </svg>
         </span>
         <span className='absolute top-10 scale-0 transition-all rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100'>
-          Sort {direction}{' '}
+          Sort {order}
         </span>
       </div>
     </div>

@@ -6,7 +6,7 @@ export const request = {
       lang && lang !== 'all' ? '+language:' + lang : ''
     }+label:${LABELS.join(',')}&per_page=${ISSUE_PER_PAGE}&page=${page}&sort=${
       sortBy.sortKey
-    }-${sortBy.direction}`;
+    }&order=${sortBy.order}`;
   },
 };
 

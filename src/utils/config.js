@@ -12,13 +12,14 @@ export const LANGUAGES = [
   'all',
 ];
 export const SORT_BY = [
-  { sortKey: 'updated', displayKey: 'updated', direction: 'asc' },
-  { sortKey: 'comments', displayKey: 'activity', direction: 'asc' },
+  { sortKey: 'updated', displayKey: 'updated', order: 'desc' },
+  { sortKey: 'reactions', displayKey: 'reactions', order: 'desc' },
+  { sortKey: 'comments', displayKey: 'activity', order: 'desc' }
 ];
 export const DEFAULT_SORT_BY = {
   sortKey: 'updated',
   displayKey: 'updated',
-  direction: 'asc',
+  order: 'desc',
 };
 export const DEFAULT_LANGUAGE = 'all';
 export const ISSUE_PER_PAGE = 10;

@@ -1,7 +1,8 @@
 import { MiniContainer, SortBy } from '../components';
-import { useUrl } from '../hooks/use-url';
+
 import { SORT_BY } from '../utils/config';
 import { toId } from '../utils/helper';
+import { useUrl } from '../hooks/use-url';
 
 const getSortKey = (displayKey) =>
   SORT_BY.find((sort) => sort.displayKey === displayKey).sortKey;
@@ -9,34 +10,35 @@ const getSortKey = (displayKey) =>
 const Sort = () => {
   const { sortBy, setSortBy } = useUrl();
 
-  const changeHandler = (e) => {
+  const onSortChange = (e) => {
     setSortBy({
-      sortKey: getSortKey(e.target.id),
-      direction: sortBy.direction,
-      displayKey: e.target.id,
+      displayKey: e,
+      sortKey: getSortKey(e),
+      order: sortBy.order,
     });
   };
 
-  const getDirection = (direction) => (direction === 'asc' ? 'desc' : 'asc');
+  const getOrder = (order) => (order === 'asc' ? 'desc' : 'asc');
 
-  const setDirection = (e) => {
+  const setOrder = (e) => {
     setSortBy({
       displayKey: e,
       sortKey: sortBy.sortKey,
-      direction: getDirection(sortBy.direction),
+      order: getOrder(sortBy.order),
     });
   };
 
   return (
     <MiniContainer title='Sort'>
-      <form className='flex flex-wrap gap-3 mt-4' onChange={changeHandler}>
+      <form className='flex flex-wrap gap-3 mt-4'>
         {SORT_BY.map((sort) => (
           <SortBy
             value={sortBy.displayKey}
             key={toId(sort.displayKey)}
             name={sort.displayKey}
-            setDirection={setDirection}
-            direction={sortBy.direction}
+            setOrder={setOrder}
+            order={getOrder(sortBy.order)}
+            onSortChange={onSortChange}
           />
         ))}
       </form>
