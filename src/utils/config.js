@@ -14,7 +14,8 @@ export const LANGUAGES = [
 export const SORT_BY = [
   { sortKey: 'updated', displayKey: 'updated', order: 'desc' },
   { sortKey: 'reactions', displayKey: 'reactions', order: 'desc' },
-  { sortKey: 'comments', displayKey: 'activity', order: 'desc' }
+  { sortKey: 'comments', displayKey: 'activity', order: 'desc' },
+  { sortKey: 'best-match', displayKey: 'best-match', order: 'desc' }
 ];
 export const DEFAULT_SORT_BY = {
   sortKey: 'updated',
@@ -22,8 +23,6 @@ export const DEFAULT_SORT_BY = {
   order: 'desc',
 };
 export const DEFAULT_LANGUAGE = 'all';
-export const SORT_TAGS = ['comments', 'reactions', 'updated', 'best-match'];
-export const DEFAULT_SORT_TAG = 'best-match';
 export const ISSUE_PER_PAGE = 10;
 export const MAX_ISSUES_ALLOWED = 1000;
 export const TIMEOUT_SEC = 10;

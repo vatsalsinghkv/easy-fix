@@ -19,12 +19,13 @@ const Sort = () => {
   };
 
   const getOrder = (order) => (order === 'asc' ? 'desc' : 'asc');
+  const getSortOrder = (sortKey) => sortKey === sortBy.sortKey ? getOrder(sortBy.order): 'desc';
 
   const setOrder = (e) => {
     setSortBy({
       displayKey: e,
-      sortKey: sortBy.sortKey,
-      order: getOrder(sortBy.order),
+      sortKey: getSortKey(e),
+      order: getSortOrder(getSortKey(e))
     });
   };
 
