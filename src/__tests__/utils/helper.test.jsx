@@ -8,7 +8,7 @@ import {
   timeSince,
   timeout,
   toId,
-} from '../../utils/helper';
+} from '@/utils/helper';
 
 describe('timeout', () => {
   it('should reject the promise after the given seconds', async () => {

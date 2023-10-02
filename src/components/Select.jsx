@@ -1,4 +1,4 @@
-import { toId } from '../utils/helper';
+import { toId } from '@/utils/helper';
 
 const Select = ({ name, value }) => {
   return (

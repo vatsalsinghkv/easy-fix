@@ -1,3 +1,4 @@
+import path from 'path';
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
@@ -6,5 +7,11 @@ export default defineConfig({
     setupFiles: ['./src/__tests__/setup.js'],
     include: ['./src/__tests__/**/*.test.jsx'],
     globals: true,
+  },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src/'),
+      '~': path.resolve(__dirname, './public/'),
+    },
   },
 });
