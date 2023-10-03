@@ -25,6 +25,12 @@ export const timeout = async (sec) =>
 export const FETCH = async (url) => {
   // Consuming Promise using Await | .then()
   const res = await Promise.race([fetch(url), timeout(TIMEOUT_SEC)]);
+
+  //for extending api limit
+  // const headers = new Headers();  --> create header object or you can direcly initialized it fetch
+  // headers.append('Authorization', `token ${token}`);
+  // const res = await Promise.race([fetch(url, { headers }), timeout(TIMEOUT_SEC)]); --> line 27 will looks like this
+
   const data = await res.json();
   if (!res.ok) throw new Error(`Error (${res.status}): ${data.message}`);
 
