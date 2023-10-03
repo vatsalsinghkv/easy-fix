@@ -1,7 +1,7 @@
 import { act, renderHook } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 
-import useFetch from '../../hooks/use-fetch';
+import useFetch from '@/lib/hooks/use-fetch';
 
 describe('useFetch', () => {
   const fetchSpy = vi.spyOn(global, 'fetch');

@@ -20,7 +20,13 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "types": ["vitest/globals"]
+    "types": ["vitest/globals"],
+
+    /* Dynamic import */
+    "paths": {
+      "@/*": ["./src/*"],
+      "~/*": ["./public/*"]
+    }
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]

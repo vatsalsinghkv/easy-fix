@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 
-import Issue from '../../components/Issue.jsx';
-import * as useFetchHook from '../../hooks/use-fetch';
+import Issue from '@/components/Issue.jsx';
+import * as useFetchHook from '@/lib/hooks/use-fetch';
 
 describe('Issue', () => {
   const mockIssue = {

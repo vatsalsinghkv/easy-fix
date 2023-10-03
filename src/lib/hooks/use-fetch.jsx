@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { FETCH } from '../utils/helper';
+import { FETCH } from '@/lib/utils/helper';
 
 const useFetch = (url) => {
   const [loading, setLoading] = useState(true);

@@ -1,4 +1,4 @@
-import { ISSUE_PER_PAGE, TIMEOUT_SEC } from './config';
+import { ISSUE_PER_PAGE, TIMEOUT_SEC } from '@/lib/utils/config';
 
 /**
  * Returns a rejected Promise after given seconds
@@ -48,17 +48,21 @@ export const getTotalPages = (length) => Math.ceil(length / ISSUE_PER_PAGE);
 
 export const toId = (text) => text.toLowerCase().replace(' ', '_');
 
-export const dateFormatter = (date, language = navigator.language || navigator.userLanguage || 'en-US') => {
+export const dateFormatter = (
+  date,
+  language = navigator.language || navigator.userLanguage || 'en-US'
+) => {
   const parsedDate = new Date(date);
 
   if (isNaN(parsedDate)) {
     return 'Invalid Date';
   }
 
-  return parsedDate.toLocaleDateString(
-    language,
-    { day: 'numeric', month: 'short', year: 'numeric' }
-  );
+  return parsedDate.toLocaleDateString(language, {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  });
 };
 
 export const timeSince = (time) => {
