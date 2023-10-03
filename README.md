@@ -58,7 +58,7 @@ Remember, Good PR makes you a Good contributor !
   yarn dev
 ```
 
-- To change the **configuration**, edit `src/utils/config.js`
+- To change the **configuration**, edit `src/lib/utils/config.js`
 
 ### 2. Contributing Guidelines
 
