@@ -1,4 +1,4 @@
-import { MiniContainer, Select } from '@/lib/components';
+import { MiniContainer, Select } from '@/components';
 import { useUrl } from '@/lib/hooks/use-url';
 import { LANGUAGES, SORT_TAGS } from '@/lib/utils/config';
 import { toId } from '@/lib/utils/helper';

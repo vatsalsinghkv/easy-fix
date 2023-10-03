@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 
-import Issue from '@/lib/components/Issue.jsx';
+import Issue from '@/components/Issue.jsx';
 import * as useFetchHook from '@/lib/hooks/use-fetch';
 
 describe('Issue', () => {

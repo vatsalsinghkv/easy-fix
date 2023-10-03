@@ -1,4 +1,4 @@
-import { Error, Issue, Loader, Pagination } from '@/lib/components';
+import { Error, Issue, Loader, Pagination } from '@/components';
 import useFetch from '@/lib/hooks/use-fetch';
 import { useUrl } from '@/lib/hooks/use-url';
 import { MAX_ISSUES_ALLOWED } from '@/lib/utils/config';

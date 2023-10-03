@@ -1,5 +1,5 @@
-import { MiniContainer } from '@/lib/components';
-import { Filter, Footer, Header, Issues } from '@/lib/containers';
+import { MiniContainer } from '@/components';
+import { Filter, Footer, Header, Issues } from '@/containers';
 
 const App = () => {
   return (

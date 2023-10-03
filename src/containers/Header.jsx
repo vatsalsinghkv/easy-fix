@@ -1,4 +1,4 @@
-import { Logo } from '@/lib/components';
+import { Logo } from '@/components';
 
 const Header = () => {
   return (
