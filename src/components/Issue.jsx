@@ -1,8 +1,8 @@
 import { Icon } from '@iconify-icon/react';
 
-import useFetch from '../hooks/use-fetch';
-import { convertToK, timeSince } from '../utils/helper';
-import Label from './Label';
+import useFetch from '@/hooks/use-fetch';
+import { convertToK, timeSince } from '@/utils/helper';
+import Label from '@/components/Label';
 
 const Issue = ({ title, url, labels, repoUrl, date }) => {
   const { data } = useFetch(repoUrl);

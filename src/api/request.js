@@ -1,4 +1,4 @@
-import { ISSUE_PER_PAGE, ISSUE_URL, LABELS, QUERIES } from '../utils/config';
+import { ISSUE_PER_PAGE, ISSUE_URL, LABELS, QUERIES } from '@/utils/config';
 
 export const request = {
   searchIssues(lang, page, sort) {
