@@ -1,4 +1,4 @@
-import { ISSUE_PER_PAGE, TIMEOUT_SEC } from '@/utils/config';
+import { ISSUE_PER_PAGE, TIMEOUT_SEC } from '@/lib/utils/config';
 
 /**
  * Returns a rejected Promise after given seconds
