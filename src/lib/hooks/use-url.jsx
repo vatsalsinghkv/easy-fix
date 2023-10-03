@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
-import { request } from '@/api/request';
-import { DEFAULT_LANGUAGE, DEFAULT_SORT_TAG } from '@/utils/config';
+import { request } from '@/lib/api/request';
+import { DEFAULT_LANGUAGE, DEFAULT_SORT_TAG } from '@/lib/utils/config';
 
 export const UrlContext = createContext();
 

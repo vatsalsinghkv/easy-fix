@@ -1,8 +1,8 @@
 import { Icon } from '@iconify-icon/react';
 import { useMemo } from 'react';
 
-import { TOTAL_SIBLING_BUTTONS } from '@/utils/config';
-import PaginationButton from '@/components/Pagination/PaginationButton';
+import { TOTAL_SIBLING_BUTTONS } from '@/lib/utils/config';
+import PaginationButton from '@/lib/components/Pagination/PaginationButton';
 
 const Pagination = ({ totalPages, currentPage, onChange }) => {
   /**

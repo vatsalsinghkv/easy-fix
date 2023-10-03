@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 
-import { Select } from '@/components';
+import { Select } from '@/lib/components';
 
 describe('Select', () => {
   it('renders the select input with the correct name', () => {

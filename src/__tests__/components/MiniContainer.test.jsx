@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 
-import { MiniContainer } from '@/components';
+import { MiniContainer } from '@/lib/components';
 
 describe('MiniContainer', () => {
   it('renders the title', () => {

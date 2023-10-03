@@ -1,7 +1,7 @@
-import { MiniContainer, Select } from '@/components';
-import { useUrl } from '@/hooks/use-url';
-import { LANGUAGES, SORT_TAGS } from '@/utils/config';
-import { toId } from '@/utils/helper';
+import { MiniContainer, Select } from '@/lib/components';
+import { useUrl } from '@/lib/hooks/use-url';
+import { LANGUAGES, SORT_TAGS } from '@/lib/utils/config';
+import { toId } from '@/lib/utils/helper';
 
 const Filter = () => {
   const { language, setLanguage } = useUrl();
