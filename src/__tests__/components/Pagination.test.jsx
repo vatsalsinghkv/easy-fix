@@ -3,7 +3,7 @@ import { describe, expect, it, vi } from 'vitest';
 
 import { Pagination } from '@/components';
 import PaginationButton from '@/components/Pagination/PaginationButton';
-import { TOTAL_SIBLING_BUTTONS } from '@/utils/config';
+import { TOTAL_SIBLING_BUTTONS } from '@/lib/utils/config';
 
 describe('Pagination', () => {
   const firstPage = 1;

@@ -1,7 +1,7 @@
 import { act, render } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
-import UseUrlProvider, { useUrl } from '@/hooks/use-url';
+import UseUrlProvider, { useUrl } from '@/lib/hooks/use-url';
 
 describe('useUrl', () => {
   let result;

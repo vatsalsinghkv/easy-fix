@@ -1,4 +1,4 @@
-import { ISSUE_PER_PAGE, TIMEOUT_SEC } from '@/utils/config';
+import { ISSUE_PER_PAGE, TIMEOUT_SEC } from '@/lib/utils/config';
 
 const PAT = import.meta.env.VITE_REACT_APP_GITHUB_PAT;
 
