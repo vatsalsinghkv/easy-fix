@@ -1,4 +1,6 @@
-import { ISSUE_PER_PAGE, TIMEOUT_SEC } from '@/utils/config';
+import { ISSUE_PER_PAGE, TIMEOUT_SEC } from '@/lib/utils/config';
+
+const PAT = import.meta.env.VITE_REACT_APP_GITHUB_PAT;
 
 /**
  * Returns a rejected Promise after given seconds
@@ -24,7 +26,15 @@ export const timeout = async (sec) =>
 // Async func always returns Promise (resolved or Rejected)
 export const FETCH = async (url) => {
   // Consuming Promise using Await | .then()
-  const res = await Promise.race([fetch(url), timeout(TIMEOUT_SEC)]);
+  const res = await Promise.race([
+    fetch(url, {
+      headers: {
+        Authorization: `token ${PAT}`, // Add the PAT token here
+      },
+    }),
+    timeout(TIMEOUT_SEC),
+  ]);
+
   const data = await res.json();
   if (!res.ok) throw new Error(`Error (${res.status}): ${data.message}`);
 
