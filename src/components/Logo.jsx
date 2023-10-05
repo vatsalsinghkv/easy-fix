@@ -1,10 +1,10 @@
-import { useEffect ,useState} from 'react';
+import { useEffect, useState } from 'react';
 import { HiMoon, HiSun } from 'react-icons/hi';
 
 const Logo = ({ title, classNme }) => {
   const [first, ...rest] = title.split(' ');
 
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState('dark');
 
   useEffect(() => {
     if (theme === 'dark') {
@@ -17,7 +17,6 @@ const Logo = ({ title, classNme }) => {
   const handleTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
   };
-
 
   return (
     <div className='flex justify-evenly w-full'>
@@ -32,13 +31,11 @@ const Logo = ({ title, classNme }) => {
 
       <button onClick={handleTheme} className=' w-[10vh] max-sm:translate-x-6'>
         {theme === 'dark' ? (
-          <HiMoon className='text-3xl ' />
-        ) : (
           <HiSun className='text-3xl ' />
+        ) : (
+          <HiMoon className='text-3xl ' />
         )}
       </button>
-
-      
     </div>
   );
 };
