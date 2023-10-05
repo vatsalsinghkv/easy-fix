@@ -27,11 +27,16 @@ export const timeout = async (sec) =>
 export const FETCH = async (url) => {
   // Consuming Promise using Await | .then()
   const res = await Promise.race([
-    fetch(url, {
-      headers: {
-        Authorization: `token ${PAT}`, // Add the PAT token here
-      },
-    }),
+    fetch(
+      url,
+      PAT
+        ? {
+            headers: {
+              Authorization: `token ${PAT}`, // Add the PAT token here
+            },
+          }
+        : {}
+    ),
     timeout(TIMEOUT_SEC),
   ]);
 
