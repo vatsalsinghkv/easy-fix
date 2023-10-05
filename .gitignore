@@ -12,8 +12,6 @@ dist
 dist-ssr
 *.local
 
-coverage/*
-
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -24,4 +22,3 @@ coverage/*
 *.njsproj
 *.sln
 *.sw?
-.env

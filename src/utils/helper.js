@@ -1,6 +1,4 @@
-import { ISSUE_PER_PAGE, TIMEOUT_SEC } from '@/lib/utils/config';
-
-const PAT = import.meta.env.VITE_REACT_APP_GITHUB_PAT;
+import { ISSUE_PER_PAGE, TIMEOUT_SEC } from './config';
 
 /**
  * Returns a rejected Promise after given seconds
@@ -9,7 +7,7 @@ const PAT = import.meta.env.VITE_REACT_APP_GITHUB_PAT;
  * @returns {Promise} Settled (Rejected) Promise
  */
 
-export const timeout = async (sec) =>
+const timeout = async (sec) =>
   new Promise((_, reject) => {
     setTimeout(() => {
       reject(new Error(`Request took too long! Timeout after ${sec} second`));
@@ -26,15 +24,7 @@ export const timeout = async (sec) =>
 // Async func always returns Promise (resolved or Rejected)
 export const FETCH = async (url) => {
   // Consuming Promise using Await | .then()
-  const res = await Promise.race([
-    fetch(url, {
-      headers: {
-        Authorization: `token ${PAT}`, // Add the PAT token here
-      },
-    }),
-    timeout(TIMEOUT_SEC),
-  ]);
-
+  const res = await Promise.race([fetch(url), timeout(TIMEOUT_SEC)]);
   const data = await res.json();
   if (!res.ok) throw new Error(`Error (${res.status}): ${data.message}`);
 
@@ -58,21 +48,11 @@ export const getTotalPages = (length) => Math.ceil(length / ISSUE_PER_PAGE);
 
 export const toId = (text) => text.toLowerCase().replace(' ', '_');
 
-export const dateFormatter = (
-  date,
-  language = navigator.language || navigator.userLanguage || 'en-US'
-) => {
-  const parsedDate = new Date(date);
-
-  if (isNaN(parsedDate)) {
-    return 'Invalid Date';
-  }
-
-  return parsedDate.toLocaleDateString(language, {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
-  });
+export const dateFormatter = (date) => {
+  return new Intl.DateTimeFormat(
+    navigator.language || navigator.userLanguage || 'en-US',
+    { day: 'numeric', month: 'short', year: 'numeric' }
+  ).format(new Date(date));
 };
 
 export const timeSince = (time) => {

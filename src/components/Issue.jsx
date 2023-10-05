@@ -1,7 +1,8 @@
-import Label from '@/components/Label';
-import useFetch from '@/lib/hooks/use-fetch';
-import { convertToK, timeSince } from '@/lib/utils/helper';
 import { Icon } from '@iconify-icon/react';
+
+import useFetch from '../hooks/use-fetch';
+import { convertToK, timeSince } from '../utils/helper';
+import Label from './Label';
 
 const Issue = ({ title, url, labels, repoUrl, date }) => {
   const { data } = useFetch(repoUrl);
@@ -13,7 +14,7 @@ const Issue = ({ title, url, labels, repoUrl, date }) => {
       target='_blank'
       rel='noreferrer'
     >
-      <div className='flex flex-wrap justify-between gap-1 mb-1 font-mono text-xs transition-all text-slate-400  dark:text-slate-500 group-hover:text-dark-1 group-focus:text-dark-1'>
+      <div className='flex flex-wrap justify-between gap-1 mb-1 font-mono text-xs transition-all text-slate-400 group-hover:text-dark-1 group-focus:text-dark-1'>
         {data && (
           <p className='flex gap-2.5 flex-wrap font-medium'>{data.full_name}</p>
         )}
