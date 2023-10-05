@@ -20,9 +20,9 @@ const PaginationButton = ({
     return currentPage === item.label;
   }, [currentPage, type, item]);
 
-/**
- * Updates the current page based on the type of button clicked.
- */
+  /**
+   * Updates the current page based on the type of button clicked.
+   */
   const clickHandler = (e) => {
     if (disable) return;
     if (!type) {
@@ -51,6 +51,7 @@ const PaginationButton = ({
             : 'hover:text-accent focus:border-accent focus:text-accent hover:border-accent'
         }`}
         id={type || item.label}
+        aria-label={type || item.label}
         onClick={clickHandler}
       >
         {type ? icon : item?.label}

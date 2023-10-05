@@ -57,10 +57,19 @@ describe('Pagination', () => {
 });
 
 describe('PaginationButton', () => {
+  const getTestItem = (label) => ({ label, isClickable: true });
+
   it('calls onChange with the correct page number when clicked', () => {
     const onChange = vi.fn();
 
-    render(<PaginationButton num={2} currentPage={1} onChange={onChange} />);
+    render(
+      <PaginationButton
+        num={2}
+        currentPage={1}
+        onChange={onChange}
+        item={getTestItem(2)}
+      />
+    );
     fireEvent.click(screen.getByText('2'));
     expect(onChange).toHaveBeenCalledWith(2);
 
@@ -70,9 +79,10 @@ describe('PaginationButton', () => {
         num={1}
         currentPage={2}
         onChange={onChange}
+        item={getTestItem(1)}
       />
     );
-    fireEvent.click(screen.getByText('1'));
+    fireEvent.click(screen.getByLabelText('prev'));
     expect(onChange).toHaveBeenCalledWith(1);
 
     render(
@@ -81,9 +91,10 @@ describe('PaginationButton', () => {
         num={3}
         currentPage={2}
         onChange={onChange}
+        item={getTestItem(3)}
       />
     );
-    fireEvent.click(screen.getByText('3'));
+    fireEvent.click(screen.getByLabelText('next'));
     expect(onChange).toHaveBeenCalledWith(3);
   });
 
@@ -96,8 +107,10 @@ describe('PaginationButton', () => {
         num={2}
         currentPage={1}
         onChange={onChange}
+        item={getTestItem(2)}
       />
     );
+
     fireEvent.click(screen.getByText('2'));
     expect(onChange).not.toHaveBeenCalled();
   });
