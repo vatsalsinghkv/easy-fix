@@ -1,12 +1,11 @@
+import PaginationButton from '@/components/Pagination/PaginationButton';
+import { TOTAL_SIBLING_BUTTONS } from '@/lib/utils/config';
 import { Icon } from '@iconify-icon/react';
 import { useMemo } from 'react';
 
-import { TOTAL_SIBLING_BUTTONS } from '@/lib/utils/config';
-import PaginationButton from '@/components/Pagination/PaginationButton';
-
 const Pagination = ({ totalPages, currentPage, onChange }) => {
   /**
-    * Generating an array of pagination buttons based on the current page and total number of pages.
+   * Generating an array of pagination buttons based on the current page and total number of pages.
    */
   const items = useMemo(() => {
     const startIdx =
@@ -23,11 +22,11 @@ const Pagination = ({ totalPages, currentPage, onChange }) => {
       arr.push({ label: i, isClickable: true });
     }
 
-    const lastItemLabel = arr[arr.length - 1].label;
-    if (lastItemLabel + 1 < totalPages)
+    const lastItemLabel = arr[arr.length - 1]?.label;
+    if (lastItemLabel && lastItemLabel + 1 < totalPages)
       arr.push({ label: lastItemLabel + 1, isClickable: false });
-    const firstItemLabel = arr[0].label;
-    if (firstItemLabel - 1 > 1)
+    const firstItemLabel = arr[0]?.label;
+    if (firstItemLabel && firstItemLabel - 1 > 1)
       arr.unshift({ label: firstItemLabel - 1, isClickable: false });
 
     if (!arr.some(({ label }) => label === 1))
