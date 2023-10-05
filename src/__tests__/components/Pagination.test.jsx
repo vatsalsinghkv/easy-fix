@@ -1,9 +1,8 @@
-import { fireEvent, render, screen } from '@testing-library/react';
-import { describe, expect, it, vi } from 'vitest';
-
 import { Pagination } from '@/components';
 import PaginationButton from '@/components/Pagination/PaginationButton';
 import { TOTAL_SIBLING_BUTTONS } from '@/lib/utils/config';
+import { fireEvent, render, screen } from '@testing-library/react';
+import { describe, expect, it, vi } from 'vitest';
 
 describe('Pagination', () => {
   const firstPage = 1;

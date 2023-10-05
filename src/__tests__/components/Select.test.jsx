@@ -1,5 +1,6 @@
 import { Select } from '@/components';
 import { fireEvent, render, screen } from '@testing-library/react';
+import { describe, expect, it } from 'vitest';
 
 // TODO: Migrate to TS and use component's props
 // eg.: const renderSelect = (props: React.componentProps<typeof Select>) => ...

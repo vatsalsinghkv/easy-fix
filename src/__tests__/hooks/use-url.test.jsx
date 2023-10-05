@@ -1,6 +1,6 @@
 import UseUrlProvider, { useUrl } from '@/lib/hooks/use-url';
 import { act, render } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 
 describe('useUrl', () => {
   let result;
