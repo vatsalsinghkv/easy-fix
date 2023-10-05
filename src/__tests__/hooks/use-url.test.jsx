@@ -23,6 +23,8 @@ describe('useUrl', () => {
       changePage: expect.any(Function),
       language: expect.any(String),
       setLanguage: expect.any(Function),
+      setSort: expect.any(Function),
+      sort: expect.any(String),
       page: expect.any(Number),
       order: expect.any(String),
       setOrder: expect.any(Function),
