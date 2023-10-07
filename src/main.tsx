@@ -1,13 +1,17 @@
 import App from '@/App';
-import UseUrlProvider from '@/lib/hooks/use-url.jsx';
 import '@/index.css';
+import UseUrlProvider from '@/lib/hooks/use-url.jsx';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+import ThemeProvider from './lib/hooks/use-theme';
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <UseUrlProvider>
-      <App />
+      <ThemeProvider>
+        <App />
+      </ThemeProvider>
     </UseUrlProvider>
   </React.StrictMode>
 );
