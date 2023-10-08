@@ -5,8 +5,8 @@ const SortBy = ({ name, value, setOrder, order, onSortChange }) => {
   return (
     <div>
       <div className={`cursor-pointer flex p-3 py-1.5 font-mono text-xs capitalize transition-all border rounded hover:text-accent hover:border-accent focus:text-accent focus:border-accent border-slate-400 relative group ${name == value ? activeClasses : ''}`}
-      onClick={() => onSortChange(toId(name))}>
-        <label>
+          onClick={() => onSortChange(toId(name))}>
+        <label className='cursor-pointer'>
           {name}
         </label>
         <span

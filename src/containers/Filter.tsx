@@ -1,11 +1,14 @@
-import { MiniContainer, Select } from '@/components';
-import { useUrl } from '@/lib/hooks/use-url';
 import { LANGUAGES, SORT_TAGS } from '@/lib/utils/config';
-import { toId } from '@/lib/utils/helper';
+import { MiniContainer, Select, SortBy } from '@/components';
+
 import { ChangeEventHandler } from 'react';
+import { toId } from '@/lib/utils/helper';
+import { useUrl } from '@/lib/hooks/use-url';
 
 const Filter = () => {
-  const { language, setLanguage, sort, setSort } = useUrl();
+  const { language, setLanguage, sort, setSort, order, setOrder } = useUrl();
+  
+  const getSortOrder = (order: string) => (order === 'asc' ? 'desc' : 'asc');
 
   const onLanguageChange: ChangeEventHandler<HTMLSelectElement> = (e) => {
     const target = e.currentTarget;
@@ -17,15 +20,14 @@ const Filter = () => {
 
     setLanguage(target.id);
   };
-  const onSortChange: ChangeEventHandler<HTMLSelectElement> = (e) => {
-    const target = e.currentTarget;
 
-    if (!target.id) {
-      console.warn('[onSortChange] target.id is missing');
-      return;
-    }
+  const changeSortHandler = (e: string) => {
+    setSort(e);
+  };
 
-    setSort(target.id);
+  const changeSortOrderHandler = (e: string) => {
+    setSort(e);
+    setOrder(getSortOrder(order));
   };
 
   return (
@@ -44,14 +46,11 @@ const Filter = () => {
       </MiniContainer>
 
       <MiniContainer title='SORT'>
-        <form className='flex flex-wrap gap-3 mt-4'>
+        <form
+          className='flex flex-wrap gap-3 mt-4'
+        >
           {SORT_TAGS.sort().map((tag) => (
-            <Select
-              value={sort}
-              key={toId(tag)}
-              name={tag}
-              onChange={onSortChange}
-            />
+            <SortBy value={sort} key={toId(tag)} name={tag} order={getSortOrder(order)} setOrder={changeSortOrderHandler} onSortChange={changeSortHandler} />
           ))}
         </form>
       </MiniContainer>
