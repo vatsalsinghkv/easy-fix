@@ -1,18 +1,26 @@
-import { MiniContainer, Select } from '@/components';
-import { useUrl } from '@/lib/hooks/use-url';
 import { LANGUAGES, SORT_TAGS } from '@/lib/utils/config';
+import { MiniContainer, Select, SortBy } from '@/components';
+
 import { toId } from '@/lib/utils/helper';
+import { useUrl } from '@/lib/hooks/use-url';
 
 const Filter = () => {
-  const { language, setLanguage } = useUrl();
-  const { sort, setSort } = useUrl();
+  const { language, setLanguage, sort, setSort, order, setOrder } = useUrl();
+
+  const getSortOrder = (order) => (order === 'asc' ? 'desc' : 'asc');
 
   const changeHandler = (e) => {
     setLanguage(e.target.id);
   };
   const changeSortHandler = (e) => {
-    setSort(e.target.id);
+    setSort(e);
   };
+
+  const changeSortOrderHandler = (e) => {
+    setSort(e);
+    setOrder(getSortOrder(order));
+  };
+
 
   return (
     <>
@@ -27,10 +35,9 @@ const Filter = () => {
       <MiniContainer title='SORT'>
         <form
           className='flex flex-wrap gap-3 mt-4'
-          onChange={changeSortHandler}
         >
           {SORT_TAGS.sort().map((tag) => (
-            <Select value={sort} key={toId(tag)} name={tag} />
+            <SortBy value={sort} key={toId(tag)} name={tag} order={getSortOrder(order)} setOrder={changeSortOrderHandler} onSortChange={changeSortHandler} />
           ))}
         </form>
       </MiniContainer>
