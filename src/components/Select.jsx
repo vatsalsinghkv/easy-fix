@@ -1,6 +1,6 @@
 import { toId } from '@/lib/utils/helper';
 
-const Select = ({ name, value }) => {
+const Select = ({ name, value, onChange }) => {
   return (
     <div>
       <input
@@ -8,6 +8,7 @@ const Select = ({ name, value }) => {
         type='radio'
         defaultChecked={value === name}
         name='language'
+        onChange={onChange}
         id={toId(name)}
       />
       <label
