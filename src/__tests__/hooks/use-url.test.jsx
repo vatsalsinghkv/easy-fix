@@ -26,7 +26,10 @@ describe('useUrl', () => {
       setSort: expect.any(Function),
       sort: expect.any(String),
       page: expect.any(Number),
-    });
+      order: expect.any(String),
+      setOrder: expect.any(Function),
+      sort: expect.any(String),
+      setSort: expect.any(Function)   });
   });
 
   it('changes page number correctly', () => {
