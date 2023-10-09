@@ -95,8 +95,6 @@ Remember, Good PR makes you a Good contributor !
   <img src="https://contrib.rocks/image?repo=vatsalsinghkv/easy-fix" />
 </a>
 
-Made with [contrib.rocks](https://contrib.rocks).
-
 ## Contact
 
 - Discord - [https://discord.gg/St2dHg9YwA](https://discord.gg/St2dHg9YwA)
