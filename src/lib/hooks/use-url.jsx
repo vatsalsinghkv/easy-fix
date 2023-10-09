@@ -1,16 +1,17 @@
+import { DEFAULT_LANGUAGE, DEFAULT_SORT_TAG } from '@/lib/utils/config';
 import { createContext, useContext, useEffect, useState } from 'react';
 
 import { request } from '@/lib/api/request';
-import { DEFAULT_LANGUAGE, DEFAULT_SORT_TAG } from '@/lib/utils/config';
 
 export const UrlContext = createContext();
 
 export default function UseUrlProvider({ children }) {
   const [language, setLanguage] = useState(DEFAULT_LANGUAGE);
   const [sort, setSort] = useState(DEFAULT_SORT_TAG);
+  const [order, setOrder] = useState('desc');
 
   const [page, setPage] = useState(1);
-  const url = request.searchIssues(language, page, sort);
+  const url = request.searchIssues(language, page, sort, order);
 
   useEffect(() => {
     setPage(1);
@@ -22,7 +23,7 @@ export default function UseUrlProvider({ children }) {
 
   return (
     <UrlContext.Provider
-      value={{ url, changePage, language, setLanguage, page, sort, setSort }}
+      value={{ url, changePage, language, setLanguage, page, sort, setSort,order, setOrder }}
     >
       {children}
     </UrlContext.Provider>

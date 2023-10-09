@@ -6,5 +6,6 @@ import Logo from './Logo';
 import MiniContainer from './MiniContainer';
 import Pagination from './Pagination';
 import Select from './Select';
+import SortBy from './SortBy';
 
-export { Issue, Label, Logo, Loader, Pagination, Error, Select, MiniContainer };
+export { Issue, Label, Logo, Loader, Pagination, Error, Select, MiniContainer, SortBy };

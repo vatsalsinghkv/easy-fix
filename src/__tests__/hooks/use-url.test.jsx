@@ -1,7 +1,6 @@
-import { act, render } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
-
 import UseUrlProvider, { useUrl } from '@/lib/hooks/use-url';
+import { act, render } from '@testing-library/react';
+import { beforeEach, describe, expect, it } from 'vitest';
 
 describe('useUrl', () => {
   let result;
@@ -24,8 +23,13 @@ describe('useUrl', () => {
       changePage: expect.any(Function),
       language: expect.any(String),
       setLanguage: expect.any(Function),
+      setSort: expect.any(Function),
+      sort: expect.any(String),
       page: expect.any(Number),
-    });
+      order: expect.any(String),
+      setOrder: expect.any(Function),
+      sort: expect.any(String),
+      setSort: expect.any(Function)   });
   });
 
   it('changes page number correctly', () => {
