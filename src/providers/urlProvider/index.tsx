@@ -1,4 +1,3 @@
-import { composeUrl } from '@/lib/utils/helper';
 import { Language } from '@/models/Language';
 import { Ordering } from '@/models/Ordering';
 import { SortingTag } from '@/models/SortingTag';
@@ -20,12 +19,13 @@ type UrlContextValue = {
   ordering: Ordering;
   page: number;
   sortingTag: SortingTag;
+  url: string;
 };
 
 const UrlContext = createContext<UrlContextValue | undefined>(undefined);
 
 export const UrlProvider = ({ children }: PropsWithChildren) => {
-  const [{ language, ordering, page, sortingTag }, dispatch] = useReducer<
+  const [{ language, ordering, page, sortingTag, url }, dispatch] = useReducer<
     Reducer<State, Action>
   >(reducer, defaultState);
 
@@ -36,9 +36,9 @@ export const UrlProvider = ({ children }: PropsWithChildren) => {
       ordering,
       page,
       sortingTag,
-      url: composeUrl(language, page, sortingTag, ordering),
+      url,
     }),
-    [dispatch, language, ordering, page, sortingTag]
+    [dispatch, language, ordering, page, sortingTag, url]
   );
   return <UrlContext.Provider value={value}>{children}</UrlContext.Provider>;
 };
