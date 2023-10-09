@@ -1,19 +1,18 @@
-import { toId } from '@/lib/utils/helper';
+const SortBy = ({ name, onOrderingChange, onTagChange, ordering, value }) => {
+  const activeClasses =
+    name == value ? ' text-accent border-accent bg-accent-light' : '';
 
-const SortBy = ({ name, value, setOrder, order, onSortChange }) => {
-  const activeClasses ="text-accent border-accent bg-accent-light";
   return (
     <div>
-      <div className={`cursor-pointer flex p-3 py-1.5 font-mono text-xs capitalize transition-all border rounded hover:text-accent hover:border-accent focus:text-accent focus:border-accent border-slate-400 relative group ${name == value ? activeClasses : ''}`}
-          onClick={() => onSortChange(toId(name))}>
-        <label className='cursor-pointer'>
-          {name}
-        </label>
+      <div
+        className={`cursor-pointer flex p-3 py-1.5 font-mono text-xs capitalize transition-all border rounded hover:text-accent hover:border-accent focus:text-accent focus:border-accent border-slate-400 relative group${activeClasses}`}
+        onClick={onTagChange}
+      >
+        <label className='cursor-pointer'>{name}</label>
         <span
           className='group text-accent ml-2 cursor-pointer'
-          onClick={() => setOrder(toId(name))}
-          htmlFor={toId(name)}
-          data-testid={toId(name)}
+          onClick={onOrderingChange}
+          htmlFor={name}
         >
           <svg
             fill='currentColor'
@@ -36,7 +35,7 @@ const SortBy = ({ name, value, setOrder, order, onSortChange }) => {
           </svg>
         </span>
         <span className='absolute top-10 scale-0 transition-all rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100 z-10'>
-          Sort by {name} in {order}
+          Sort by {name} in {ordering}
         </span>
       </div>
     </div>

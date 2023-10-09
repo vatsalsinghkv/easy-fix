@@ -1,14 +1,15 @@
 import { toId } from '@/lib/utils/helper';
 
-const Select = ({ name, value, onChange }) => {
+const Select = ({ checked, name, onChange, value }) => {
   return (
     <div>
       <input
         className='hidden peer'
         type='radio'
-        defaultChecked={value === name}
-        name='language'
+        checked={checked}
+        name={name}
         onChange={onChange}
+        value={value}
         id={toId(name)}
       />
       <label

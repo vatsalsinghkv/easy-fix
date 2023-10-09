@@ -1,32 +1,19 @@
 import { MiniContainer, Select, SortBy } from '@/components';
-import { useUrl } from '@/lib/hooks/use-url';
-import { sortedLanguages } from '@/models/Language';
-import { sortedTags } from '@/models/Tag';
-import { ChangeEventHandler } from 'react';
+import { Language, sortedLanguages } from '@/models/Language';
+import { Tag, sortedTags } from '@/models/Tag';
+import { useUrlValues } from '@/providers/urlProvider';
 
 const Filter = () => {
-  const { language, setLanguage, sort, setSort, order, setOrder } = useUrl();
+  const { dispatch, language, ordering, tag } = useUrlValues();
 
-  const getSortOrder = (order: string) => (order === 'asc' ? 'desc' : 'asc');
-
-  const onLanguageChange: ChangeEventHandler<HTMLSelectElement> = (e) => {
-    const target = e.currentTarget;
-
-    if (!target.id) {
-      console.warn('[onLanguageChange] target.id is missing');
-      return;
-    }
-
-    setLanguage(target.id);
+  const onLanguageChange = (payload: Language) => {
+    return () => dispatch({ type: 'update-language', payload });
   };
 
-  const changeSortHandler = (e: string) => {
-    setSort(e);
-  };
+  const onOrderingChange = () => dispatch({ type: 'update-ordering' });
 
-  const changeSortOrderHandler = (e: string) => {
-    setSort(e);
-    setOrder(getSortOrder(order));
+  const onTagChange = (payload: Tag) => {
+    return () => dispatch({ type: 'update-tag', payload });
   };
 
   return (
@@ -35,10 +22,11 @@ const Filter = () => {
         <form className='flex flex-wrap gap-3 mt-4'>
           {sortedLanguages.map((lang) => (
             <Select
-              value={language}
+              checked={lang === language}
               key={lang}
               name={lang}
-              onChange={onLanguageChange}
+              onChange={onLanguageChange(lang)}
+              value={lang}
             />
           ))}
         </form>
@@ -46,14 +34,13 @@ const Filter = () => {
 
       <MiniContainer title='sort'>
         <form className='flex flex-wrap gap-3 mt-4'>
-          {sortedTags.sort().map((tag) => (
+          {sortedTags.sort().map((sTag) => (
             <SortBy
-              value={sort}
-              key={tag}
-              name={tag}
-              order={getSortOrder(order)}
-              setOrder={changeSortOrderHandler}
-              onSortChange={changeSortHandler}
+              key={sTag}
+              name={sTag}
+              onOrderingChange={onOrderingChange}
+              onTagChange={onTagChange(sTag)}
+              value={sTag}
             />
           ))}
         </form>
