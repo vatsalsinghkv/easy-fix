@@ -46,6 +46,7 @@ const Filter = () => {
       </MiniContainer>
 
       <MiniContainer title='SORT'>
+
         <form
           className='flex flex-wrap gap-3 mt-4'
         >
