@@ -1,12 +1,15 @@
+import React, { useMemo } from 'react';
 import PaginationButton from '@/components/Pagination/PaginationButton';
 import { TOTAL_SIBLING_BUTTONS } from '@/lib/utils/config';
 import { Icon } from '@iconify-icon/react';
-import { useMemo } from 'react';
 
-const Pagination = ({ totalPages, currentPage, onChange }) => {
-  /**
-   * Generating an array of pagination buttons based on the current page and total number of pages.
-   */
+interface PaginationProps {
+  totalPages: number;
+  currentPage: number;
+  onChange: (page: number) => void;
+}
+
+const Pagination: React.FC<PaginationProps> = ({ totalPages, currentPage, onChange }) => {
   const items = useMemo(() => {
     const startIdx =
       currentPage - TOTAL_SIBLING_BUTTONS < 1
@@ -38,19 +41,17 @@ const Pagination = ({ totalPages, currentPage, onChange }) => {
     return arr;
   }, [currentPage, totalPages]);
 
-  if (totalPages <= 1) return;
+  if (totalPages <= 1) return null;
 
   return (
     <div className='flex items-center justify-center gap-3 py-3 mb-5'>
-      {
-        <PaginationButton
-          onChange={onChange}
-          currentPage={currentPage}
-          type='prev'
-          icon={<Icon height={24} width={24} icon='ic:sharp-chevron-left' />}
-          disable={currentPage === 1}
-        />
-      }
+      <PaginationButton
+        onChange={onChange}
+        currentPage={currentPage}
+        type='prev'
+        icon={<Icon height={24} width={24} icon='ic:sharp-chevron-left' />}
+        disable={currentPage === 1}
+      />
       {items.map((item) => (
         <PaginationButton
           item={item}
@@ -59,15 +60,13 @@ const Pagination = ({ totalPages, currentPage, onChange }) => {
           currentPage={currentPage}
         />
       ))}
-      {
-        <PaginationButton
-          onChange={onChange}
-          currentPage={currentPage}
-          type='next'
-          icon={<Icon height={24} width={24} icon='ic:sharp-chevron-right' />}
-          disable={currentPage === totalPages}
-        />
-      }
+      <PaginationButton
+        onChange={onChange}
+        currentPage={currentPage}
+        type='next'
+        icon={<Icon height={24} width={24} icon='ic:sharp-chevron-right' />}
+        disable={currentPage === totalPages}
+      />
     </div>
   );
 };

@@ -2,9 +2,18 @@ import Label from '@/components/Label';
 import useFetch from '@/lib/hooks/use-fetch';
 import { convertToK, timeSince } from '@/lib/utils/helper';
 import { Icon } from '@iconify-icon/react';
+import React from 'react';
 
-const Issue = ({ title, url, labels, repoUrl, date }) => {
-  const { data } = useFetch(repoUrl);
+interface IssueProps {
+  title: string;
+  url: string;
+  labels: { name: string }[];
+  repoUrl: string;
+  date: string;
+}
+
+const Issue: React.FC<IssueProps> = ({ title, url, labels, repoUrl, date }) => {
+  const { data } = useFetch(repoUrl) as any;
 
   return (
     <a
@@ -22,7 +31,7 @@ const Issue = ({ title, url, labels, repoUrl, date }) => {
           {data?.stargazers_count > 0 && (
             <span className='flex items-center gap-0.5'>
               <Icon icon='mdi:star-outline' height={16} width={16} />
-              {convertToK(data.stargazers_count)}
+              {convertToK(data?.stargazers_count)}
             </span>
           )}
           <span className='flex items-center gap-1 [word-spacing:-3.75px]'>
@@ -36,7 +45,7 @@ const Issue = ({ title, url, labels, repoUrl, date }) => {
       </h3>
       <div className='flex flex-wrap'>
         {labels.map((label) => (
-          <Label key={label.name.replaceAll(' ', '')} className='mr-1.5 mt-2'>
+          <Label key={label.name.replace(/ /g, '')} className='mr-1.5 mt-2'>
             {label.name}
           </Label>
         ))}

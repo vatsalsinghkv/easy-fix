@@ -1,4 +1,15 @@
-const Error = ({ title, link, children }) => {
+import React, { ReactNode } from 'react';
+
+interface ErrorProps {
+  title: string;
+  link?: {
+    url: string;
+    name: string;
+  };
+  children: ReactNode;
+}
+
+const Error: React.FC<ErrorProps> = ({ title, link, children }) => {
   return (
     <main className='flex flex-col items-center justify-center gap-4 pt-10 pb-6 bg-base-100'>
       <div className='w-full max-w-md mx-auto '>
