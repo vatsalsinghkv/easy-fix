@@ -1,4 +1,9 @@
-import { ISSUE_PER_PAGE, TIMEOUT_SEC } from '@/lib/utils/config';
+import {
+  ISSUE_PER_PAGE,
+  ISSUE_URL,
+  QUERIES,
+  TIMEOUT_SEC,
+} from '@/lib/utils/config';
 
 const PAT = import.meta.env.VITE_REACT_APP_GITHUB_PAT;
 
@@ -116,4 +121,28 @@ export const convertToK = (value) => {
     value = (value / 1000).toFixed(2) + 'K';
   }
   return value;
+};
+
+export const composeUrl = (lang, page, sort, order) => {
+  const langQuery = lang && lang !== 'all' ? `+language:${lang}` : '';
+
+  const searchParams = {
+    order,
+    page,
+    per_page: ISSUE_PER_PAGE,
+    q: `${QUERIES}+${langQuery}`,
+    sort,
+  };
+
+  const url = new URL(ISSUE_URL);
+
+  Object.entries(searchParams).forEach(([key, value]) => {
+    if (!value) return;
+    url.searchParams.set(key, value);
+  });
+  // Unfortunately, this hack is needed because
+  // the API is not parsing the URL correctly :(
+  url.search = decodeURIComponent(url.search);
+
+  return url.toString();
 };

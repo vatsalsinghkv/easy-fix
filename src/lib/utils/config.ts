@@ -5,7 +5,7 @@ import { SortingTag } from '@/models/SortingTag';
 export const BASE_URL = 'https://api.github.com';
 export const ISSUE_URL = `${BASE_URL}/search/issues`;
 export const LABELS = ['easy', 'first', 'good'];
-export const QUERIES = [''];
+export const QUERIES = ['state:open', `label:${LABELS.join(',')}`].join('+');
 
 export const DEFAULT_LANGUAGE: Language = 'all';
 export const DEFAULT_ORDERING: Ordering = 'desc';

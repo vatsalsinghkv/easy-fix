@@ -1,4 +1,4 @@
-import request from '@/lib/api/request';
+import { composeUrl } from '@/lib/utils/helper';
 import { Language } from '@/models/Language';
 import { Ordering } from '@/models/Ordering';
 import { SortingTag } from '@/models/SortingTag';
@@ -29,8 +29,6 @@ export const UrlProvider = ({ children }: PropsWithChildren) => {
     Reducer<State, Action>
   >(reducer, defaultState);
 
-  const url = request.searchIssues(language, page, sortingTag, ordering);
-
   const value = useMemo(
     () => ({
       dispatch,
@@ -38,7 +36,7 @@ export const UrlProvider = ({ children }: PropsWithChildren) => {
       ordering,
       page,
       sortingTag,
-      url,
+      url: composeUrl(language, page, sortingTag, ordering),
     }),
     [dispatch, language, ordering, page, sortingTag]
   );
