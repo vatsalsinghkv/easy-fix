@@ -18,31 +18,33 @@ const Filter = () => {
   return (
     <>
       <MiniContainer title='languages'>
-        <form className='flex flex-wrap gap-3 mt-4'>
+        <ul className='flex flex-wrap gap-3 mt-4'>
           {sortedLanguages.map((lang) => (
-            <Select
-              checked={lang === language}
-              key={lang}
-              name={lang}
-              onChange={onLanguageChange(lang)}
-              value={lang}
-            />
+            <li key={lang}>
+              <Select
+                checked={lang === language}
+                name={lang}
+                onChange={onLanguageChange(lang)}
+                value={lang}
+              />
+            </li>
           ))}
-        </form>
+        </ul>
       </MiniContainer>
 
       <MiniContainer title='sort'>
-        <form className='flex flex-wrap gap-3 mt-4'>
+        <ul className='flex flex-wrap gap-3 mt-4'>
           {sortedSortingTags.sort().map((tag) => (
-            <SortingTagFilter
-              isSelected={tag === sortingTag}
-              key={tag}
-              onClick={onSortingTagClick(tag)}
-              ordering={ordering}
-              value={tag}
-            />
+            <li key={tag}>
+              <SortingTagFilter
+                isSelected={tag === sortingTag}
+                onClick={onSortingTagClick(tag)}
+                ordering={ordering}
+                value={tag}
+              />
+            </li>
           ))}
-        </form>
+        </ul>
       </MiniContainer>
     </>
   );
