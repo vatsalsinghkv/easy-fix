@@ -6,7 +6,6 @@ import Logo from './Logo';
 import MiniContainer from './MiniContainer';
 import Pagination from './Pagination';
 import Select from './Select';
-import SortBy from './SortBy';
 import SortingTagFilter from './SortingTagFilter';
 
 export {
@@ -18,6 +17,5 @@ export {
   Error,
   Select,
   MiniContainer,
-  SortBy,
   SortingTagFilter,
 };

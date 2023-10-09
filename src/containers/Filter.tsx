@@ -1,19 +1,18 @@
-import { MiniContainer, Select, SortBy } from '@/components';
+import { MiniContainer, Select } from '@/components';
+import SortingTagFilter from '@/components/SortingTagFilter';
 import { Language, sortedLanguages } from '@/models/Language';
-import { Tag, sortedTags } from '@/models/Tag';
+import { SortingTag, sortedSortingTags } from '@/models/SortingTag';
 import { useUrlValues } from '@/providers/urlProvider';
 
 const Filter = () => {
-  const { dispatch, language, ordering, tag } = useUrlValues();
+  const { dispatch, language, ordering, sortingTag } = useUrlValues();
 
   const onLanguageChange = (payload: Language) => {
     return () => dispatch({ type: 'update-language', payload });
   };
 
-  const onOrderingChange = () => dispatch({ type: 'update-ordering' });
-
-  const onTagChange = (payload: Tag) => {
-    return () => dispatch({ type: 'update-tag', payload });
+  const onSortingTagClick = (payload: SortingTag) => {
+    return () => dispatch({ type: 'update-sorting-tag', payload });
   };
 
   return (
@@ -34,13 +33,13 @@ const Filter = () => {
 
       <MiniContainer title='sort'>
         <form className='flex flex-wrap gap-3 mt-4'>
-          {sortedTags.sort().map((sTag) => (
-            <SortBy
-              key={sTag}
-              name={sTag}
-              onOrderingChange={onOrderingChange}
-              onTagChange={onTagChange(sTag)}
-              value={sTag}
+          {sortedSortingTags.sort().map((tag) => (
+            <SortingTagFilter
+              isSelected={tag === sortingTag}
+              key={tag}
+              onClick={onSortingTagClick(tag)}
+              ordering={ordering}
+              value={tag}
             />
           ))}
         </form>
