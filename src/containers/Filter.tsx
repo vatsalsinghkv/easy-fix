@@ -1,13 +1,12 @@
-import { LANGUAGES, SORT_TAGS } from '@/lib/utils/config';
 import { MiniContainer, Select, SortBy } from '@/components';
-
-import { ChangeEventHandler } from 'react';
-import { toId } from '@/lib/utils/helper';
 import { useUrl } from '@/lib/hooks/use-url';
+import { sortedLanguages } from '@/models/Language';
+import { sortedTags } from '@/models/Tag';
+import { ChangeEventHandler } from 'react';
 
 const Filter = () => {
   const { language, setLanguage, sort, setSort, order, setOrder } = useUrl();
-  
+
   const getSortOrder = (order: string) => (order === 'asc' ? 'desc' : 'asc');
 
   const onLanguageChange: ChangeEventHandler<HTMLSelectElement> = (e) => {
@@ -34,10 +33,10 @@ const Filter = () => {
     <>
       <MiniContainer title='languages'>
         <form className='flex flex-wrap gap-3 mt-4'>
-          {LANGUAGES.sort().map((lang) => (
+          {sortedLanguages.map((lang) => (
             <Select
               value={language}
-              key={toId(lang)}
+              key={lang}
               name={lang}
               onChange={onLanguageChange}
             />
@@ -45,13 +44,17 @@ const Filter = () => {
         </form>
       </MiniContainer>
 
-      <MiniContainer title='SORT'>
-
-        <form
-          className='flex flex-wrap gap-3 mt-4'
-        >
-          {SORT_TAGS.sort().map((tag) => (
-            <SortBy value={sort} key={toId(tag)} name={tag} order={getSortOrder(order)} setOrder={changeSortOrderHandler} onSortChange={changeSortHandler} />
+      <MiniContainer title='sort'>
+        <form className='flex flex-wrap gap-3 mt-4'>
+          {sortedTags.sort().map((tag) => (
+            <SortBy
+              value={sort}
+              key={tag}
+              name={tag}
+              order={getSortOrder(order)}
+              setOrder={changeSortOrderHandler}
+              onSortChange={changeSortHandler}
+            />
           ))}
         </form>
       </MiniContainer>
