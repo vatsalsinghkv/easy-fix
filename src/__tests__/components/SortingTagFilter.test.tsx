@@ -17,7 +17,7 @@ const baseProps: Props = {
   value: 'best-match',
 };
 
-describe('SortingTagFilter', () => {
+describe.concurrent('SortingTagFilter', () => {
   it('should render an unselected button WITHOUT tool-tip correctly', () => {
     const screen = renderElement(baseProps);
 
@@ -51,4 +51,28 @@ describe('SortingTagFilter', () => {
     fireEvent.click(screen.getByRole('button', { name: /reactions/i }));
     expect(props.onClick).to.toBeCalled();
   });
+
+  describe.concurrent(
+    'should have the correct icon displayed if the filter is selected',
+    () => {
+      it('and ordering is set to ASC', () => {
+        const screen = renderElement({
+          ...baseProps,
+          isSelected: true,
+          ordering: 'asc',
+        });
+
+        expect(screen.queryByLabelText('ordering-asc')).toBeInTheDocument();
+      });
+      it('and ordering is set to DESC', () => {
+        const screen = renderElement({
+          ...baseProps,
+          isSelected: true,
+          ordering: 'desc',
+        });
+
+        expect(screen.queryByLabelText('ordering-desc')).toBeInTheDocument();
+      });
+    }
+  );
 });

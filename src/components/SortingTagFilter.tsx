@@ -1,8 +1,7 @@
 import { Ordering } from '@/models/Ordering';
 import { SortingTag, getSortingTagLabel } from '@/models/SortingTag';
+import { ArrowDownZAIcon, ArrowUpAZIcon } from 'lucide-react';
 import { FC } from 'react';
-
-import { ChartBarIcon } from './Icons';
 
 type Props = {
   isSelected: boolean;
@@ -18,7 +17,7 @@ export const SortingTagFilter: FC<Props> = ({
   value,
 }) => {
   const sortingTagLabel = getSortingTagLabel(value);
-  const barIconClass = ordering === 'desc' ? ' scale-x-_-100 scale-y-100' : '';
+  const isOrderingDesc = ordering === 'desc';
   const activeClasses = isSelected
     ? ' text-accent border-accent bg-accent-light'
     : '';
@@ -34,7 +33,11 @@ export const SortingTagFilter: FC<Props> = ({
         {isSelected ? (
           <>
             <span className='group text-accent ml-2 cursor-pointer'>
-              <ChartBarIcon className={`h-4 w-4${barIconClass}`} />
+              {isOrderingDesc ? (
+                <ArrowDownZAIcon size={18} aria-label='ordering-desc' />
+              ) : (
+                <ArrowUpAZIcon size={18} aria-label='ordering-asc' />
+              )}
             </span>
             <span className='absolute top-10 scale-0 transition-all rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100 z-10'>
               Sorted by {sortingTagLabel} in {ordering}

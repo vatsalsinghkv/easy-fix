@@ -18,9 +18,6 @@ export default {
         'dark-2': 'var(--color-dark-2)',
         'dark-3': 'var(--color-dark-3)',
       },
-      scale: {
-        '_-100': '-1.00',
-      },
       screens: {
         sm: '200px',
         // => @media (min-width: 200px) { ... }
