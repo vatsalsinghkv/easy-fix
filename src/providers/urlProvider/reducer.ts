@@ -1,14 +1,10 @@
-import {
-  DEFAULT_LANGUAGE,
-  DEFAULT_ORDERING,
-  DEFAULT_PAGE,
-  DEFAULT_SORTING_TAG,
-} from '@/lib/utils/config';
+import { DEFAULT_LABELS, DEFAULT_LANGUAGE, DEFAULT_ORDERING, DEFAULT_PAGE, DEFAULT_SORTING_TAG } from '@/lib/utils/config';
 import { composeUrl } from '@/lib/utils/helper';
 import { Language } from '@/models/Language';
 import { Ordering } from '@/models/Ordering';
 import { SortingTag } from '@/models/SortingTag';
 import { Reducer } from 'react';
+
 
 export type State = {
   language: Language;
@@ -16,6 +12,7 @@ export type State = {
   page: number;
   sortingTag: SortingTag;
   url: string;
+  labels: string[];
 };
 
 type UpdateLanguageAction = {
@@ -33,10 +30,15 @@ type UpdatePageAction = {
   payload: number;
 };
 
+type UpdateLabelsAction = {
+  type: 'update-labels';
+  payload: string[];
+};
+
 export type Action =
   | UpdateLanguageAction
   | UpdateSortingTagAction
-  | UpdatePageAction;
+  | UpdatePageAction | UpdateLabelsAction;
 
 export const defaultState: State = {
   language: DEFAULT_LANGUAGE,
@@ -49,6 +51,7 @@ export const defaultState: State = {
     DEFAULT_SORTING_TAG,
     DEFAULT_ORDERING
   ),
+  labels: DEFAULT_LABELS,
 } as const;
 
 const toggleOrdering = (
@@ -63,6 +66,15 @@ const toggleOrdering = (
 
 export const reducer: Reducer<State, Action> = (state, action) => {
   switch (action.type) {
+    case 'update-labels':
+      const labels = action.payload;
+
+      return {
+        ...state,
+        labels,
+        page: 1,
+        url: composeUrl(state.language, state.page, state.sortingTag, state.ordering, labels),
+      };
     case 'update-language':
       const language = action.payload;
 
@@ -70,7 +82,7 @@ export const reducer: Reducer<State, Action> = (state, action) => {
         ...state,
         language,
         page: 1,
-        url: composeUrl(language, state.page, state.sortingTag, state.ordering),
+        url: composeUrl(language, state.page, state.sortingTag, state.ordering, state.labels),
       };
 
     case 'update-sorting-tag':
@@ -85,7 +97,7 @@ export const reducer: Reducer<State, Action> = (state, action) => {
         ...state,
         ordering,
         sortingTag,
-        url: composeUrl(state.language, state.page, sortingTag, ordering),
+        url: composeUrl(state.language, state.page, sortingTag, ordering, state.labels),
       };
 
     case 'update-page':
@@ -99,7 +111,7 @@ export const reducer: Reducer<State, Action> = (state, action) => {
       return {
         ...state,
         page,
-        url: composeUrl(state.language, page, state.sortingTag, state.ordering),
+        url: composeUrl(state.language, page, state.sortingTag, state.ordering, state.labels),
       };
 
     default:

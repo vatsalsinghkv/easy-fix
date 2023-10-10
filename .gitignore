@@ -25,3 +25,5 @@ coverage/*
 *.sln
 *.sw?
 .env
+
+pnpm-lock.yaml
