@@ -27,7 +27,7 @@ export default function ThemeProvider({
   children: React.ReactNode;
 }) {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(
-    JSON.parse(localStorage.getItem('darkMode') || 'true') ? true : false
+    JSON.parse(localStorage.getItem('darkMode') ?? 'true')
   );
 
   const toggle = useCallback(() => {
