@@ -1,23 +1,24 @@
 import { toId } from '@/lib/utils/helper';
 
-const Select = ({ name, value, onChange }) => {
+const Select = ({ checked, name, onChange, value }) => {
   return (
-    <div>
+    <>
       <input
-        className='hidden peer'
+        checked={checked}
+        className='inline appearance-none peer'
         type='radio'
-        defaultChecked={value === name}
-        name='language'
+        name={name}
         onChange={onChange}
         id={toId(name)}
+        value={value}
       />
       <label
-        className='inline-block p-3 py-1.5 font-mono text-xs capitalize transition-all border rounded cursor-pointer hover:text-accent hover:border-accent focus:text-accent focus:border-accent border-slate-400  2eer-checked:text-accent peer-checked:text-accent peer-checked:border-accent peer-checked:bg-accent-light'
+        className='block p-3 py-1.5 font-mono text-xs capitalize transition-all border rounded cursor-pointer hover:text-accent hover:border-accent focus:text-accent focus:border-accent border-slate-400 peer-hover:border-accent peer-focus:border-accent peer-focus:text-accent peer-checked:text-accent peer-checked:border-slate-400 peer-checked:bg-accent-light peer-focus:outline-none'
         htmlFor={toId(name)}
       >
         {name}
       </label>
-    </div>
+    </>
   );
 };
 

@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
-  darkMode: "class",
+  darkMode: 'class',
   theme: {
     extend: {
       fontFamily: {
@@ -19,21 +19,21 @@ export default {
         'dark-3': 'var(--color-dark-3)',
       },
       screens: {
-        'sm': '200px',
+        sm: '200px',
         // => @media (min-width: 200px) { ... }
-  
-        'md': '768px',
+
+        md: '768px',
         // => @media (min-width: 768px) { ... }
-  
-        'lg': '1024px',
+
+        lg: '1024px',
         // => @media (min-width: 1024px) { ... }
-  
-        'xl': '1280px',
+
+        xl: '1280px',
         // => @media (min-width: 1280px) { ... }
-  
+
         '2xl': '1536px',
         // => @media (min-width: 1536px) { ... }
-      }
+      },
     },
   },
   plugins: [],
