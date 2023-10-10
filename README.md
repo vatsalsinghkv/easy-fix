@@ -89,6 +89,12 @@ Remember, Good PR makes you a Good contributor !
 - [ ] Migrate to typescript
 - [ ] Add test cases
 
+## Current Contributors
+
+<a href="https://github.com/vatsalsinghkv/easy-fix/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=vatsalsinghkv/easy-fix" />
+</a>
+
 ## Contact
 
 - Discord - [https://discord.gg/St2dHg9YwA](https://discord.gg/St2dHg9YwA)

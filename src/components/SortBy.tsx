@@ -1,7 +1,7 @@
 import React from 'react';
 import { toId } from '@/lib/utils/helper';
 
-interface SortByProps {
+interface Props {
   name: string;
   value: string;
   setOrder: (order: string) => void;
@@ -9,7 +9,7 @@ interface SortByProps {
   onSortChange: (id: string) => void;
 }
 
-const SortBy: React.FC<SortByProps> = ({ name, value, setOrder, order, onSortChange }) => {
+const SortBy: React.FC<Props> = ({ name, value, setOrder, order, onSortChange }) => {
   const activeClasses = "text-accent border-accent bg-accent-light";
   return (
     <div>

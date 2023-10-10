@@ -24,7 +24,7 @@ const Header = () => {
             onClick={toggle}
             className='p-2 rounded-lg focus-visible:text-accent focus-visible:bg-bg-secondary hover:text-accent hover:bg-bg-secondary'
           >
-            {isDarkMode ? <Moon className='' /> : <Sun className='' />}
+            {isDarkMode ? <Sun /> : <Moon />}
           </button>
         </div>
       </div>

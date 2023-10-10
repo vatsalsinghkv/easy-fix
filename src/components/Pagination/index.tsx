@@ -3,13 +3,13 @@ import PaginationButton from '@/components/Pagination/PaginationButton';
 import { TOTAL_SIBLING_BUTTONS } from '@/lib/utils/config';
 import { Icon } from '@iconify-icon/react';
 
-interface PaginationProps {
+interface Props {
   totalPages: number;
   currentPage: number;
   onChange: (page: number) => void;
 }
 
-const Pagination: React.FC<PaginationProps> = ({ totalPages, currentPage, onChange }) => {
+const Pagination: React.FC<Props> = ({ totalPages, currentPage, onChange }) => {
   const items = useMemo(() => {
     const startIdx =
       currentPage - TOTAL_SIBLING_BUTTONS < 1

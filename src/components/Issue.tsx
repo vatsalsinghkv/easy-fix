@@ -4,7 +4,7 @@ import { convertToK, timeSince } from '@/lib/utils/helper';
 import { Icon } from '@iconify-icon/react';
 import React from 'react';
 
-interface IssueProps {
+interface Props {
   title: string;
   url: string;
   labels: { name: string }[];
@@ -12,7 +12,7 @@ interface IssueProps {
   date: string;
 }
 
-const Issue: React.FC<IssueProps> = ({ title, url, labels, repoUrl, date }) => {
+const Issue: React.FC<Props> = ({ title, url, labels, repoUrl, date }) => {
   const { data } = useFetch(repoUrl) as any;
 
   return (
@@ -22,7 +22,7 @@ const Issue: React.FC<IssueProps> = ({ title, url, labels, repoUrl, date }) => {
       target='_blank'
       rel='noreferrer'
     >
-      <div className='flex flex-wrap justify-between gap-1 mb-1 font-mono text-xs transition-all text-slate-400  dark:text-slate-500 group-hover:text-dark-1 group-focus:text-dark-1'>
+      <div className='flex flex-wrap justify-between gap-1 mb-1 font-mono text-xs transition-all text-dark-2 group-hover:text-dark-1 group-focus:text-dark-1'>
         {data && (
           <p className='flex gap-2.5 flex-wrap font-medium'>{data.full_name}</p>
         )}

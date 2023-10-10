@@ -1,11 +1,11 @@
 import React from 'react';
 
-interface LogoProps {
+interface Props {
   title: string;
   classNme: string;
 }
 
-const Logo: React.FC<LogoProps> = ({ title, classNme }) => {
+const Logo: React.FC<Props> = ({ title, classNme }) => {
   const [first, ...rest] = title.split(' ');
 
   return (

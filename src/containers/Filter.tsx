@@ -1,59 +1,50 @@
-import { LANGUAGES, SORT_TAGS } from '@/lib/utils/config';
-import { MiniContainer, Select, SortBy } from '@/components';
-
-import { ChangeEventHandler } from 'react';
-import { toId } from '@/lib/utils/helper';
-import { useUrl } from '@/lib/hooks/use-url';
+import { MiniContainer, Select } from '@/components';
+import SortingTagFilter from '@/components/SortingTagFilter';
+import { Language, sortedLanguages } from '@/models/Language';
+import { SortingTag, sortedSortingTags } from '@/models/SortingTag';
+import { useUrlValues } from '@/providers/urlProvider';
 
 const Filter = () => {
-  const { language, setLanguage, sort, setSort, order, setOrder } = useUrl();
-  
-  const getSortOrder = (order: string) => (order === 'asc' ? 'desc' : 'asc');
+  const { dispatch, language, ordering, sortingTag } = useUrlValues();
 
-  const onLanguageChange: ChangeEventHandler<HTMLSelectElement> = (e) => {
-    const target = e.currentTarget;
-
-    if (!target.id) {
-      console.warn('[onLanguageChange] target.id is missing');
-      return;
-    }
-
-    setLanguage(target.id);
+  const onLanguageChange = (payload: Language) => {
+    return () => dispatch({ type: 'update-language', payload });
   };
 
-  const changeSortHandler = (e: string) => {
-    setSort(e);
-  };
-
-  const changeSortOrderHandler = (e: string) => {
-    setSort(e);
-    setOrder(getSortOrder(order));
+  const onSortingTagClick = (payload: SortingTag) => {
+    return () => dispatch({ type: 'update-sorting-tag', payload });
   };
 
   return (
     <>
       <MiniContainer title='languages'>
-        <form className='flex flex-wrap gap-3 mt-4'>
-          {LANGUAGES.sort().map((lang) => (
-            <Select
-              value={language}
-              key={toId(lang)}
-              name={lang}
-              onChange={onLanguageChange}
-            />
+        <ul className='flex flex-wrap gap-3 mt-4'>
+          {sortedLanguages.map((lang) => (
+            <li key={lang}>
+              <Select
+                checked={lang === language}
+                name={lang}
+                onChange={onLanguageChange(lang)}
+                value={lang}
+              />
+            </li>
           ))}
-        </form>
+        </ul>
       </MiniContainer>
 
-      <MiniContainer title='SORT'>
-
-        <form
-          className='flex flex-wrap gap-3 mt-4'
-        >
-          {SORT_TAGS.sort().map((tag) => (
-            <SortBy value={sort} key={toId(tag)} name={tag} order={getSortOrder(order)} setOrder={changeSortOrderHandler} onSortChange={changeSortHandler} />
+      <MiniContainer title='sort'>
+        <ul className='flex flex-wrap gap-3 mt-4'>
+          {sortedSortingTags.sort().map((tag) => (
+            <li key={tag}>
+              <SortingTagFilter
+                isSelected={tag === sortingTag}
+                onClick={onSortingTagClick(tag)}
+                ordering={ordering}
+                value={tag}
+              />
+            </li>
           ))}
-        </form>
+        </ul>
       </MiniContainer>
     </>
   );

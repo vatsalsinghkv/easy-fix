@@ -1,12 +1,16 @@
 import { Error, Issue, Loader, Pagination } from '@/components';
 import useFetch from '@/lib/hooks/use-fetch';
-import { useUrl } from '@/lib/hooks/use-url';
 import { MAX_ISSUES_ALLOWED } from '@/lib/utils/config';
 import { getTotalPages } from '@/lib/utils/helper';
+import { useUrlValues } from '@/providers/urlProvider';
 
 const Issues = () => {
-  const { url, page, changePage } = useUrl();
+  const { dispatch, page, url } = useUrlValues();
   const { data, loading, error } = useFetch(url);
+
+  const handlePageChange = (payload: number) => {
+    dispatch({ type: 'update-page', payload });
+  };
 
   return (
     <div>
@@ -46,7 +50,7 @@ const Issues = () => {
               ? MAX_ISSUES_ALLOWED
               : data.total_count
           )}
-          onChange={changePage}
+          onChange={handlePageChange}
         />
       )}
     </div>

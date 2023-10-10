@@ -1,7 +1,7 @@
 import { Icon } from '@iconify-icon/react';
 import { useMemo, FC, MouseEvent } from 'react';
 
-interface PaginationButtonProps {
+interface Props {
   item?: { label: number; isClickable?: boolean };
   type?: 'prev' | 'next';
   icon?: React.ReactNode;
@@ -10,7 +10,7 @@ interface PaginationButtonProps {
   onChange: (newPage: number) => void;
 }
 
-const PaginationButton: FC<PaginationButtonProps> = ({
+const PaginationButton: FC<Props> = ({
   item,
   type,
   icon = null,
@@ -43,15 +43,13 @@ const PaginationButton: FC<PaginationButtonProps> = ({
   if (item?.isClickable || type) {
     return (
       <button
-        className={`flex items-center justify-center h-8 w-8 md:h-9 md:w-9 font-mono text-sm border rounded ${
-          selected
+        className={`flex items-center justify-center h-8 w-8 md:h-9 md:w-9 font-mono text-sm border rounded ${selected
             ? 'bg-accent-light text-accent border-accent'
             : 'border-slate-400'
-        } ${
-          disable
+          } ${disable
             ? 'cursor-not-allowed opacity-50'
             : 'hover:text-accent focus:border-accent focus:text-accent hover:border-accent'
-        }`}
+          }`}
         id={type || (item && String(item.label))}
         aria-label={type || (item && String(item.label))}
         onClick={clickHandler}

@@ -1,29 +1,33 @@
 import { toId } from '@/lib/utils/helper';
 
-interface SelectProps {
+// Resolved the conflict between the two interfaces
+interface Props {
   name: string;
   value: string;
+  checked: boolean; // Added the missing 'checked' property
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const Select: React.FC<SelectProps> = ({ name, value, onChange }) => {
+// Updateed the component definition to include the 'checked' property
+const Select: React.FC<Props> = ({ name, value, onChange, checked }) => {
   return (
-    <div>
+    <>
       <input
-        className='hidden peer'
+        checked={checked}
+        className='inline appearance-none peer'
         type='radio'
-        defaultChecked={value === name}
-        name='language'
+        name={name}
         onChange={onChange}
         id={toId(name)}
+        value={value}
       />
       <label
-        className='inline-block p-3 py-1.5 font-mono text-xs capitalize transition-all border rounded cursor-pointer hover:text-accent hover:border-accent focus:text-accent focus:border-accent border-slate-400 peer-checked:text-accent peer-checked:border-accent peer-checked:bg-accent-light'
+        className='block p-3 py-1.5 font-mono text-xs capitalize transition-all border rounded cursor-pointer hover:text-accent hover:border-accent focus:text-accent focus:border-accent border-slate-400 peer-hover:border-accent peer-focus:border-accent peer-focus:text-accent peer-checked:text-accent peer-checked:border-slate-400 peer-checked:bg-accent-light peer-focus:outline-none'
         htmlFor={toId(name)}
       >
         {name}
       </label>
-    </div>
+    </>
   );
 };
 
