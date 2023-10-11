@@ -1,25 +1,27 @@
+import useFetch from '@/lib/hooks/use-fetch';
 import { act, renderHook } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
-
-import useFetch from '@/lib/hooks/use-fetch';
 
 describe('useFetch', () => {
   const fetchSpy = vi.spyOn(global, 'fetch');
 
-  const mockResolveValue = {
-    ok: true,
-    json: () => new Promise((resolve) => resolve({ status: 'ok' })),
-  };
+  const resolveStub = Promise.resolve(
+    new Response(JSON.stringify({ status: 'ok' }), {
+      status: 200,
+    })
+  );
 
-  const mockRejectValue = {
-    ok: false,
-    json: () =>
-      new Promise((resolve, reject) => reject(new Error('fetch failed'))),
-  };
+  const rejectedStub = Promise.resolve(
+    new Response(JSON.stringify({ status: 'fetch failed' }), {
+      status: 400,
+    })
+  );
 
   it('should fetch data successfully', async () => {
     let hook = null;
-    fetchSpy.mockReturnValue(mockResolveValue);
+
+    fetchSpy.mockReturnValue(resolveStub);
+
     await act(async () => {
       hook = renderHook(() => useFetch('https://sample-api.com/users'));
     });
@@ -31,11 +33,14 @@ describe('useFetch', () => {
   });
 
   it('should handle error correctly', async () => {
-    fetchSpy.mockReturnValue(mockRejectValue);
+    fetchSpy.mockReturnValue(rejectedStub);
+
     let hook = null;
+
     await act(async () => {
       hook = renderHook(() => useFetch('https://invalid-url'));
     });
+
     const { result } = hook;
     expect(result.current.loading).toBe(false);
     expect(result.current.error).not.toBeNull();
