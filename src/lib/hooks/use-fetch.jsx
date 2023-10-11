@@ -1,6 +1,5 @@
+import { request } from '@/lib/utils';
 import { useEffect, useState } from 'react';
-
-import { FETCH } from '@/lib/utils/helper';
 
 const useFetch = (url) => {
   const [loading, setLoading] = useState(true);
@@ -10,7 +9,7 @@ const useFetch = (url) => {
   useEffect(() => {
     (async () => {
       try {
-        const data = await FETCH(url);
+        const data = await request(url);
         setData(data);
         setLoading(false);
       } catch (err) {

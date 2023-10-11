@@ -1,4 +1,4 @@
-import { toId } from '@/lib/utils/helper';
+import { toId } from '@/lib/utils';
 
 // Resolved the conflict between the two interfaces
 interface Props {

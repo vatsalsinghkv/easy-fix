@@ -1,10 +1,10 @@
+import { composeUrl } from '@/lib/utils';
 import {
   DEFAULT_LANGUAGE,
   DEFAULT_ORDERING,
   DEFAULT_PAGE,
   DEFAULT_SORTING_TAG,
 } from '@/lib/utils/config';
-import { composeUrl } from '@/lib/utils/helper';
 import UrlProvider, { useUrlValues } from '@/providers/urlProvider';
 import { act, render } from '@testing-library/react';
 import { beforeEach, describe, expect, it } from 'vitest';

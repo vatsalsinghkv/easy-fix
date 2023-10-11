@@ -1,6 +1,6 @@
 import Label from '@/components/Label';
 import useFetch from '@/lib/hooks/use-fetch';
-import { convertToK, timeSince } from '@/lib/utils/helper';
+import { convertToK, timeSince } from '@/lib/utils';
 import { Icon } from '@iconify-icon/react';
 import React from 'react';
 

@@ -1,10 +1,10 @@
+import { composeUrl } from '@/lib/utils';
 import {
   DEFAULT_LANGUAGE,
   DEFAULT_ORDERING,
   DEFAULT_PAGE,
   DEFAULT_SORTING_TAG,
 } from '@/lib/utils/config';
-import { composeUrl } from '@/lib/utils/helper';
 import { Language } from '@/models/Language';
 import { Ordering } from '@/models/Ordering';
 import { SortingTag } from '@/models/SortingTag';

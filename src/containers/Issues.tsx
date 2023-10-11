@@ -1,7 +1,7 @@
 import { Error, Issue, Loader, Pagination } from '@/components';
 import useFetch from '@/lib/hooks/use-fetch';
+import { getTotalPages } from '@/lib/utils';
 import { MAX_ISSUES_ALLOWED } from '@/lib/utils/config';
-import { getTotalPages } from '@/lib/utils/helper';
 import { useUrlValues } from '@/providers/urlProvider';
 
 const Issues = () => {

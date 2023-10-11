@@ -4,6 +4,9 @@ import {
   QUERIES,
   TIMEOUT_SEC,
 } from '@/lib/utils/config';
+import { Language } from '@/models/Language';
+import { Ordering } from '@/models/Ordering';
+import { SortingTag } from '@/models/SortingTag';
 
 const PAT = import.meta.env.VITE_REACT_APP_GITHUB_PAT;
 
@@ -14,12 +17,15 @@ const PAT = import.meta.env.VITE_REACT_APP_GITHUB_PAT;
  * @returns {Promise} Settled (Rejected) Promise
  */
 
-export const timeout = async (sec) =>
-  new Promise((_, reject) => {
+export const delay = async (sec: number): Promise<never> => {
+  return new Promise<never>((_, reject) => {
     setTimeout(() => {
-      reject(new Error(`Request took too long! Timeout after ${sec} second`));
+      reject(
+        new Error(`Request took too long! Timeout after ${sec} second(s)`)
+      );
     }, sec * 1000);
   });
+};
 
 /**
  * Fetches data from given url
@@ -28,28 +34,24 @@ export const timeout = async (sec) =>
  * @returns {Promise} Data - Settled Promise
  */
 
-// Async func always returns Promise (resolved or Rejected)
-export const FETCH = async (url) => {
-  // Consuming Promise using Await | .then()
-  const res = await Promise.race([
-    fetch(
-      url,
-      PAT
-        ? {
-            headers: {
-              Authorization: `token ${PAT}`, // Add the PAT token here
-            },
-          }
-        : {}
-    ),
-    timeout(TIMEOUT_SEC),
-  ]);
+export const request = async <T>(url: string): Promise<T> => {
+  const headers = {
+    ...(PAT ? { Authorization: `token ${PAT}` } : null),
+    'Content-Type': 'application/json',
+  };
 
-  const data = await res.json();
-  if (!res.ok) throw new Error(`Error (${res.status}): ${data.message}`);
+  const request = fetch(url, { headers });
 
-  // Returns Resolved value (Promise)
-  return data;
+  const res = await Promise.race([request, delay(TIMEOUT_SEC)]);
+
+  const text = await res.text();
+
+  if (!res.ok) {
+    return Promise.reject(`Error (${res.status}): ${text}`);
+  }
+
+  // TODO: This is not ideal, the Response should be validated using Zod
+  return JSON.parse(text) as T;
 };
 
 /**
@@ -58,7 +60,9 @@ export const FETCH = async (url) => {
  * @returns {Number} Total pages
  */
 
-export const getTotalPages = (length) => Math.ceil(length / ISSUE_PER_PAGE);
+export const getTotalPages = (length: number) => {
+  return Math.ceil(length / ISSUE_PER_PAGE);
+};
 
 /**
  * Returns a string by joining a the given sentence with underscores
@@ -66,28 +70,31 @@ export const getTotalPages = (length) => Math.ceil(length / ISSUE_PER_PAGE);
  * @returns {String} id - joined with _
  */
 
-export const toId = (text) => text.toLowerCase().replace(' ', '_');
+export const toId = (text: string) => text.toLowerCase().replace(' ', '_');
 
 export const dateFormatter = (
-  date,
-  language = navigator.language || navigator.userLanguage || 'en-US'
+  date: number | string,
+  language: string = navigator.language || 'en-US'
 ) => {
-  const parsedDate = new Date(date);
+  try {
+    const parsedDate = new Date(date);
 
-  if (isNaN(parsedDate)) {
+    return parsedDate.toLocaleDateString(language, {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
+    });
+  } catch (error) {
+    console.error('Something went wrong while trying to format date: ' + date);
+    console.error(error);
+
     return 'Invalid Date';
   }
-
-  return parsedDate.toLocaleDateString(language, {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
-  });
 };
 
-export const timeSince = (time) => {
-  const currentDate = new Date();
-  const givenDate = new Date(time);
+export const timeSince = (time: number | string | Date) => {
+  const currentDate = new Date().getTime();
+  const givenDate = new Date(time).getTime();
   const seconds = Math.floor((currentDate - givenDate) / 1000);
 
   let interval = seconds / 31536000;
@@ -114,16 +121,23 @@ export const timeSince = (time) => {
   return Math.floor(seconds) + ' sec ago';
 };
 
-export const convertToK = (value) => {
+export const convertToK = (value: number) => {
   if (value >= 1000000) {
-    value = value / 1000000 + 'M';
-  } else if (value >= 1000) {
-    value = (value / 1000).toFixed(2) + 'K';
+    return value / 1000000 + 'M';
+  }
+
+  if (value >= 1000) {
+    return (value / 1000).toFixed(2) + 'K';
   }
   return value;
 };
 
-export const composeUrl = (lang, page, sort, order) => {
+export const composeUrl = (
+  lang: Language,
+  page: number,
+  sort: SortingTag,
+  order: Ordering
+) => {
   const langQuery = lang && lang !== 'all' ? `+language:${lang}` : '';
 
   const searchParams = {
@@ -138,7 +152,7 @@ export const composeUrl = (lang, page, sort, order) => {
 
   Object.entries(searchParams).forEach(([key, value]) => {
     if (!value) return;
-    url.searchParams.set(key, value);
+    url.searchParams.set(key, value.toString());
   });
   // Unfortunately, this hack is needed because
   // the API is not parsing the URL correctly :(
