@@ -13,7 +13,8 @@
     "format:check": "prettier -c .",
     "lint": "eslint src --fix --report-unused-disable-directives",
     "preview": "vite preview",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "typecheck": "tsc"
   },
   "lint-staged": {
     "/src/**/*.{js,jsx,ts,tsx}": [
