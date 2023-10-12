@@ -70,7 +70,7 @@ export const getTotalPages = (length: number) => {
  * @returns {String} id - joined with _
  */
 
-export const toId = (text: string) => text.toLowerCase().replace(' ', '_');
+export const toId = (text: string) => text.toLowerCase().replace(/\s/g, '_');
 
 export const dateFormatter = (
   date: number | string,
