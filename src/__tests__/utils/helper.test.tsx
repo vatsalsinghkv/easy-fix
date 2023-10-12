@@ -1,58 +1,57 @@
-import { describe, expect, it, vi } from 'vitest';
-
 import {
-  FETCH,
   convertToK,
   dateFormatter,
+  delay,
   getTotalPages,
+  request,
   timeSince,
-  timeout,
   toId,
-} from '@/lib/utils/helper';
+} from '@/lib/utils';
+import { describe, expect, it, vi } from 'vitest';
 
-describe('timeout', () => {
+describe('delay', () => {
   it('should reject the promise after the given seconds', async () => {
     vi.useFakeTimers();
-    const delay = 5; // Delay in seconds
+    const sec = 5; // Delay in seconds
 
-    const promise = timeout(delay);
-    vi.advanceTimersByTime(delay * 1000);
+    const promise = delay(sec);
+    vi.advanceTimersByTime(sec * 1000);
 
     await expect(promise).rejects.toThrowError(
-      `Request took too long! Timeout after ${delay} second`
+      `Request took too long! Timeout after ${sec} second`
     );
   });
 });
 
-describe('FETCH', () => {
+describe('request', () => {
+  type MockedResponse = {
+    message: string;
+  };
   const fetchSpy = vi.spyOn(global, 'fetch');
 
-  const mockResolveValue = {
-    ok: true,
-    status: 200,
-    json: () => Promise.resolve({ message: 'it worked' }),
-  };
+  const resolveStub = Promise.resolve(
+    new Response(JSON.stringify({ message: 'Successful' }), { status: 200 })
+  );
 
-  const mock404Value = {
-    ok: false,
-    status: 404,
-    json: () => Promise.resolve({ message: 'Not found' }),
-  };
+  const notFoundStub = Promise.resolve(
+    new Response(JSON.stringify({ message: 'Not found' }), { status: 404 })
+  );
 
   it('should fetch data successfully', async () => {
-    fetchSpy.mockReturnValue(mockResolveValue);
+    fetchSpy.mockReturnValue(resolveStub);
     const url = 'https://sample-api.com/users';
-    const data = await FETCH(url);
+    const data = await request<MockedResponse>(url);
 
-    expect(typeof data).toBe('object');
-    expect(data.message).toBe('it worked');
+    expect(data.message).toBe('Successful');
   });
 
   it('should throw an error for invalid URL', async () => {
-    fetchSpy.mockReturnValue(mock404Value);
+    fetchSpy.mockReturnValue(notFoundStub);
     const url = 'https://invalid-url';
 
-    await expect(FETCH(url)).rejects.toThrowError('Error (404): Not found');
+    await expect(request(url)).rejects.toThrowError(
+      'Error (404): {"message":"Not found"}'
+    );
   });
 
   afterAll(() => {

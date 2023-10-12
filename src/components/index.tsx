@@ -1,21 +1,9 @@
-import Error from './Error';
-import Issue from './Issue';
-import Label from './Label';
-import Loader from './Loader';
-import Logo from './Logo';
-import MiniContainer from './MiniContainer';
-import Pagination from './Pagination';
-import Select from './Select';
-import SortingTagFilter from './SortingTagFilter';
-
-export {
-  Issue,
-  Label,
-  Logo,
-  Loader,
-  Pagination,
-  Error,
-  Select,
-  MiniContainer,
-  SortingTagFilter,
-};
+export { default as Error } from './Error';
+export { default as Issue } from './issue';
+export { default as Label } from './Label';
+export { default as Loader } from './Loader';
+export { default as Logo } from './Logo';
+export { default as MiniContainer } from './MiniContainer';
+export { default as Pagination } from './Pagination';
+export { default as Select } from './Select';
+export { default as SortingTagFilter } from './SortingTagFilter';

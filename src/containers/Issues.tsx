@@ -1,7 +1,7 @@
-import { Error, Issue, Loader, Pagination } from '@/components';
+import { Error, Issue, Label, Loader, Pagination } from '@/components';
 import useFetch from '@/lib/hooks/use-fetch';
+import { getTotalPages, toId } from '@/lib/utils';
 import { MAX_ISSUES_ALLOWED } from '@/lib/utils/config';
-import { getTotalPages } from '@/lib/utils/helper';
 import { useUrlValues } from '@/providers/urlProvider';
 
 const Issues = () => {
@@ -32,17 +32,22 @@ const Issues = () => {
         <div className='py-5 space-y-3'>
           {data.items.map((issue) => (
             <Issue
-              repoUrl={issue.repository_url}
-              key={issue.html_url}
-              url={issue.html_url}
-              labels={issue.labels}
-              title={issue.title}
               date={issue.created_at}
-            />
+              key={issue.html_url}
+              repoUrl={issue.repository_url}
+              title={issue.title}
+              url={issue.html_url}
+            >
+              {issue.labels.map((label) => (
+                <Label key={toId(label.name)} className='mr-1.5 mt-2'>
+                  {label.name}
+                </Label>
+              ))}
+            </Issue>
           ))}
         </div>
       )}
-      {data && (
+      {data ? (
         <Pagination
           currentPage={page}
           totalPages={getTotalPages(
@@ -52,7 +57,7 @@ const Issues = () => {
           )}
           onChange={handlePageChange}
         />
-      )}
+      ) : null}
     </div>
   );
 };
