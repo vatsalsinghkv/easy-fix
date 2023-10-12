@@ -20,12 +20,13 @@ type UrlContextValue = {
   page: number;
   sortingTag: SortingTag;
   url: string;
+  labels: string[];
 };
 
 const UrlContext = createContext<UrlContextValue | undefined>(undefined);
 
 export const UrlProvider = ({ children }: PropsWithChildren) => {
-  const [{ language, ordering, page, sortingTag, url }, dispatch] = useReducer<
+  const [{ language, ordering, page, sortingTag, url , labels}, dispatch] = useReducer<
     Reducer<State, Action>
   >(reducer, defaultState);
 
@@ -37,8 +38,9 @@ export const UrlProvider = ({ children }: PropsWithChildren) => {
       page,
       sortingTag,
       url,
+      labels,
     }),
-    [dispatch, language, ordering, page, sortingTag, url]
+    [dispatch, language, ordering, page, sortingTag, url, labels]
   );
   return <UrlContext.Provider value={value}>{children}</UrlContext.Provider>;
 };

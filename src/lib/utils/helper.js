@@ -1,7 +1,6 @@
 import {
   ISSUE_PER_PAGE,
   ISSUE_URL,
-  QUERIES,
   TIMEOUT_SEC,
 } from '@/lib/utils/config';
 
@@ -123,14 +122,18 @@ export const convertToK = (value) => {
   return value;
 };
 
-export const composeUrl = (lang, page, sort, order) => {
+export const constructQuery = (labels) => {
+  return ['state:open', `label:${labels.join(',')}`].join('+');
+};
+
+export const composeUrl = (lang, page, sort, order, labels) => {
   const langQuery = lang && lang !== 'all' ? `+language:${lang}` : '';
 
   const searchParams = {
     order,
     page,
     per_page: ISSUE_PER_PAGE,
-    q: `${QUERIES}+${langQuery}`,
+    q: `${constructQuery(labels)}+${langQuery}`,
     sort,
   };
 

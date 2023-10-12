@@ -8,6 +8,13 @@ export const languages = {
   Python: 'python',
   Java: 'java',
   All: 'all',
+  Ruby: 'ruby',
+  Go: 'go',
+  C: 'c',
+  CPP: 'c++',
+  PHP: 'php',
+  Kotlin: 'kotlin',
+  Rust: 'rust',
 } as const;
 
 export type Language = ObjectValues<typeof languages>;
