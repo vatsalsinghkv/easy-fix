@@ -1,8 +1,16 @@
 import { Icon } from '@iconify-icon/react';
-import { useMemo } from 'react';
+import { useMemo, FC, MouseEvent } from 'react';
 
-// https://www.freecodecamp.org/news/build-a-custom-pagination-component-in-react/
-const PaginationButton = ({
+interface Props {
+  item?: { label: number; isClickable?: boolean };
+  type?: 'prev' | 'next';
+  icon?: React.ReactNode;
+  disable?: boolean;
+  currentPage: number;
+  onChange: (newPage: number) => void;
+}
+
+const PaginationButton: FC<Props> = ({
   item,
   type,
   icon = null,
@@ -10,9 +18,6 @@ const PaginationButton = ({
   currentPage,
   onChange,
 }) => {
-  /**
-   * True if the button is the current page.
-   */
   const selected = useMemo(() => {
     if (type) return false;
     if (!item) return false;
@@ -20,13 +25,10 @@ const PaginationButton = ({
     return currentPage === item.label;
   }, [currentPage, type, item]);
 
-  /**
-   * Updates the current page based on the type of button clicked.
-   */
-  const clickHandler = (e) => {
+  const clickHandler = (e: MouseEvent<HTMLButtonElement>) => {
     if (disable) return;
     if (!type) {
-      onChange(+e.target.id);
+      onChange(+e.currentTarget.id);
       return;
     }
     if (type === 'prev') {
@@ -41,17 +43,15 @@ const PaginationButton = ({
   if (item?.isClickable || type) {
     return (
       <button
-        className={`flex items-center justify-center h-8 w-8 md:h-9 md:w-9 font-mono text-sm border rounded ${
-          selected
+        className={`flex items-center justify-center h-8 w-8 md:h-9 md:w-9 font-mono text-sm border rounded ${selected
             ? 'bg-accent-light text-accent border-accent'
             : 'border-slate-400'
-        } ${
-          disable
+          } ${disable
             ? 'cursor-not-allowed opacity-50'
             : 'hover:text-accent focus:border-accent focus:text-accent hover:border-accent'
-        }`}
-        id={type || item.label}
-        aria-label={type || item.label}
+          }`}
+        id={type || (item && String(item.label))}
+        aria-label={type || (item && String(item.label))}
         onClick={clickHandler}
       >
         {type ? icon : item?.label}

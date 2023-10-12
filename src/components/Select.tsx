@@ -1,6 +1,15 @@
 import { toId } from '@/lib/utils/helper';
 
-const Select = ({ checked, name, onChange, value }) => {
+// Resolved the conflict between the two interfaces
+interface Props {
+  name: string;
+  value: string;
+  checked: boolean; // Added the missing 'checked' property
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+// Updateed the component definition to include the 'checked' property
+const Select: React.FC<Props> = ({ name, value, onChange, checked }) => {
   return (
     <>
       <input
