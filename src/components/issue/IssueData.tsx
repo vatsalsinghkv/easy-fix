@@ -22,7 +22,7 @@ export const IssueData: FC<Props> = ({ date, fullName, stargazersCount, comments
         aria-label='comments-count'
         className='flex items-center gap-0.5'
       >
-        <Icon className='mt-0.5' icon='mdi:message-outline' height={13} width={13} />
+        <Icon className='mt-0.5' icon='mdi:comment-outline' height={13} width={13} />
         {convertToK(comments)}
       </span>
       {stargazersCount && stargazersCount > 0 ? (
