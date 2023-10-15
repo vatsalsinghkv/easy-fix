@@ -8,6 +8,7 @@ type Props = {
   url: string;
   repoUrl: string;
   date: string;
+  comments: number;
 };
 
 export const Issue = ({
@@ -16,6 +17,7 @@ export const Issue = ({
   title,
   repoUrl,
   url,
+  comments,
 }: PropsWithChildren<Props>) => {
   // TODO: any type is wrong, this needs to change once the useFetch is re-implemented
   const { data } = useFetch<any>(repoUrl);
@@ -31,6 +33,7 @@ export const Issue = ({
         date={date}
         fullName={data?.full_name}
         stargazersCount={data?.stargazers_count}
+        comments={comments}
       />
       <h3 className='text-base font-medium md:text-lg text-dark-1 group-hover:text-accent group-focus:text-accent'>
         {title}
