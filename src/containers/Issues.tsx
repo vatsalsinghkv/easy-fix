@@ -37,6 +37,7 @@ const Issues = () => {
               repoUrl={issue.repository_url}
               title={issue.title}
               url={issue.html_url}
+              comments={issue.comments}
             >
               {issue.labels.map((label) => (
                 <Label key={toId(label.name)} className='mr-1.5 mt-2'>
