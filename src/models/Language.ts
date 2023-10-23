@@ -11,7 +11,6 @@ export const languages = {
   Rust:'rust',
   Scala:'scala',
   Haskell: 'haskell',
-  SQL: 'sql',
   R: 'r',
   Shell: 'shell',
   Dart: 'dart',
