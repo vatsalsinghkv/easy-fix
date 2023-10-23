@@ -8,6 +8,7 @@ export const languages = {
   Python: 'python',
   Java: 'java',
   Go:'go',
+  Shell:'shell',
   Rust:'rust',
   Haskell: 'haskell',
   R: 'r',
