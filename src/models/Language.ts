@@ -7,6 +7,13 @@ export const languages = {
   Typescript: 'typescript',
   Python: 'python',
   Java: 'java',
+  Go:'go',
+  Shell:'shell',
+  Rust:'rust',
+  Haskell: 'haskell',
+  R: 'r',
+  Dart: 'dart',
+  Ruby:'ruby',
   All: 'all',
 } as const;
 
