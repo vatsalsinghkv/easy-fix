@@ -15,7 +15,6 @@ export const languages = {
   R: 'r',
   Shell: 'shell',
   Dart: 'dart',
-  Erlang: 'erlang',
   Ruby:'ruby',
   All: 'all',
 } as const;
