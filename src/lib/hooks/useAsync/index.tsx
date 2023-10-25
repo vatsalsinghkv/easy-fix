@@ -50,6 +50,10 @@ export function useAsync<TData extends any = unknown>(
         return payload;
       })
       .catch((error) => {
+        if (error instanceof Error && error.name === 'AbortError') {
+          return Promise.resolve(undefined);
+        }
+
         if (error instanceof Error) {
           dispatch({ type: 'rejected', payload: error });
 
