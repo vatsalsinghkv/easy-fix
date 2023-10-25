@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 
 const Issues = () => {
   const { dispatch, page, url } = useUrlValues();
-  const { data, error, isPending, run } = useAsync(
+  const { data, error, isIdle, isPending, run } = useAsync(
     (signal) => httpGateway.Get({ url, signal }, githubIssueSearchResponse),
     { autoFetch: true }
   );
@@ -22,9 +22,11 @@ const Issues = () => {
     run();
   }, [url]);
 
-  if (!isPending && !error && !data?.items.length) {
+  if (isPending || isIdle) {
     return (
-      <Error title='No issues found!'>Please try again after sometime.</Error>
+      <div className='flex items-center justify-center h-[65vh] md:h-[80vh]'>
+        <Loader />
+      </div>
     );
   }
 
@@ -36,11 +38,9 @@ const Issues = () => {
     );
   }
 
-  if (isPending) {
+  if (data?.items.length === 0) {
     return (
-      <div className='flex items-center justify-center h-[65vh] md:h-[80vh]'>
-        <Loader />
-      </div>
+      <Error title='No issues found!'>Please try again after sometime.</Error>
     );
   }
 
