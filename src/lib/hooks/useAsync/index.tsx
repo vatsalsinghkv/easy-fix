@@ -21,8 +21,10 @@ export function useAsync<TData extends any = unknown>(
   const promiseFnRef =
     useRef<(signal?: AbortSignal) => Promise<TData>>(promiseFn);
   const abortControllerRef = useRef<AbortController>(new AbortController());
-  const [{ data, error, isPending, isRejected, isResolved, status }, dispatch] =
-    useReducer(getReducer<TData>(), getDefaultState());
+  const [
+    { data, error, isIdle, isPending, isRejected, isResolved, status },
+    dispatch,
+  ] = useReducer(getReducer<TData>(), getDefaultState());
 
   promiseFnRef.current = promiseFn;
   optionsRef.current = options;
@@ -85,13 +87,14 @@ export function useAsync<TData extends any = unknown>(
     () => ({
       data,
       error,
+      isIdle,
       isPending,
       isRejected,
       isResolved,
       run,
       status,
     }),
-    [data, error, isPending, isRejected, isResolved, run, status]
+    [data, error, isIdle, isPending, isRejected, isResolved, run, status]
   );
 
   return value as RequestReturnValue<TData>;

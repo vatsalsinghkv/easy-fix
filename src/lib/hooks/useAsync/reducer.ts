@@ -3,6 +3,7 @@ import { Reducer } from 'react';
 interface IdleState {
   data: null;
   error: null;
+  isIdle: true;
   isPending: false;
   isRejected: false;
   isResolved: false;
@@ -12,6 +13,7 @@ interface IdleState {
 interface PendingState {
   data: null;
   error: null;
+  isIdle: false;
   isPending: true;
   isRejected: false;
   isResolved: false;
@@ -21,6 +23,7 @@ interface PendingState {
 interface ResolvedState<TData extends any> {
   data: TData;
   error: null;
+  isIdle: false;
   isPending: false;
   isRejected: false;
   isResolved: true;
@@ -30,6 +33,7 @@ interface ResolvedState<TData extends any> {
 interface RejectedState {
   data: null;
   error: Error;
+  isIdle: false;
   isPending: false;
   isRejected: true;
   isResolved: false;
@@ -62,6 +66,7 @@ export function getDefaultState(): IdleState {
   return {
     data: null,
     error: null,
+    isIdle: true,
     isPending: false,
     isRejected: false,
     isResolved: false,
@@ -76,6 +81,7 @@ function getReducer<TData extends any>(): Reducer<State<TData>, Action<TData>> {
         return {
           data: null,
           error: null,
+          isIdle: false,
           isPending: true,
           isRejected: false,
           isResolved: false,
@@ -85,6 +91,7 @@ function getReducer<TData extends any>(): Reducer<State<TData>, Action<TData>> {
         return {
           data: null,
           error: action.payload,
+          isIdle: false,
           isPending: false,
           isRejected: true,
           isResolved: false,
@@ -94,6 +101,7 @@ function getReducer<TData extends any>(): Reducer<State<TData>, Action<TData>> {
         return {
           data: action.payload,
           error: null,
+          isIdle: false,
           isPending: false,
           isRejected: false,
           isResolved: true,
