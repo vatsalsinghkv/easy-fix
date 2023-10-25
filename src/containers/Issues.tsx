@@ -5,10 +5,11 @@ import httpGateway from '@/lib/utils/HttpGateway';
 import { MAX_ISSUES_ALLOWED } from '@/lib/utils/config';
 import { githubIssueSearchResponse } from '@/models/GithubIssueSearch';
 import { useUrlValues } from '@/providers/urlProvider';
+import { useEffect } from 'react';
 
 const Issues = () => {
   const { dispatch, page, url } = useUrlValues();
-  const { data, error, isPending } = useAsync(
+  const { data, error, isPending, run } = useAsync(
     (signal) => httpGateway.Get({ url, signal }, githubIssueSearchResponse),
     { autoFetch: true }
   );
@@ -16,6 +17,10 @@ const Issues = () => {
   const handlePageChange = (payload: number) => {
     dispatch({ type: 'update-page', payload });
   };
+
+  useEffect(() => {
+    run();
+  }, [url]);
 
   if (!isPending && !error && !data?.items.length) {
     return (
