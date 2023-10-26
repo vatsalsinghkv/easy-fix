@@ -1,4 +1,6 @@
-import useFetch from '@/lib/hooks/use-fetch';
+import useAsync from '@/lib/hooks/useAsync';
+import httpGateway from '@/lib/utils/HttpGateway';
+import { githubRepositoryItem } from '@/models/GithubRepository';
 import { PropsWithChildren } from 'react';
 
 import IssueData from './IssueData';
@@ -19,8 +21,10 @@ export const Issue = ({
   url,
   comments,
 }: PropsWithChildren<Props>) => {
-  // TODO: any type is wrong, this needs to change once the useFetch is re-implemented
-  const { data } = useFetch<any>(repoUrl);
+  const { data } = useAsync(
+    (signal) => httpGateway.Get({ url: repoUrl, signal }, githubRepositoryItem),
+    { autoFetch: true }
+  );
 
   return (
     <a
