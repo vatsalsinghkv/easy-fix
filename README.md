@@ -86,7 +86,7 @@ Remember, Good PR makes you a Good contributor !
 ## Continuous Development
 
 - [ ] Add more filters such as filter by labels.
-- [ ] Migrate to typescript
+- [x] Migrate to typescript
 - [ ] Add test cases
 
 ## Current Contributors
