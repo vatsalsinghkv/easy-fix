@@ -50,7 +50,7 @@ const Pagination: React.FC<Props> = ({ totalPages, currentPage, onChange }) => {
         currentPage={currentPage}
         type='prev'
         icon={<Icon height={24} width={24} icon='ic:sharp-chevron-left' />}
-        disable={currentPage === 1}
+        disabled={currentPage === 1}
       />
       {items.map((item) => (
         <PaginationButton
@@ -65,7 +65,7 @@ const Pagination: React.FC<Props> = ({ totalPages, currentPage, onChange }) => {
         currentPage={currentPage}
         type='next'
         icon={<Icon height={24} width={24} icon='ic:sharp-chevron-right' />}
-        disable={currentPage === totalPages}
+        disabled={currentPage === totalPages}
       />
     </div>
   );

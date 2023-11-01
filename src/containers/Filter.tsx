@@ -37,9 +37,9 @@ const Filter = () => {
           {sortedSortingTags.sort().map((tag) => (
             <li key={tag}>
               <SortingTagFilter
-                isSelected={tag === sortingTag}
                 onClick={onSortingTagClick(tag)}
                 ordering={ordering}
+                selected={tag === sortingTag}
                 value={tag}
               />
             </li>

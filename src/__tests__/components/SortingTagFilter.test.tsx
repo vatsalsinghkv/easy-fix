@@ -11,9 +11,9 @@ const renderElement = (props: Props): RenderResult => {
 };
 
 const baseProps: Props = {
-  isSelected: false,
   onClick: () => null,
   ordering: 'desc',
+  selected: false,
   value: 'best-match',
 };
 
@@ -29,9 +29,9 @@ describe.concurrent('SortingTagFilter', () => {
   });
 
   it('should render a selected button WITH tool-tip correctly', () => {
-    const props: Props = { ...baseProps, isSelected: true };
     const screen = renderElement(props);
 
+    const props: Props = { ...baseProps, selected: true };
     const expectedLabelText = getSortingTagLabel(props.value);
     const expectedToolTipText = `Sorted by ${expectedLabelText} in ${props.ordering}`;
 
@@ -41,9 +41,9 @@ describe.concurrent('SortingTagFilter', () => {
 
   it('should invoke onClick on button click', () => {
     const props: Props = {
-      isSelected: false,
       onClick: vi.fn(),
       ordering: 'desc',
+      selected: false,
       value: 'reactions',
     };
     const screen = renderElement(props);
@@ -58,8 +58,8 @@ describe.concurrent('SortingTagFilter', () => {
       it('and ordering is set to ASC', () => {
         const screen = renderElement({
           ...baseProps,
-          isSelected: true,
           ordering: 'asc',
+          selected: true,
         });
 
         expect(screen.queryByLabelText('ordering-asc')).toBeInTheDocument();
@@ -67,8 +67,8 @@ describe.concurrent('SortingTagFilter', () => {
       it('and ordering is set to DESC', () => {
         const screen = renderElement({
           ...baseProps,
-          isSelected: true,
           ordering: 'desc',
+          selected: true,
         });
 
         expect(screen.queryByLabelText('ordering-desc')).toBeInTheDocument();

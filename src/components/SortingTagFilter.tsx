@@ -4,16 +4,16 @@ import { ArrowDownZAIcon, ArrowUpAZIcon } from 'lucide-react';
 import { FC } from 'react';
 
 type Props = {
-  isSelected: boolean;
   onClick: () => void;
   ordering: Ordering;
+  selected: boolean;
   value: SortingTag;
 };
 
 export const SortingTagFilter: FC<Props> = ({
-  isSelected,
   onClick,
   ordering,
+  selected,
   value,
 }) => {
   const sortingTagLabel = getSortingTagLabel(value);

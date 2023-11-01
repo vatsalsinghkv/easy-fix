@@ -5,7 +5,7 @@ interface Props {
   item?: { label: number; isClickable?: boolean };
   type?: 'prev' | 'next';
   icon?: React.ReactNode;
-  disable?: boolean;
+  disabled?: boolean;
   currentPage: number;
   onChange: (newPage: number) => void;
 }
@@ -14,7 +14,7 @@ const PaginationButton: FC<Props> = ({
   item,
   type,
   icon = null,
-  disable = false,
+  disabled = false,
   currentPage,
   onChange,
 }) => {
@@ -26,7 +26,7 @@ const PaginationButton: FC<Props> = ({
   }, [currentPage, type, item]);
 
   const clickHandler = (e: MouseEvent<HTMLButtonElement>) => {
-    if (disable) return;
+    if (disabled) return;
     if (!type) {
       onChange(+e.currentTarget.id);
       return;
@@ -50,6 +50,7 @@ const PaginationButton: FC<Props> = ({
             ? 'cursor-not-allowed opacity-50'
             : 'hover:text-accent focus:border-accent focus:text-accent hover:border-accent'
           }`}
+        disabled={disabled}
         id={type || (item && String(item.label))}
         aria-label={type || (item && String(item.label))}
         onClick={clickHandler}
