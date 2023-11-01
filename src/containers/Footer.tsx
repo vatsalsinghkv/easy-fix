@@ -1,11 +1,29 @@
+import { css } from 'styled-system/css';
+
 const Footer = () => {
   return (
-    <footer className='p-5 font-mono text-xs text-center border-t md:p-8 text-dark-2 border-dark-3'>
+    <footer
+      className={css({
+        borderColor: 'dark-3',
+        borderTopWidth: '1px',
+        color: 'dark-2',
+        fontFamily: 'mono',
+        fontSize: 'xs',
+        lineHeight: 'xs',
+        p: '5',
+        textAlign: 'center',
+        md: { p: '8' },
+      })}
+    >
       <a
         href='https://github.com/vatsalsinghkv/easy-fix'
         target='_blank'
         rel='noreferrer'
-        className='transition focus:text-accent hover:text-accent'
+        className={css({
+          transition: 'all',
+          _focus: { color: 'accent' },
+          _hover: { color: 'accent' },
+        })}
       >
         Design &amp; Built by Vatsal Singh
       </a>

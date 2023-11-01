@@ -44,11 +44,8 @@ export default function ThemeProvider({
 
   useEffect(() => {
     localStorage.setItem('darkMode', JSON.stringify(isDarkMode));
-    if (isDarkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
+    const mode = isDarkMode ? 'dark' : 'light';
+    document.documentElement.dataset.themeMode = mode;
   }, [isDarkMode]);
 
   return (

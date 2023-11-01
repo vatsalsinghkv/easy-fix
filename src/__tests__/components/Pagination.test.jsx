@@ -103,7 +103,7 @@ describe('PaginationButton', () => {
 
     render(
       <PaginationButton
-        disable={true}
+        disabled={true}
         num={2}
         currentPage={1}
         onChange={onChange}

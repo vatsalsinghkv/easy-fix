@@ -25,9 +25,10 @@
     /* Dynamic import */
     "paths": {
       "@/*": ["./src/*"],
-      "~/*": ["./public/*"]
+      "~/*": ["./public/*"],
+      "styled-system/*": ["./styled-system/*"]
     }
   },
-  "include": ["src"],
+  "include": ["src", "styled-system"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
