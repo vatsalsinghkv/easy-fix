@@ -1,18 +1,43 @@
 import { MiniContainer } from '@/components';
 import { Filter, Footer, Header, Issues } from '@/containers';
+import { css } from 'styled-system/css';
+import { container } from 'styled-system/patterns';
 
 const App = () => {
   return (
     <>
       <Header />
-      <main className='container'>
-        <div className='grid grid-cols-1 gap-5 md:grid-cols-[1.25fr_3fr]'>
-          <aside className='pt-5 space-y-5 md:pr-5 md:border-r border-dark-3'>
+      <main
+        className={container({
+          maxWidth: '8xl',
+          mx: 'auto',
+          pr: 4,
+          pl: 4,
+          md: { pr: 4, pl: 4 },
+        })}
+      >
+        <div
+          className={css({
+            display: 'grid',
+            gridTemplateColumns: 1,
+            gap: 4,
+            md: { gridTemplateColumns: '1.25fr 3fr' },
+          })}
+        >
+          <aside
+            className={css({
+              p: 2,
+              md: {
+                borderRightWidth: '1px',
+                borderColor: 'dark-3',
+              },
+            })}
+          >
             <MiniContainer title='about'>
               The perfect place to find{' '}
-              <span className='text-accent'>easy-to-fix</span> issues. Goal is
-              to encourage people to start contributing to the open source
-              community.
+              <span className={css({ color: 'accent' })}>easy-to-fix</span>{' '}
+              issues. Goal is to encourage people to start contributing to the
+              open source community.
             </MiniContainer>
             <Filter />
           </aside>

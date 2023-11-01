@@ -1,29 +1,63 @@
-import { toId } from '@/lib/utils';
+import { ChangeEvent, FC } from 'react';
+import { css, cx } from 'styled-system/css';
 
-// Resolved the conflict between the two interfaces
-interface Props {
+type Props = {
   name: string;
   value: string;
-  checked: boolean; // Added the missing 'checked' property
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}
+  checked: boolean;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+};
 
-// Updateed the component definition to include the 'checked' property
-const Select: React.FC<Props> = ({ name, value, onChange, checked }) => {
+const Select: FC<Props> = ({ name, value, onChange, checked }) => {
   return (
     <>
       <input
         checked={checked}
-        className='inline appearance-none peer'
+        className={cx('peer', css({ display: 'inline', appearance: 'none' }))}
         type='radio'
         name={name}
         onChange={onChange}
-        id={toId(name)}
+        id={name}
         value={value}
       />
       <label
-        className='block p-3 py-1.5 font-mono text-xs capitalize transition-all border rounded cursor-pointer hover:text-accent hover:border-accent focus:text-accent focus:border-accent border-slate-400 peer-hover:border-accent peer-focus:border-accent peer-focus:text-accent peer-checked:text-accent peer-checked:border-slate-400 peer-checked:bg-accent-light peer-focus:outline-none'
-        htmlFor={toId(name)}
+        className={css({
+          borderColor: 'slate.400',
+          borderWidth: '1px',
+          cursor: 'pointer',
+          display: 'block',
+          fontFamily: 'mono',
+          fontSize: 'xs',
+          lineHeight: 'tight',
+          px: 3,
+          py: 1.5,
+          rounded: 'md',
+          textTransform: 'capitalize',
+          transition: 'all',
+          _focus: {
+            borderColor: 'accent',
+            color: 'accent',
+          },
+          _hover: {
+            borderColor: 'accent',
+            color: 'accent',
+          },
+          _peerChecked: {
+            borderColor: 'slate.400',
+            color: 'accent',
+            bg: 'accent-light',
+          },
+          _peerFocus: {
+            borderColor: 'accent',
+            color: 'accent',
+            ring: 'none',
+            ringOffset: 'none',
+          },
+          _peerHover: {
+            borderColor: 'accent',
+          },
+        })}
+        htmlFor={name}
       >
         {name}
       </label>

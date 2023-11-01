@@ -1,14 +1,29 @@
-import React, { ReactNode } from 'react';
+import { ComponentProps, PropsWithChildren } from 'react';
+import { css, cx } from 'styled-system/css';
 
-interface Props {
-  children: ReactNode;
-  className?: string;
-}
+type Props = PropsWithChildren<ComponentProps<'span'>>;
 
-const Label: React.FC<Props> = ({ children, className }) => {
+const Label = ({ children, className }: Props) => {
   return (
     <span
-      className={`inline-flex items-center px-2.5 md:px-3 py-1 md:py-1.5 text-xs font-mono font-medium capitalize rounded-full text-accent bg-accent-light  ${className}`}
+      className={cx(
+        css({
+          alignItems: 'center',
+          bg: 'accent-light',
+          color: 'accent',
+          display: 'inline-flex',
+          fontFamily: 'mono',
+          fontSize: 'xs',
+          fontWeight: 'medium',
+          lineHeight: 'tight',
+          px: '2.5',
+          py: '1',
+          rounded: 'full',
+          textTransform: 'capitalize',
+          md: { px: '3', py: '1.5' },
+        }),
+        className
+      )}
     >
       {children}
     </span>

@@ -1,7 +1,8 @@
-import React, { useMemo } from 'react';
 import PaginationButton from '@/components/Pagination/PaginationButton';
 import { TOTAL_SIBLING_BUTTONS } from '@/lib/utils/config';
 import { Icon } from '@iconify-icon/react';
+import React, { useMemo } from 'react';
+import { css } from 'styled-system/css';
 
 interface Props {
   totalPages: number;
@@ -44,7 +45,16 @@ const Pagination: React.FC<Props> = ({ totalPages, currentPage, onChange }) => {
   if (totalPages <= 1) return null;
 
   return (
-    <div className='flex items-center justify-center gap-3 py-3 mb-5'>
+    <div
+      className={css({
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 3,
+        py: 3,
+        mb: 5,
+      })}
+    >
       <PaginationButton
         onChange={onChange}
         currentPage={currentPage}

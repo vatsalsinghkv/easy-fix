@@ -3,6 +3,7 @@ import SortingTagFilter from '@/components/SortingTagFilter';
 import { Language, sortedLanguages } from '@/models/Language';
 import { SortingTag, sortedSortingTags } from '@/models/SortingTag';
 import { useUrlValues } from '@/providers/urlProvider';
+import { css } from 'styled-system/css';
 
 const Filter = () => {
   const { dispatch, language, ordering, sortingTag } = useUrlValues();
@@ -17,8 +18,15 @@ const Filter = () => {
 
   return (
     <>
-      <MiniContainer title='languages'>
-        <ul className='flex flex-wrap gap-3 mt-4'>
+      <MiniContainer className={css({ mt: 6 })} title='languages'>
+        <ul
+          className={css({
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: 2,
+            mt: 4,
+          })}
+        >
           {sortedLanguages.map((lang) => (
             <li key={lang}>
               <Select
@@ -31,9 +39,15 @@ const Filter = () => {
           ))}
         </ul>
       </MiniContainer>
-
-      <MiniContainer title='sort'>
-        <ul className='flex flex-wrap gap-3 mt-4'>
+      <MiniContainer className={css({ mt: 6 })} title='sort'>
+        <ul
+          className={css({
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: 2,
+            mt: 4,
+          })}
+        >
           {sortedSortingTags.sort().map((tag) => (
             <li key={tag}>
               <SortingTagFilter

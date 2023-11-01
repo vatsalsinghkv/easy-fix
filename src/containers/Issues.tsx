@@ -6,6 +6,7 @@ import { MAX_ISSUES_ALLOWED } from '@/lib/utils/config';
 import { githubIssueSearchResponse } from '@/models/GithubIssueSearch';
 import { useUrlValues } from '@/providers/urlProvider';
 import { useEffect } from 'react';
+import { css } from 'styled-system/css';
 
 const Issues = () => {
   const { dispatch, page, url } = useUrlValues();
@@ -24,7 +25,15 @@ const Issues = () => {
 
   if (isPending || isIdle) {
     return (
-      <div className='flex items-center justify-center h-[65vh] md:h-[80vh]'>
+      <div
+        className={css({
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          h: '65vh',
+          md: { h: '80vh' },
+        })}
+      >
         <Loader />
       </div>
     );
@@ -46,7 +55,14 @@ const Issues = () => {
 
   return (
     <div>
-      <div className='py-5 space-y-3'>
+      <div
+        className={css({
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 4,
+          py: 4,
+        })}
+      >
         {data.items.map((issue) => (
           <Issue
             date={issue.created_at}
@@ -57,7 +73,10 @@ const Issues = () => {
             comments={issue.comments}
           >
             {issue.labels.map((label) => (
-              <Label key={toId(label.name)} className='mr-1.5 mt-2'>
+              <Label
+                key={toId(label.name)}
+                className={css({ mr: '1.5', mt: '2' })}
+              >
                 {label.name}
               </Label>
             ))}

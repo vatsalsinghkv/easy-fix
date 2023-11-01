@@ -1,8 +1,8 @@
 import App from '@/App';
-import '@/index.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
+import './index.css';
 import ThemeProvider from './lib/hooks/use-theme';
 import UrlProvider from './providers/urlProvider';
 

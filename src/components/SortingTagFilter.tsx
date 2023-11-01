@@ -41,6 +41,40 @@ export const SortingTagFilter: FC<Props> = ({
       size='sm'
       type='button'
     >
+      <label className={css({ cursor: 'pointer' })}>{sortingTagLabel}</label>
+      {selected ? (
+        <>
+          <span
+            className={css({ color: 'accent', ml: '2', cursor: 'pointer' })}
+          >
+            {isOrderingDesc ? (
+              <ArrowDownZAIcon size={18} aria-label='ordering-desc' />
+            ) : (
+              <ArrowUpAZIcon size={18} aria-label='ordering-asc' />
+            )}
+          </span>
+          <span
+            className={css({
+              bgColor: 'gray.800',
+              color: 'white',
+              fontSize: 'xs',
+              lineHeight: 'tight',
+              p: 2,
+              position: 'absolute',
+              rounded: 'rounded',
+              scale: 0,
+              top: 10,
+              transition: 'all',
+              zIndex: 10,
+              _groupHover: {
+                scale: 1,
+              },
+            })}
+          >
+            Sorted by {sortingTagLabel} in {ordering}
+          </span>
+        </>
+      ) : null}
     </Button>
   );
 };

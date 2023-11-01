@@ -1,31 +1,92 @@
 import { Logo } from '@/components';
+import { Button } from '@/components/Button';
 import { useTheme } from '@/lib/hooks/use-theme';
 import { Icon } from '@iconify-icon/react';
 import { Moon, Sun } from 'lucide-react';
+import { css } from 'styled-system/css';
+import { container } from 'styled-system/patterns';
 
 const Header = () => {
   const { isDarkMode, toggle } = useTheme();
   return (
-    <header className={`py-1 border-b sm:py-5 border-dark-3`}>
-      <div className='container flex items-center justify-between'>
-        <Logo title='Easy Fix' />
-        <div className='flex items-center justify-center gap-4'>
+    <header
+      className={css({
+        py: 1,
+        borderBottomWidth: '1px',
+        sm: { py: 5 },
+        borderColor: 'dark-3',
+      })}
+    >
+      <div
+        className={container({
+          alignItems: 'center',
+          display: 'flex',
+          justifyContent: 'space-between',
+          maxWidth: '8xl',
+          mx: 'auto',
+          px: 10,
+        })}
+      >
+        <Logo />
+        <div
+          className={css({
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 4,
+          })}
+        >
           <a
             href='https://github.com/vatsalsinghkv/easy-fix'
             target='_blank'
             rel='noopener noreferrer'
-            className='flex  justify-center items-center gap-2 p-3 py-1.5 font-mono text-sm capitalize transition-all border rounded  hover:text-accent hover:border-accent focus:text-accent focus:border-accent border-slate-400 peer-checked:text-accent hover:bg-accent-light focus:bg-accent-light'
+            className={css({
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: 2,
+              px: 3,
+              py: 1.5,
+              fontFamily: 'mono',
+              fontSize: 'sm',
+              lineHeight: 'tight',
+              textTransform: 'capitalize',
+              transition: 'all',
+              borderWidth: '1px',
+              rounded: 'sm',
+              borderColor: 'slate.400',
+              '&:hover': {
+                bg: 'accent-light',
+                borderColor: 'accent',
+                color: 'accent',
+              },
+              '&:focus': {
+                bg: 'accent-light',
+                borderColor: 'accent',
+                color: 'accent',
+              },
+              _peerChecked: {
+                color: 'accent',
+              },
+            })}
           >
             <Icon icon='mdi:github' height={20} />
             Github
           </a>
 
-          <button
+          <Button
             onClick={toggle}
-            className='p-2 rounded-lg focus-visible:text-accent focus-visible:bg-bg-secondary hover:text-accent hover:bg-bg-secondary'
+            className={css({
+              p: 2,
+              rounded: 'lg',
+              borderWidth: 0,
+              _hover: {
+                bg: 'bg-secondary',
+              },
+            })}
           >
             {isDarkMode ? <Sun /> : <Moon />}
-          </button>
+          </Button>
         </div>
       </div>
     </header>

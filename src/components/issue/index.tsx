@@ -2,6 +2,7 @@ import useAsync from '@/lib/hooks/useAsync';
 import httpGateway from '@/lib/utils/HttpGateway';
 import { githubRepositoryItem } from '@/models/GithubRepository';
 import { PropsWithChildren } from 'react';
+import { css, cx } from 'styled-system/css';
 
 import IssueData from './IssueData';
 
@@ -23,12 +24,30 @@ export const Issue = ({
 }: PropsWithChildren<Props>) => {
   const { data } = useAsync(
     (signal) => httpGateway.Get({ url: repoUrl, signal }, githubRepositoryItem),
-    { autoFetch: true }
+    {
+      autoFetch: true,
+    }
   );
 
   return (
     <a
-      className='block p-5 border rounded-md border-dark-3 hover:bg-bg-secondary min-h-[105px] focus:bg-bg-secondary group'
+      className={cx(
+        'group',
+        css({
+          borderColor: 'dark-3',
+          borderWidth: '1px',
+          display: 'block',
+          minH: '105px',
+          p: 4,
+          rounded: 'md',
+          _focus: {
+            bg: 'bg-secondary',
+          },
+          _hover: {
+            bg: 'bg-secondary',
+          },
+        })
+      )}
       href={url}
       target='_blank'
       rel='noreferrer'
@@ -39,10 +58,26 @@ export const Issue = ({
         stargazersCount={data?.stargazers_count}
         comments={comments}
       />
-      <h3 className='text-base font-medium md:text-lg text-dark-1 group-hover:text-accent group-focus:text-accent'>
+      <h3
+        className={css({
+          fontSize: 'base',
+          lineHeight: 'base',
+          fontWeight: 'medium',
+          color: 'dark-1',
+          md: { fontSize: 'lg', lineHeight: 'lg' },
+          _groupFocus: {
+            color: 'accent',
+          },
+          _groupHover: {
+            color: 'accent',
+          },
+        })}
+      >
         {title}
       </h3>
-      <div className='flex flex-wrap'>{children}</div>
+      <div className={css({ display: 'flex', flexWrap: 'wrap' })}>
+        {children}
+      </div>
     </a>
   );
 };

@@ -1,20 +1,30 @@
-import React from 'react';
+import { css, cx } from 'styled-system/css';
 
-interface Props {
-  title: string;
-  classNme: string;
-}
-
-const Logo: React.FC<Props> = ({ title, classNme }) => {
-  const [first, ...rest] = title.split(' ');
-
+const Logo = () => {
   return (
     <h1
-      className={`text-3xl font-light leading-relaxed sm:text-4xl ${classNme}`}
+      className={cx(
+        css({
+          fontSize: '3xl',
+          lineHeight: 'tight',
+          fontWeight: 'light',
+          sm: { fontSize: '4xl', lineHeight: '4xl' },
+        })
+      )}
     >
       <a href='/'>
-        <span className='font-sans font-medium text-dark-1'>{first}</span>{' '}
-        <span className='font-mono text-accent'>{rest.join(' ')}</span>
+        <span
+          className={css({
+            color: 'dark-1',
+            fontFamily: 'sans',
+            fontWeight: 'medium',
+          })}
+        >
+          Easy
+        </span>{' '}
+        <span className={css({ color: 'accent', fontFamily: 'mono' })}>
+          Fix
+        </span>
       </a>
     </h1>
   );
