@@ -8,13 +8,13 @@ interface Props {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-// Updateed the component definition to include the 'checked' property
+// Updated the component definition to include the 'checked' property
 const Select: React.FC<Props> = ({ name, value, onChange, checked }) => {
   return (
     <>
       <input
         checked={checked}
-        className='inline appearance-none peer'
+        className='hidden peer'
         type='radio'
         name={name}
         onChange={onChange}
@@ -22,7 +22,7 @@ const Select: React.FC<Props> = ({ name, value, onChange, checked }) => {
         value={value}
       />
       <label
-        className='block p-3 py-1.5 font-mono text-xs capitalize transition-all border rounded cursor-pointer hover:text-accent hover:border-accent focus:text-accent focus:border-accent border-slate-400 peer-hover:border-accent peer-focus:border-accent peer-focus:text-accent peer-checked:text-accent peer-checked:border-slate-400 peer-checked:bg-accent-light peer-focus:outline-none'
+        className='block p-3 py-1.5 font-mono text-xs capitalize transition-all border rounded cursor-pointer hover:text-accent hover:border-accent focus:text-accent focus:border-accent border-dark-2 peer-hover:border-accent peer-focus:border-accent peer-focus:text-accent peer-checked:text-accent peer-checked:border-accent peer-checked:bg-accent-light peer-focus:outline-none'
         htmlFor={toId(name)}
       >
         {name}
