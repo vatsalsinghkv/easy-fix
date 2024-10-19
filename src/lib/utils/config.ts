@@ -1,14 +1,16 @@
+import { Label } from '@/models/Label';
 import { Language } from '@/models/Language';
 import { Ordering } from '@/models/Ordering';
 import { SortingTag } from '@/models/SortingTag';
 
 export const BASE_URL = 'https://api.github.com';
 export const ISSUE_URL = `${BASE_URL}/search/issues`;
-export const LABELS = ['easy', 'first', 'good'];
-export const QUERIES = ['state:open', `label:${LABELS.join(',')}`].join('+');
+export const DEFAULT_LABELS = ['easy', 'first', 'good'];
+export const QUERIES = ['state:open'].join('+');
 
 export const DEFAULT_LANGUAGE: Language = 'all';
 export const DEFAULT_ORDERING: Ordering = 'desc';
+export const DEFAULT_LABEL: Label = 'none';
 export const DEFAULT_PAGE = 1;
 export const DEFAULT_SORTING_TAG: SortingTag = 'best-match';
 export const ISSUE_PER_PAGE = 10;

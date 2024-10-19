@@ -1,9 +1,11 @@
 import {
+  DEFAULT_LABELS,
   ISSUE_PER_PAGE,
   ISSUE_URL,
   QUERIES,
   TIMEOUT_SEC,
 } from '@/lib/utils/config';
+import { Label } from '@/models/Label';
 import { Language } from '@/models/Language';
 import { Ordering } from '@/models/Ordering';
 import { SortingTag } from '@/models/SortingTag';
@@ -136,15 +138,21 @@ export const composeUrl = (
   lang: Language,
   page: number,
   sort: SortingTag,
-  order: Ordering
+  order: Ordering,
+  label: Label
 ) => {
   const langQuery = lang && lang !== 'all' ? `+language:${lang}` : '';
+  const defaultLabelQuery = `+label:${DEFAULT_LABELS.join(',')}`;
+  const labelQuery =
+    label && label.toLocaleLowerCase() !== 'none'
+      ? `${defaultLabelQuery},${label}`
+      : defaultLabelQuery;
 
   const searchParams = {
     order,
     page,
     per_page: ISSUE_PER_PAGE,
-    q: `${QUERIES}+${langQuery}`,
+    q: `${QUERIES}+${langQuery}${labelQuery}`,
     sort,
   };
 
