@@ -1,5 +1,6 @@
 import { MiniContainer, Select } from '@/components';
 import SortingTagFilter from '@/components/SortingTagFilter';
+import { toId } from '@/lib/utils';
 import { Language, sortedLanguages } from '@/models/Language';
 import { SortingTag, sortedSortingTags } from '@/models/SortingTag';
 import { useUrlValues } from '@/providers/urlProvider';
@@ -20,12 +21,12 @@ const Filter = () => {
       <MiniContainer title='languages'>
         <ul className='flex flex-wrap gap-3 mt-4'>
           {sortedLanguages.map((lang) => (
-            <li key={lang}>
+            <li key={toId(lang)}>
               <Select
+                value={lang}
                 checked={lang === language}
                 name={lang}
                 onChange={onLanguageChange(lang)}
-                value={lang}
               />
             </li>
           ))}
