@@ -1,3 +1,4 @@
+import { Label } from '@/models/Label';
 import { Language } from '@/models/Language';
 import { Ordering } from '@/models/Ordering';
 import { SortingTag } from '@/models/SortingTag';
@@ -19,15 +20,15 @@ type UrlContextValue = {
   ordering: Ordering;
   page: number;
   sortingTag: SortingTag;
+  label: Label;
   url: string;
 };
 
 const UrlContext = createContext<UrlContextValue | undefined>(undefined);
 
 export const UrlProvider = ({ children }: PropsWithChildren) => {
-  const [{ language, ordering, page, sortingTag, url }, dispatch] = useReducer<
-    Reducer<State, Action>
-  >(reducer, defaultState);
+  const [{ language, ordering, page, sortingTag, url, label }, dispatch] =
+    useReducer<Reducer<State, Action>>(reducer, defaultState);
 
   const value = useMemo(
     () => ({
@@ -37,8 +38,9 @@ export const UrlProvider = ({ children }: PropsWithChildren) => {
       page,
       sortingTag,
       url,
+      label,
     }),
-    [dispatch, language, ordering, page, sortingTag, url]
+    [dispatch, language, ordering, page, sortingTag, label, url]
   );
   return <UrlContext.Provider value={value}>{children}</UrlContext.Provider>;
 };

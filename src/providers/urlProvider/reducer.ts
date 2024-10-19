@@ -1,10 +1,12 @@
 import { composeUrl } from '@/lib/utils';
 import {
+  DEFAULT_LABEL,
   DEFAULT_LANGUAGE,
   DEFAULT_ORDERING,
   DEFAULT_PAGE,
   DEFAULT_SORTING_TAG,
 } from '@/lib/utils/config';
+import { Label } from '@/models/Label';
 import { Language } from '@/models/Language';
 import { Ordering } from '@/models/Ordering';
 import { SortingTag } from '@/models/SortingTag';
@@ -15,6 +17,7 @@ export type State = {
   ordering: Ordering;
   page: number;
   sortingTag: SortingTag;
+  label: Label;
   url: string;
 };
 
@@ -28,6 +31,11 @@ type UpdateSortingTagAction = {
   payload: SortingTag;
 };
 
+type UpdateLabel = {
+  type: 'update-label';
+  payload: Label;
+};
+
 type UpdatePageAction = {
   type: 'update-page';
   payload: number;
@@ -36,18 +44,21 @@ type UpdatePageAction = {
 export type Action =
   | UpdateLanguageAction
   | UpdateSortingTagAction
-  | UpdatePageAction;
+  | UpdatePageAction
+  | UpdateLabel;
 
 export const defaultState: State = {
   language: DEFAULT_LANGUAGE,
   ordering: DEFAULT_ORDERING,
   page: DEFAULT_PAGE,
   sortingTag: DEFAULT_SORTING_TAG,
+  label: DEFAULT_LABEL,
   url: composeUrl(
     DEFAULT_LANGUAGE,
     DEFAULT_PAGE,
     DEFAULT_SORTING_TAG,
-    DEFAULT_ORDERING
+    DEFAULT_ORDERING,
+    DEFAULT_LABEL
   ),
 } as const;
 
@@ -70,7 +81,29 @@ export const reducer: Reducer<State, Action> = (state, action) => {
         ...state,
         language,
         page: 1,
-        url: composeUrl(language, state.page, state.sortingTag, state.ordering),
+        url: composeUrl(
+          language,
+          state.page,
+          state.sortingTag,
+          state.ordering,
+          state.label
+        ),
+      };
+
+    case 'update-label':
+      const label = action.payload;
+
+      return {
+        ...state,
+        label,
+        page: 1,
+        url: composeUrl(
+          state.language,
+          state.page,
+          state.sortingTag,
+          state.ordering,
+          label
+        ),
       };
 
     case 'update-sorting-tag':
@@ -85,7 +118,13 @@ export const reducer: Reducer<State, Action> = (state, action) => {
         ...state,
         ordering,
         sortingTag,
-        url: composeUrl(state.language, state.page, sortingTag, ordering),
+        url: composeUrl(
+          state.language,
+          state.page,
+          sortingTag,
+          ordering,
+          state.label
+        ),
       };
 
     case 'update-page':
@@ -99,7 +138,13 @@ export const reducer: Reducer<State, Action> = (state, action) => {
       return {
         ...state,
         page,
-        url: composeUrl(state.language, page, state.sortingTag, state.ordering),
+        url: composeUrl(
+          state.language,
+          page,
+          state.sortingTag,
+          state.ordering,
+          state.label
+        ),
       };
 
     default:
