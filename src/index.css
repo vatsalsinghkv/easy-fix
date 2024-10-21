@@ -52,3 +52,24 @@
 .heading-tertiary {
   @apply text-sm font-bold uppercase text-dark-2;
 }
+.back-to-top {
+  position: fixed;
+  bottom: 20px; 
+  right: 30px; 
+  z-index: 99;
+  background-color: #0c454d;
+  color: white;
+  border: none;
+  padding: 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  display: none; 
+}
+.back-to-top:hover {
+  background-color: #333;
+}
+.back-to-top-image {
+  width: 28px; 
+  height: 28px;
+}
