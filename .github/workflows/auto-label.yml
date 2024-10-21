@@ -1,0 +1,17 @@
+name: Auto Label PR
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v3
+      
+    - name: Auto-label PR based on status and content
+      uses: actions-ecosystem/action-labeler@v1
+      with:
+        configuration-path: .github/labeler.yml
