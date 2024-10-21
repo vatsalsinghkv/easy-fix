@@ -5,8 +5,20 @@ import { Label, sortedLabels } from '@/models/Label';
 import { Language, sortedLanguages } from '@/models/Language';
 import { SortingTag, sortedSortingTags } from '@/models/SortingTag';
 import { useUrlValues } from '@/providers/urlProvider';
+import { FormEvent, useState } from 'react';
 
 const Filter = () => {
+  const [customLabel, setCustomLabel] = useState("");
+
+  const [labels, setLabels] = useState(sortedLabels);
+
+  const customLabelHandler = (e: FormEvent) => {
+    e.preventDefault();
+    setLabels([...labels, customLabel]);
+    onLabelChange(customLabel);
+    setCustomLabel("");
+  }
+
   const { dispatch, language, ordering, sortingTag, label } = useUrlValues();
 
   const onLanguageChange = (payload: Language) => {
@@ -40,7 +52,7 @@ const Filter = () => {
 
       <MiniContainer title='labels'>
         <ul className='flex flex-wrap gap-3 mt-4'>
-          {sortedLabels.map((l) => (
+          {labels.map((l) => (
             <li key={toId(l)}>
               <Select
                 value={l}
@@ -51,6 +63,15 @@ const Filter = () => {
             </li>
           ))}
         </ul>
+        <form className='mt-2' onSubmit={(e) => { customLabelHandler(e) }}>
+          <input
+            value={customLabel}
+            type='input'
+            onChange={(e) => { setCustomLabel(e.target.value) }}
+            placeholder='+ add custom label'
+            className='block bg-transparent p-3 py-1.5 font-mono text-xs capitalize transition-all border rounded cursor-pointer hover:text-accent hover:border-accent focus:text-accent focus:border-accent border-dark-2 peer-hover:border-accent peer-focus:border-accent peer-focus:text-accent peer-checked:text-accent peer-checked:border-accent peer-checked:bg-accent-light peer-focus:outline-none'
+          />
+        </form>
       </MiniContainer>
 
       <MiniContainer title='sort'>
