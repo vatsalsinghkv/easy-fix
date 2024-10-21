@@ -1,4 +1,4 @@
-export const label = [
+export let label = [
   'none',
   'hacktoberfest',
   'good first issue',
@@ -6,7 +6,7 @@ export const label = [
   'enhancement',
   'documentation',
   'easy fix',
-] as const;
+];
 
 export const sortedLabels = [...label];
 
