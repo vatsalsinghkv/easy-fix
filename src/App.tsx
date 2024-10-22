@@ -1,5 +1,6 @@
 import { MiniContainer } from '@/components';
 import { Filter, Footer, Header, Issues } from '@/containers';
+import BackToTopButton from './components/BackToTopButton';
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
           <Issues />
         </div>
       </main>
+      <BackToTopButton />
       <Footer />
     </>
   );
