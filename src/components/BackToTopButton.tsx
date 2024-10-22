@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import topImage from "./assets/icons8-top-48.png";
+import { ChevronUp } from "lucide-react";
 
 const BackToTopButton: React.FC = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -36,7 +36,7 @@ const BackToTopButton: React.FC = () => {
       className="back-to-top"
       style={{ display: isVisible ? "block" : "none" }}
     >
-      <img src={topImage} alt="Go to top" className="back-to-top-image" />
+      <ChevronUp className="back-to-top-icon" />
     </button>
   );
 };
