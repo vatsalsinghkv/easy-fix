@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function useLocalStorage<T>(
   key: string,
@@ -9,16 +9,14 @@ export default function useLocalStorage<T>(
     return value ? JSON.parse(value) : initialValue;
   });
 
-  const setValue = (val: T | ((val: T) => T)) => {
-    const value = val instanceof Function ? val(storedValue) : val;
-    setStoredValue(value);
-    window.localStorage.setItem(key, JSON.stringify(value));
-  };
+  useEffect(() => {
+    window.localStorage.setItem(key, storedValue);
+  }, [storedValue]);
 
   const removeValue = () => {
     window.localStorage.removeItem(key);
     setStoredValue(initialValue);
   };
 
-  return [storedValue, setValue, removeValue];
+  return [storedValue, setStoredValue, removeValue];
 }
