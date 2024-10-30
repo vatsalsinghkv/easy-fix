@@ -29,15 +29,37 @@ const PaginationButton: FC<Props> = ({
     if (disable) return;
     if (!type) {
       onChange(+e.currentTarget.id);
-      window.scrollTo(0, 0);
+      if (window.innerWidth <= 430 && window.innerWidth >= 330) {
+        window.scrollTo({ top: 730, behavior: 'smooth' });
+    } else if (window.innerWidth <= 330) {
+        window.scrollTo({ top: 830, behavior: 'smooth' });
+    } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    
       return;
     }
     if (type === 'prev') {
       onChange(currentPage - 1);
-      window.scrollTo(0, 0);
+      if (window.innerWidth <= 430 && window.innerWidth >= 330) {
+        window.scrollTo({ top: 730, behavior: 'smooth' });
+    } else if (window.innerWidth <= 330) {
+        window.scrollTo({ top: 830, behavior: 'smooth' });
+    } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    
+
     } else if (type === 'next') {
       onChange(currentPage + 1);
-      window.scrollTo(0, 0);
+      if (window.innerWidth <= 430 && window.innerWidth >= 330) {
+        window.scrollTo({ top: 730, behavior: 'smooth' });
+    } else if (window.innerWidth <= 330) {
+        window.scrollTo({ top: 830, behavior: 'smooth' });
+    } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    
     }
   };
 
