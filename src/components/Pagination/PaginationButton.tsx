@@ -29,12 +29,15 @@ const PaginationButton: FC<Props> = ({
     if (disable) return;
     if (!type) {
       onChange(+e.currentTarget.id);
+      window.scrollTo(0, 0);
       return;
     }
     if (type === 'prev') {
       onChange(currentPage - 1);
+      window.scrollTo(0, 0);
     } else if (type === 'next') {
       onChange(currentPage + 1);
+      window.scrollTo(0, 0);
     }
   };
 
