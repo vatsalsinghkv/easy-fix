@@ -1,6 +1,18 @@
 import { Icon } from '@iconify-icon/react';
 import { useMemo, FC, MouseEvent } from 'react';
 
+
+// scroll to top while navigating through web-pages
+function scroll() {
+  if (window.innerWidth <= 430 && window.innerWidth >= 330) {
+    window.scrollTo({ top: 730, behavior: 'smooth' });
+} else if (window.innerWidth <= 330) {
+    window.scrollTo({ top: 830, behavior: 'smooth' });
+} else {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+}
+
 interface Props {
   item?: { label: number; isClickable?: boolean };
   type?: 'prev' | 'next';
@@ -29,37 +41,17 @@ const PaginationButton: FC<Props> = ({
     if (disable) return;
     if (!type) {
       onChange(+e.currentTarget.id);
-      if (window.innerWidth <= 430 && window.innerWidth >= 330) {
-        window.scrollTo({ top: 730, behavior: 'smooth' });
-    } else if (window.innerWidth <= 330) {
-        window.scrollTo({ top: 830, behavior: 'smooth' });
-    } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+      scroll();
     
       return;
     }
     if (type === 'prev') {
       onChange(currentPage - 1);
-      if (window.innerWidth <= 430 && window.innerWidth >= 330) {
-        window.scrollTo({ top: 730, behavior: 'smooth' });
-    } else if (window.innerWidth <= 330) {
-        window.scrollTo({ top: 830, behavior: 'smooth' });
-    } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-    
+      scroll();
 
     } else if (type === 'next') {
       onChange(currentPage + 1);
-      if (window.innerWidth <= 430 && window.innerWidth >= 330) {
-        window.scrollTo({ top: 730, behavior: 'smooth' });
-    } else if (window.innerWidth <= 330) {
-        window.scrollTo({ top: 830, behavior: 'smooth' });
-    } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-    
+      scroll();
     }
   };
 
