@@ -4,7 +4,7 @@ import { getTotalPages, toId } from '@/lib/utils';
 import httpGateway from '@/lib/utils/HttpGateway';
 import { MAX_ISSUES_ALLOWED } from '@/lib/utils/config';
 import { githubIssueSearchResponse } from '@/models/GithubIssueSearch';
-import { useUrlValues } from '@/providers/urlProvider';
+import { useUrlValues } from '@/providers/urlProvider/reducer';
 import { useEffect } from 'react';
 
 const Issues = () => {
