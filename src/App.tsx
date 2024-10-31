@@ -1,5 +1,6 @@
 import { MiniContainer } from '@/components';
-import { Filter, Footer, Header, Issues } from '@/containers';
+import { Filter, Issues } from '@/containers';
+import { Footer, Header } from '@/containers/layout';
 
 const App = () => {
   return (

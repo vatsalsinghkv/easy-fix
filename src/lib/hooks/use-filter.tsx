@@ -1,8 +1,8 @@
+import { useUrlValues } from '@/lib/hooks/useUrlValues';
 import { Label, sortedLabels } from '@/models/Label';
 import { Language } from '@/models/Language';
 import { Ordering } from '@/models/Ordering';
 import { SortingTag } from '@/models/SortingTag';
-import { useUrlValues } from '@/providers/urlProvider/reducer';
 import { FormEvent, createContext, useContext, useState } from 'react';
 
 type FilterContextType = {
