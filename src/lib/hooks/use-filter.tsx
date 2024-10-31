@@ -2,10 +2,9 @@ import { Label, sortedLabels } from '@/models/Label';
 import { Language } from '@/models/Language';
 import { Ordering } from '@/models/Ordering';
 import { SortingTag } from '@/models/SortingTag';
-import { useUrlValues } from '@/providers/urlProvider';
+import { useUrlValues } from '@/providers/urlProvider/reducer';
 import { FormEvent, createContext, useContext, useState } from 'react';
 
-// Define the type for the context state
 type FilterContextType = {
   customLabel: string;
   language: Language;

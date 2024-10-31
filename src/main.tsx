@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom/client';
 
 import FilterProvider from './lib/hooks/use-filter';
 import ThemeProvider from './lib/hooks/use-theme';
-import UrlProvider from './providers/urlProvider';
+import UrlProvider from './providers/urlProvider/reducer';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
