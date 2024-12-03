@@ -1,5 +1,6 @@
 import {
-  DEFAULT_LABELS,
+  DEFAULT_LABEL,
+  INITIAL_LABELS,
   ISSUE_PER_PAGE,
   ISSUE_URL,
   QUERIES,
@@ -142,10 +143,13 @@ export const composeUrl = (
   label: Label
 ) => {
   const langQuery = lang && lang !== 'all' ? `+language:${lang}` : '';
-  const defaultLabelQuery = `+label:${DEFAULT_LABELS.join(',')}`;
+  const defaultLabelQuery = `+label:${
+    label === 'none' ? INITIAL_LABELS.join(',') : label
+  }`;
+
   const labelQuery =
     label && label.toLocaleLowerCase() !== 'none'
-      ? `${defaultLabelQuery},${label}`
+      ? `${defaultLabelQuery}`
       : defaultLabelQuery;
 
   const searchParams = {
