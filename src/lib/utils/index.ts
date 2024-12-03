@@ -1,5 +1,4 @@
 import {
-  DEFAULT_LABEL,
   INITIAL_LABELS,
   ISSUE_PER_PAGE,
   ISSUE_URL,
@@ -156,7 +155,7 @@ export const composeUrl = (
     order,
     page,
     per_page: ISSUE_PER_PAGE,
-    q: `${QUERIES}+${langQuery}${labelQuery}`,
+    q: `${QUERIES}${langQuery}${labelQuery}`,
     sort,
   };
 
@@ -170,5 +169,6 @@ export const composeUrl = (
   // the API is not parsing the URL correctly :(
   url.search = decodeURIComponent(url.search);
 
+  console.log({ url: url.toString() });
   return url.toString();
 };
