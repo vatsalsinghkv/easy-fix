@@ -47,22 +47,27 @@ const Issues = () => {
   return (
     <div>
       <div className='py-5 space-y-3'>
-        {data.items.map((issue) => (
-          <Issue
-            date={issue.created_at}
-            key={issue.html_url}
-            repoUrl={issue.repository_url}
-            title={issue.title}
-            url={issue.html_url}
-            comments={issue.comments}
-          >
-            {issue.labels.map((label) => (
-              <Label key={toId(label.name)} className='mr-1.5 mt-2'>
-                {label.name}
-              </Label>
-            ))}
-          </Issue>
-        ))}
+        {/* Filters out pull requests */}
+        {data.items.map((issue) =>
+          !issue.html_url.includes('/pull/') ? (
+            <Issue
+              date={issue.created_at}
+              key={issue.html_url}
+              repoUrl={issue.repository_url}
+              title={issue.title}
+              url={issue.html_url}
+              comments={issue.comments}
+            >
+              {issue.labels.map((label) => (
+                <Label key={toId(label.name)} className='mr-1.5 mt-2'>
+                  {label.name}
+                </Label>
+              ))}
+            </Issue>
+          ) : (
+            <></>
+          )
+        )}
       </div>
       <Pagination
         currentPage={page}
