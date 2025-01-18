@@ -1,0 +1,36 @@
+name: Auto Label Issues Based on Title
+
+on:
+  issues:
+    types: [opened, edited]
+
+jobs:
+  label-issues:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Auto-label issues based on title
+        run: |
+          ISSUE_TITLE=$(jq -r .issue.title "$GITHUB_EVENT_PATH" | tr '[:upper:]' '[:lower:]')
+
+          if [[ "$ISSUE_TITLE" == *"bug"* ]]; then
+            LABELS="bug"
+          elif [[ "$ISSUE_TITLE" == *"enhancement"* ]]; then
+            LABELS="enhancement"
+          elif [[ "$ISSUE_TITLE" == *"documentation"* ]]; then
+            LABELS="documentation"
+          else
+            LABELS="help wanted"
+          fi
+
+          curl -X POST \
+            -H "Authorization: Bearer $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            -d "{\"labels\":[\"$LABELS\"]}" \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/issues/${{ github.event.issue.number }}/labels"
+          
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
