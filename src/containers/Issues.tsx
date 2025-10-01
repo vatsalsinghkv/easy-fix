@@ -1,4 +1,4 @@
-import { Error, Issue, Label, Loader, Pagination } from '@/components';
+import { Error, Issue, Label, Loader, Pagination, IssuesPerPageSelector } from '@/components';
 import useAsync from '@/lib/hooks/useAsync';
 import { useUrlValues } from '@/lib/hooks/useUrlValues';
 import { getTotalPages, toId } from '@/lib/utils';
@@ -8,7 +8,7 @@ import { githubIssueSearchResponse } from '@/models/GithubIssueSearch';
 import { useEffect } from 'react';
 
 const Issues = () => {
-  const { dispatch, page, url } = useUrlValues();
+  const { dispatch, page, url, itemsPerPage } = useUrlValues();
   const { data, error, isIdle, isPending, run } = useAsync(
     (signal) => httpGateway.Get({ url, signal }, githubIssueSearchResponse),
     { autoFetch: true }
@@ -16,6 +16,10 @@ const Issues = () => {
 
   const handlePageChange = (payload: number) => {
     dispatch({ type: 'update-page', payload });
+  };
+
+  const handleItemsPerPageChange = (itemsPerPage: number) => {
+    dispatch({ type: 'update-items-per-page', payload: itemsPerPage });
   };
 
   useEffect(() => {
@@ -69,15 +73,22 @@ const Issues = () => {
           )
         )}
       </div>
-      <Pagination
-        currentPage={page}
-        totalPages={getTotalPages(
-          data.total_count > MAX_ISSUES_ALLOWED
-            ? MAX_ISSUES_ALLOWED
-            : data.total_count
-        )}
-        onChange={handlePageChange}
-      />
+      <div className="flex items-center justify-between py-3 mb-5">
+        <IssuesPerPageSelector
+          value={itemsPerPage}
+          onChange={handleItemsPerPageChange}
+        />
+        <Pagination
+          currentPage={page}
+          totalPages={getTotalPages(
+            data.total_count > MAX_ISSUES_ALLOWED
+              ? MAX_ISSUES_ALLOWED
+              : data.total_count,
+            itemsPerPage
+          )}
+          onChange={handlePageChange}
+        />
+      </div>
     </div>
   );
 };

@@ -10,6 +10,7 @@ export type State = {
   page: number;
   sortingTag: SortingTag;
   label: Label;
+  itemsPerPage: number;
   url: string;
 };
 
@@ -33,11 +34,17 @@ type UpdatePageAction = {
   payload: number;
 };
 
+type UpdateItemsPerPageAction = {
+  type: 'update-items-per-page';
+  payload: number;
+};
+
 export type Action =
   | UpdateLanguageAction
   | UpdateSortingTagAction
   | UpdatePageAction
-  | UpdateLabel;
+  | UpdateLabel
+  | UpdateItemsPerPageAction;
 
 export const toggleOrdering = (
   currentSortingTag: SortingTag,

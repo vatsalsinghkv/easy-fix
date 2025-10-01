@@ -59,11 +59,12 @@ export const request = async <T>(url: string): Promise<T> => {
 /**
  * Returns total pages according to the no of data el
  * @param {Number} length - Number of data
+ * @param {Number} itemsPerPage - Number of items per page (optional)
  * @returns {Number} Total pages
  */
 
-export const getTotalPages = (length: number) => {
-  return Math.ceil(length / ISSUE_PER_PAGE);
+export const getTotalPages = (length: number, itemsPerPage: number = ISSUE_PER_PAGE) => {
+  return Math.ceil(length / itemsPerPage);
 };
 
 /**
@@ -139,7 +140,8 @@ export const composeUrl = (
   page: number,
   sort: SortingTag,
   order: Ordering,
-  label: Label
+  label: Label,
+  itemsPerPage: number = ISSUE_PER_PAGE
 ) => {
   const langQuery = lang && lang !== 'all' ? `+language:${lang}` : '';
   const defaultLabelQuery = `+label:${
@@ -154,7 +156,7 @@ export const composeUrl = (
   const searchParams = {
     order,
     page,
-    per_page: ISSUE_PER_PAGE,
+    per_page: itemsPerPage,
     q: `${QUERIES}${langQuery}${labelQuery}`,
     sort,
   };

@@ -6,6 +6,7 @@ import {
   DEFAULT_ORDERING,
   DEFAULT_PAGE,
   DEFAULT_SORTING_TAG,
+  DEFAULT_ISSUES_PER_PAGE,
 } from '@/lib/utils/config';
 import { Label } from '@/models/Label';
 import { Language } from '@/models/Language';
@@ -30,6 +31,7 @@ type UrlContextValue = {
   page: number;
   sortingTag: SortingTag;
   label: Label;
+  itemsPerPage: number;
   url: string;
 };
 
@@ -49,6 +51,10 @@ export const UrlProvider = ({ children }: PropsWithChildren) => {
     DEFAULT_SORTING_TAG
   );
   const [initLabel, setLabel] = useLocalStorage<Label>('label', DEFAULT_LABEL);
+  const [initItemsPerPage, setItemsPerPage] = useLocalStorage<number>(
+    'itemsPerPage',
+    DEFAULT_ISSUES_PER_PAGE
+  );
 
   const defaultState: State = {
     language: initLanguage,
@@ -56,12 +62,14 @@ export const UrlProvider = ({ children }: PropsWithChildren) => {
     page: DEFAULT_PAGE,
     sortingTag: initSortingTag,
     label: initLabel,
+    itemsPerPage: initItemsPerPage,
     url: composeUrl(
       initLanguage,
       DEFAULT_PAGE,
       initSortingTag,
       initOrdering,
-      initLabel
+      initLabel,
+      initItemsPerPage
     ),
   } as const;
 
@@ -77,10 +85,11 @@ export const UrlProvider = ({ children }: PropsWithChildren) => {
           page: 1,
           url: composeUrl(
             language,
-            state.page,
+            1,
             state.sortingTag,
             state.ordering,
-            state.label
+            state.label,
+            state.itemsPerPage
           ),
         };
 
@@ -94,10 +103,11 @@ export const UrlProvider = ({ children }: PropsWithChildren) => {
           page: 1,
           url: composeUrl(
             state.language,
-            state.page,
+            1,
             state.sortingTag,
             state.ordering,
-            label
+            label,
+            state.itemsPerPage
           ),
         };
 
@@ -121,7 +131,8 @@ export const UrlProvider = ({ children }: PropsWithChildren) => {
             state.page,
             sortingTag,
             ordering,
-            state.label
+            state.label,
+            state.itemsPerPage
           ),
         };
 
@@ -141,7 +152,26 @@ export const UrlProvider = ({ children }: PropsWithChildren) => {
             page,
             state.sortingTag,
             state.ordering,
-            state.label
+            state.label,
+            state.itemsPerPage
+          ),
+        };
+
+      case 'update-items-per-page':
+        const itemsPerPage = action.payload;
+        setItemsPerPage(itemsPerPage);
+
+        return {
+          ...state,
+          itemsPerPage,
+          page: 1, // Reset to first page when changing items per page
+          url: composeUrl(
+            state.language,
+            1,
+            state.sortingTag,
+            state.ordering,
+            state.label,
+            itemsPerPage
           ),
         };
 
@@ -150,7 +180,7 @@ export const UrlProvider = ({ children }: PropsWithChildren) => {
     }
   };
 
-  const [{ language, ordering, page, sortingTag, url, label }, dispatch] =
+  const [{ language, ordering, page, sortingTag, url, label, itemsPerPage }, dispatch] =
     useReducer<Reducer<State, Action>>(reducer, defaultState);
 
   const value = useMemo(
@@ -162,8 +192,9 @@ export const UrlProvider = ({ children }: PropsWithChildren) => {
       sortingTag,
       url,
       label,
+      itemsPerPage,
     }),
-    [dispatch, language, ordering, page, sortingTag, label, url]
+    [dispatch, language, ordering, page, sortingTag, label, url, itemsPerPage]
   );
   return <UrlContext.Provider value={value}>{children}</UrlContext.Provider>;
 };
