@@ -13,6 +13,18 @@ class HttpGateway implements HttpGatewayBase {
     const text = await response.text();
 
     if (!response.ok) {
+      if (response.status === 403 && text.includes('API rate limit exceeded')) {
+        const resetTime = response.headers.get('x-ratelimit-reset');
+        const remaining = resetTime
+          ? Math.ceil((parseInt(resetTime, 10) * 1000 - Date.now()) / 1000)
+          : 60; // default to 1 minute if header is missing
+        return Promise.reject<never>(
+          new Error(
+            `API rate limit exceeded. Please wait for ${remaining} seconds before trying again.`,
+            { cause: 'rate-limit-exceeded' }
+          )
+        );
+      }
       return Promise.reject<never>(new Error('Something went wrong: ' + text));
     }
 
