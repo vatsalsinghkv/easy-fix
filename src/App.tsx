@@ -1,6 +1,7 @@
 import { MiniContainer } from '@/components';
 import { Filter, Footer, Header, Issues } from '@/containers';
 import BackToTopButton from './components/BackToTopButton';
+import { Footer, Header } from '@/containers/layout';
 
 const App = () => {
   return (

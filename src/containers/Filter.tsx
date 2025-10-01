@@ -1,37 +1,24 @@
 import { MiniContainer, Select } from '@/components';
 import SortingTagFilter from '@/components/SortingTagFilter';
+import { useFilter } from '@/lib/hooks/use-filter';
 import { toId } from '@/lib/utils';
-import { Label, sortedLabels } from '@/models/Label';
-import { Language, sortedLanguages } from '@/models/Language';
-import { SortingTag, sortedSortingTags } from '@/models/SortingTag';
-import { useUrlValues } from '@/providers/urlProvider';
-import { FormEvent, useState } from 'react';
+import { sortedLanguages } from '@/models/Language';
+import { sortedSortingTags } from '@/models/SortingTag';
 
 const Filter = () => {
-  const [customLabel, setCustomLabel] = useState("");
-
-  const [labels, setLabels] = useState(sortedLabels);
-
-  const customLabelHandler = (e: FormEvent) => {
-    e.preventDefault();
-    setLabels([...labels, customLabel]);
-    onLabelChange(customLabel);
-    setCustomLabel("");
-  }
-
-  const { dispatch, language, ordering, sortingTag, label } = useUrlValues();
-
-  const onLanguageChange = (payload: Language) => {
-    return () => dispatch({ type: 'update-language', payload });
-  };
-
-  const onLabelChange = (payload: Label) => {
-    return () => dispatch({ type: 'update-label', payload });
-  };
-
-  const onSortingTagClick = (payload: SortingTag) => {
-    return () => dispatch({ type: 'update-sorting-tag', payload });
-  };
+  const {
+    language,
+    label,
+    labels,
+    ordering,
+    sortingTag,
+    customLabel,
+    customLabelHandler,
+    languageChangeHandler,
+    labelsChangeHandler,
+    sortingTagClickHandler,
+    setCustomLabel,
+  } = useFilter();
 
   return (
     <>
@@ -43,7 +30,7 @@ const Filter = () => {
                 value={lang}
                 checked={lang === language}
                 name={lang}
-                onChange={onLanguageChange(lang)}
+                onChange={languageChangeHandler(lang)}
               />
             </li>
           ))}
@@ -58,16 +45,23 @@ const Filter = () => {
                 value={l}
                 checked={l === label}
                 name={l}
-                onChange={onLabelChange(l)}
+                onChange={labelsChangeHandler(l)}
               />
             </li>
           ))}
         </ul>
-        <form className='mt-2' onSubmit={(e) => { customLabelHandler(e) }}>
+        <form
+          className='mt-2'
+          onSubmit={(e) => {
+            customLabelHandler(e);
+          }}
+        >
           <input
             value={customLabel}
             type='input'
-            onChange={(e) => { setCustomLabel(e.target.value) }}
+            onChange={(e) => {
+              setCustomLabel(e.target.value);
+            }}
             placeholder='+ add custom label'
             className='block bg-transparent p-3 py-1.5 font-mono text-xs capitalize transition-all border rounded cursor-pointer hover:text-accent hover:border-accent focus:text-accent focus:border-accent border-dark-2 peer-hover:border-accent peer-focus:border-accent peer-focus:text-accent peer-checked:text-accent peer-checked:border-accent peer-checked:bg-accent-light peer-focus:outline-none'
           />
@@ -80,7 +74,7 @@ const Filter = () => {
             <li key={tag}>
               <SortingTagFilter
                 isSelected={tag === sortingTag}
-                onClick={onSortingTagClick(tag)}
+                onClick={sortingTagClickHandler(tag)}
                 ordering={ordering}
                 value={tag}
               />

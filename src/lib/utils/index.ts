@@ -1,5 +1,5 @@
 import {
-  DEFAULT_LABELS,
+  INITIAL_LABELS,
   ISSUE_PER_PAGE,
   ISSUE_URL,
   QUERIES,
@@ -142,17 +142,20 @@ export const composeUrl = (
   label: Label
 ) => {
   const langQuery = lang && lang !== 'all' ? `+language:${lang}` : '';
-  const defaultLabelQuery = `+label:${DEFAULT_LABELS.join(',')}`;
+  const defaultLabelQuery = `+label:${
+    label === 'none' ? INITIAL_LABELS.join(',') : label
+  }`;
+
   const labelQuery =
     label && label.toLocaleLowerCase() !== 'none'
-      ? `${defaultLabelQuery},${label}`
+      ? `${defaultLabelQuery}`
       : defaultLabelQuery;
 
   const searchParams = {
     order,
     page,
     per_page: ISSUE_PER_PAGE,
-    q: `${QUERIES}+${langQuery}${labelQuery}`,
+    q: `${QUERIES}${langQuery}${labelQuery}`,
     sort,
   };
 
@@ -166,5 +169,6 @@ export const composeUrl = (
   // the API is not parsing the URL correctly :(
   url.search = decodeURIComponent(url.search);
 
+  console.log({ url: url.toString() });
   return url.toString();
 };

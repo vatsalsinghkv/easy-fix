@@ -1,10 +1,6 @@
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import { createContext, useCallback, useContext, useEffect } from 'react';
+
+import useLocalStorage from './use-local-storage';
 
 const initialState = {
   isDarkMode: false,
@@ -26,9 +22,14 @@ export default function ThemeProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(
-    JSON.parse(localStorage.getItem('darkMode') ?? 'true')
+  const [isDarkMode, setIsDarkMode] = useLocalStorage<boolean>(
+    'darkMode',
+    true
   );
+
+  /* const [isDarkMode, setIsDarkMode] = useState<boolean>(
+    JSON.parse(localStorage.getItem('darkMode') ?? 'true')
+  ); */
 
   const toggle = useCallback(() => {
     setIsDarkMode((prev) => !prev);
@@ -43,7 +44,7 @@ export default function ThemeProvider({
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('darkMode', JSON.stringify(isDarkMode));
+    setIsDarkMode(isDarkMode);
     if (isDarkMode) {
       document.documentElement.classList.add('dark');
     } else {

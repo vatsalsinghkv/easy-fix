@@ -1,3 +1,4 @@
+import UrlProvider, { useUrlValues } from '@/lib/hooks/useUrlValues';
 import { composeUrl } from '@/lib/utils';
 import {
   DEFAULT_LANGUAGE,
@@ -5,7 +6,6 @@ import {
   DEFAULT_PAGE,
   DEFAULT_SORTING_TAG,
 } from '@/lib/utils/config';
-import UrlProvider, { useUrlValues } from '@/providers/urlProvider';
 import { act, render } from '@testing-library/react';
 import { beforeEach, describe, expect, it } from 'vitest';
 
