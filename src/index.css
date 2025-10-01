@@ -18,15 +18,16 @@
 
   /* Light Mode */
   :root {
-    --color-bg: #fcfaf8;
-    --color-bg-secondary: theme(colors.zinc.200/0.6);
-    --color-accent: theme(colors.teal.500);
-    --color-accent-light: theme(colors.teal.400/0.2);
-    --color-text: theme(colors.slate.500);
-    --color-dark-1: theme(colors.slate.500);
-    --color-dark-2: theme(colors.slate.400);
-    --color-dark-3: #a2a2a2;
-  }
+  --color-bg: #ffffff; 
+  --color-bg-secondary: #f1f5f9; 
+  
+  --color-accent: #1E40AF; 
+  --color-accent-light: rgba(30, 64, 175, 0.15);
+  --color-text: #1e293b;   
+  --color-dark-1: #334155; 
+  --color-dark-2: #64748b; 
+  --color-dark-3: #94a3b8;
+}
 
   .dark {
     --color-bg: theme(colors.slate.900);
