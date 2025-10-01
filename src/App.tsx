@@ -1,5 +1,6 @@
 import { MiniContainer } from '@/components';
-import { Filter, Issues } from '@/containers';
+import { Filter, Footer, Header, Issues } from '@/containers';
+import BackToTopButton from './components/BackToTopButton';
 import { Footer, Header } from '@/containers/layout';
 
 const App = () => {
@@ -20,6 +21,7 @@ const App = () => {
           <Issues />
         </div>
       </main>
+      <BackToTopButton />
       <Footer />
     </>
   );
