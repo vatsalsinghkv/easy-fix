@@ -6,14 +6,15 @@
     "plugin:react/recommended",
     "plugin:react/jsx-runtime",
     "plugin:react-hooks/recommended",
+    "plugin:@typescript-eslint/recommended",
     "prettier",
     "plugin:vitest/recommended"
   ],
   "ignorePatterns": ["dist", ".eslintrc.cjs", "**/*.html"],
   "parserOptions": { "ecmaVersion": "latest", "sourceType": "module" },
   "settings": { "react": { "version": "18.2" } },
-  "plugins": ["react-refresh", "unused-imports", "vitest"],
-  "parser": "@babel/eslint-parser",
+  "plugins": ["react-refresh", "unused-imports", "vitest", "@typescript-eslint"],
+  "parser": "@typescript-eslint/parser",
   "rules": {
     "react-refresh/only-export-components": [
       "warn",
