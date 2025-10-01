@@ -10,7 +10,7 @@ export const QUERIES = ['state:open'].join('+');
 
 export const DEFAULT_LANGUAGE: Language = 'all';
 export const DEFAULT_ORDERING: Ordering = 'desc';
-export const DEFAULT_LABEL: Label = 'gsoc';
+export const DEFAULT_LABEL: Label = 'hacktoberfest';
 export const DEFAULT_PAGE = 1;
 export const DEFAULT_SORTING_TAG: SortingTag = 'best-match';
 export const DEFAULT_ISSUES_PER_PAGE = 10;
