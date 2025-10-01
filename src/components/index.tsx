@@ -1,5 +1,6 @@
 export { default as Error } from './Error';
 export { default as Issue } from './issue';
+export { default as IssuesPerPageSelector } from './IssuesPerPageSelector';
 export { default as Label } from './Label';
 export { default as Loader } from './Loader';
 export { default as Logo } from './Logo';
