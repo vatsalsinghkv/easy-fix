@@ -7,24 +7,98 @@ on:
 jobs:
   close-issue:
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: read
 
     if: github.event.pull_request.merged == true
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Check for issue reference
+      - name: Extract and close referenced issues
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REPO: ${{ github.repository }}
         run: |
-          ISSUE_NUMBER=$(echo "${{ github.event.pull_request.body }}" | grep -oP '(?<=#)\d+')
-          echo "Issue number: $ISSUE_NUMBER"
-          if [ -n "$ISSUE_NUMBER" ]; then
-            echo "Closing issue #$ISSUE_NUMBER"
-            curl -X PATCH \
-              -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-              -H "Accept: application/vnd.github+json" \
-              https://api.github.com/repos/${{ github.repository }}/issues/$ISSUE_NUMBER \
-              -d '{"state":"closed"}'
-          else
-            echo "No issue referenced in the PR description"
+          echo "🔍 Checking PR #$PR_NUMBER for issue references..."
+          echo "PR Title: $PR_TITLE"
+          echo "PR Body: $PR_BODY"
+          
+          # Combine PR title and body for comprehensive search
+          SEARCH_TEXT="$PR_TITLE $PR_BODY"
+          
+          # Extract issue numbers from various formats:
+          # - fixes #123, fix #123, fixed #123
+          # - closes #123, close #123, closed #123  
+          # - resolves #123, resolve #123, resolved #123
+          # - addresses #123, address #123, addressed #123
+          # - #123 (standalone)
+          ISSUE_NUMBERS=$(echo "$SEARCH_TEXT" | grep -oiE '(fix(es|ed)?|clos(es|ed)?|resolv(es|ed)?|address(es|ed)?)?\s*#[0-9]+' | grep -oE '[0-9]+' | sort -u)
+          
+          if [ -z "$ISSUE_NUMBERS" ]; then
+            echo "No issue references found in PR title or description"
+            exit 0
           fi
+          
+          echo "Found issue references: $(echo $ISSUE_NUMBERS | tr '\n' ' ')"
+          
+          # Close each referenced issue
+          for ISSUE_NUMBER in $ISSUE_NUMBERS; do
+            echo "Processing issue #$ISSUE_NUMBER..."
+            
+            # Check if issue exists and is open
+            ISSUE_STATE=$(curl -s \
+              -H "Authorization: Bearer $GITHUB_TOKEN" \
+              -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/$REPO/issues/$ISSUE_NUMBER" | \
+              jq -r '.state // "not_found"')
+            
+            if [ "$ISSUE_STATE" = "not_found" ] || [ "$ISSUE_STATE" = "null" ]; then
+              echo "Issue #$ISSUE_NUMBER not found or inaccessible"
+              continue
+            fi
+            
+            if [ "$ISSUE_STATE" = "closed" ]; then
+              echo "ℹIssue #$ISSUE_NUMBER is already closed"
+              continue
+            fi
+            
+            if [ "$ISSUE_STATE" = "open" ]; then
+              echo "Closing issue #$ISSUE_NUMBER..."
+              
+              # Close the issue with a comment
+              CLOSE_RESPONSE=$(curl -s -w "%{http_code}" \
+                -X PATCH \
+                -H "Authorization: Bearer $GITHUB_TOKEN" \
+                -H "Accept: application/vnd.github+json" \
+                "https://api.github.com/repos/$REPO/issues/$ISSUE_NUMBER" \
+                -d "{\"state\":\"closed\"}")
+              
+              HTTP_CODE="${CLOSE_RESPONSE: -3}"
+              
+              if [ "$HTTP_CODE" = "200" ]; then
+                echo "Successfully closed issue #$ISSUE_NUMBER"
+                
+                # Add a comment to the issue
+                curl -s \
+                  -X POST \
+                  -H "Authorization: Bearer $GITHUB_TOKEN" \
+                  -H "Accept: application/vnd.github+json" \
+                  "https://api.github.com/repos/$REPO/issues/$ISSUE_NUMBER/comments" \
+                  -d "{\"body\":\" This issue has been automatically closed because it was resolved by PR #$PR_NUMBER.\"}" > /dev/null
+                
+                echo "Added closure comment to issue #$ISSUE_NUMBER"
+              else
+                echo "Failed to close issue #$ISSUE_NUMBER (HTTP $HTTP_CODE)"
+              fi
+            else
+              echo "Issue #$ISSUE_NUMBER has unexpected state: $ISSUE_STATE"
+            fi
+          done
+          
+          echo "Issue processing completed!"
