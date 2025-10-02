@@ -35,6 +35,13 @@ const Issues = () => {
   }
 
   if (error) {
+    if (error.cause === 'rate-limit-exceeded') {
+      return (
+        <div>
+          <Error title='Rate Limit Exceeded'>{error.message}</Error>
+        </div>
+      );
+    }
     return (
       <div>
         <Error title='Oops! Something went wrong'>{error.message}</Error>
