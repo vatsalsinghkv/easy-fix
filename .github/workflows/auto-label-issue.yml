@@ -1,4 +1,4 @@
-name: Auto Label Issues Based on Title
+name: Auto Label Issues Based on Title and Content
 
 on:
   issues:
@@ -7,33 +7,131 @@ on:
 jobs:
   label-issues:
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: read
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Auto-label issues based on title
-        run: |
-          ISSUE_TITLE=$(jq -r .issue.title "$GITHUB_EVENT_PATH" | tr '[:upper:]' '[:lower:]')
-          if [[ "$ISSUE_TITLE" == *"bug"* ]]; then
-           LABELS="bug"
-          elif [[ "$ISSUE_TITLE" == *"feature"* ]]; then
-            LABELS="feature"
-          elif [[ "$ISSUE_TITLE" == *"enhancement"* ]]; then
-            LABELS="enhancement"
-          elif [[ "$ISSUE_TITLE" == *"documentation"* ]]; then
-            LABELS="documentation"
-          else
-            LABELS="help wanted"
-          fi
-
-          curl -X POST \
-            -H "Authorization: Bearer $GITHUB_TOKEN" \
-
-            -H "Accept: application/vnd.github.v3+json" \
-
-            -d "{\"labels\":[\"$LABELS\"]}" \
-            "https://api.github.com/repos/${GITHUB_REPOSITORY}/issues/${{ github.event.issue.number }}/labels"
-
+      - name: Auto-label issues based on title and content
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          REPO: ${{ github.repository }}
+        run: |
+          echo " Auto-labeling issue #$ISSUE_NUMBER"
+          echo "Title: $ISSUE_TITLE"
+          echo "Body: $ISSUE_BODY"
+          
+          # Convert to lowercase for case-insensitive matching
+          TITLE_LOWER=$(echo "$ISSUE_TITLE" | tr '[:upper:]' '[:lower:]')
+          BODY_LOWER=$(echo "$ISSUE_BODY" | tr '[:upper:]' '[:lower:]')
+          COMBINED_TEXT="$TITLE_LOWER $BODY_LOWER"
+          
+          # Initialize labels array
+          LABELS=()
+          
+          # Type-based labels (mutually exclusive - use first match)
+          if [[ "$COMBINED_TEXT" =~ (bug|error|issue|problem|broken|fail|crash|exception) ]]; then
+            LABELS+=("bug")
+            echo " Detected: Bug"
+          elif [[ "$COMBINED_TEXT" =~ (feature|add|new|implement|create) ]]; then
+            LABELS+=("enhancement")
+            echo " Detected: Enhancement"
+          elif [[ "$COMBINED_TEXT" =~ (doc|documentation|readme|guide|tutorial) ]]; then
+            LABELS+=("documentation")
+            echo "Detected: Documentation"
+          elif [[ "$COMBINED_TEXT" =~ (refactor|improve|optimize|clean|restructure) ]]; then
+            LABELS+=("refactoring")
+            echo " Detected: Refactoring"
+          elif [[ "$COMBINED_TEXT" =~ (test|testing|spec|unit test|integration test) ]]; then
+            LABELS+=("testing")
+            echo " Detected: Testing"
+          fi
+          
+          # Priority labels
+          if [[ "$COMBINED_TEXT" =~ (urgent|critical|blocker|asap|immediately) ]]; then
+            LABELS+=("priority: high")
+            echo " Detected: High Priority"
+          elif [[ "$COMBINED_TEXT" =~ (minor|small|trivial|nice to have|low priority) ]]; then
+            LABELS+=("priority: low")
+            echo "Detected: Low Priority"
+          fi
+          
+          # Difficulty labels
+          if [[ "$COMBINED_TEXT" =~ (beginner|easy|simple|starter|first time|good first issue) ]]; then
+            LABELS+=("good first issue")
+            echo " Detected: Good First Issue"
+          elif [[ "$COMBINED_TEXT" =~ (complex|advanced|difficult|hard|expert) ]]; then
+            LABELS+=("advanced")
+            echo "Detected: Advanced"
+          fi
+          
+          # Technology-specific labels
+          if [[ "$COMBINED_TEXT" =~ (react|jsx|tsx|component) ]]; then
+            LABELS+=("react")
+            echo " Detected: React"
+          fi
+          
+          if [[ "$COMBINED_TEXT" =~ (typescript|ts|type|interface) ]]; then
+            LABELS+=("typescript")
+            echo "Detected: TypeScript"
+          fi
+          
+          if [[ "$COMBINED_TEXT" =~ (css|style|styling|tailwind|design) ]]; then
+            LABELS+=("styling")
+            echo " Detected: Styling"
+          fi
+          
+          if [[ "$COMBINED_TEXT" =~ (api|endpoint|request|response|fetch) ]]; then
+            LABELS+=("api")
+            echo "Detected: API"
+          fi
+          
+          if [[ "$COMBINED_TEXT" =~ (performance|slow|speed|optimize|load time) ]]; then
+            LABELS+=("performance")
+            echo "⚡ Detected: Performance"
+          fi
+          
+          if [[ "$COMBINED_TEXT" =~ (security|vulnerability|exploit|auth|permission) ]]; then
+            LABELS+=("security")
+            echo "Detected: Security"
+          fi
+          
+          if [[ "$COMBINED_TEXT" =~ (accessibility|a11y|screen reader|aria) ]]; then
+            LABELS+=("accessibility")
+            echo "♿ Detected: Accessibility"
+          fi
+          
+          # Default label if no specific type detected
+          if [ ${#LABELS[@]} -eq 0 ]; then
+            LABELS+=("help wanted")
+            echo " Default: Help Wanted"
+          fi
+          
+          # Convert array to JSON format
+          LABELS_JSON=$(printf '%s\n' "${LABELS[@]}" | jq -R . | jq -s .)
+          
+          echo "Applying labels: ${LABELS[*]}"
+          
+          # Apply labels
+          RESPONSE=$(curl -s -w "%{http_code}" \
+            -X POST \
+            -H "Authorization: Bearer $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            -d "{\"labels\":$LABELS_JSON}" \
+            "https://api.github.com/repos/$REPO/issues/$ISSUE_NUMBER/labels")
+          
+          HTTP_CODE="${RESPONSE: -3}"
+          
+          if [ "$HTTP_CODE" = "200" ]; then
+            echo "Successfully applied labels to issue #$ISSUE_NUMBER"
+          else
+            echo "Failed to apply labels (HTTP $HTTP_CODE)"
+            echo "Response: ${RESPONSE%???}"
+          fi
