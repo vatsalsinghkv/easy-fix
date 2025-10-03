@@ -9,11 +9,13 @@ const Logo: React.FC<Props> = ({ title, className }) => {
 
   return (
     <h1
-      className={`text-3xl font-light leading-relaxed sm:text-4xl ${className}`}
+      className={`text-3xl font-bold leading-relaxed sm:text-4xl transition-all hover:scale-105 ${className}`}
     >
-      <a href='/'>
-        <span className='font-sans font-medium text-dark-1'>{first}</span>{' '}
-        <span className='font-mono text-accent'>{rest.join(' ')}</span>
+      <a href='/' className='flex items-center gap-2'>
+        <span className='font-sans font-bold text-dark-1'>{first}</span>{' '}
+        <span className='font-mono font-extrabold gradient-text'>
+          {rest.join(' ')}
+        </span>
       </a>
     </h1>
   );

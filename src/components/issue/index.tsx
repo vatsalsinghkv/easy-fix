@@ -28,7 +28,7 @@ export const Issue = ({
 
   return (
     <a
-      className='block p-5 border rounded-md border-dark-3 hover:bg-bg-secondary min-h-[105px] focus:bg-bg-secondary group'
+      className='block p-6 border-2 rounded-xl border-dark-3 bg-bg-secondary/20 backdrop-blur-sm hover:bg-bg-secondary/40 hover:border-accent/50 min-h-[105px] focus:bg-bg-secondary/40 focus:border-accent/50 group transition-all hover:shadow-glow/50 hover:scale-[1.02] card-glow'
       href={url}
       target='_blank'
       rel='noreferrer'
@@ -39,10 +39,10 @@ export const Issue = ({
         stargazersCount={data?.stargazers_count}
         comments={comments}
       />
-      <h3 className='text-base font-medium md:text-lg text-dark-1 group-hover:text-accent group-focus:text-accent'>
+      <h3 className='text-base font-semibold md:text-lg text-dark-1 group-hover:text-accent group-focus:text-accent transition-colors'>
         {title}
       </h3>
-      <div className='flex flex-wrap'>{children}</div>
+      <div className='flex flex-wrap gap-2 mt-2'>{children}</div>
     </a>
   );
 };
