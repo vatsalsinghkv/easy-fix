@@ -1,0 +1,91 @@
+name: Setup Repository Labels
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, master]
+    paths:
+      - '.github/workflows/setup-labels.yml'
+
+jobs:
+  setup-labels:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: read
+
+    steps:
+      - name: Setup Repository Labels
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          echo "🏷️ Setting up repository labels..."
+          
+          # Define labels with their colors and descriptions
+          declare -A LABELS=(
+            ["bug"]="#d73a4a|Something isn't working"
+            ["enhancement"]="#a2eeef|New feature or request"
+            ["documentation"]="#0075ca|Improvements or additions to documentation"
+            ["refactoring"]="#fbca04|Code improvements and restructuring"
+            ["testing"]="#0e8a16|Related to testing"
+            ["priority: high"]="#d93f0b|High priority issue"
+            ["priority: low"]="#6c757d|Low priority issue"
+            ["good first issue"]="#7057ff|Good for newcomers"
+            ["advanced"]="#b60205|Requires advanced knowledge"
+            ["help wanted"]="#008672|Extra attention is needed"
+            ["react"]="#61dafb|Related to React"
+            ["typescript"]="#3178c6|Related to TypeScript"
+            ["styling"]="#e99695|CSS, styling, design"
+            ["api"]="#5319e7|API related"
+            ["performance"]="#ff6b6b|Performance improvements"
+            ["security"]="#ee0701|Security related"
+            ["accessibility"]="#54473f|Accessibility improvements"
+          )
+          
+          for label in "${!LABELS[@]}"; do
+            IFS='|' read -r color description <<< "${LABELS[$label]}"
+            
+            echo "Creating label: $label"
+            
+            # Check if label exists
+            EXISTING=$(curl -s \
+              -H "Authorization: Bearer $GITHUB_TOKEN" \
+              -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/$REPO/labels/$label" | \
+              jq -r '.name // "not_found"')
+            
+            if [ "$EXISTING" = "not_found" ]; then
+              # Create new label
+              RESPONSE=$(curl -s -w "%{http_code}" \
+                -X POST \
+                -H "Authorization: Bearer $GITHUB_TOKEN" \
+                -H "Accept: application/vnd.github+json" \
+                -d "{\"name\":\"$label\",\"color\":\"${color#\#}\",\"description\":\"$description\"}" \
+                "https://api.github.com/repos/$REPO/labels")
+              
+              HTTP_CODE="${RESPONSE: -3}"
+              if [ "$HTTP_CODE" = "201" ]; then
+                echo "✅ Created label: $label"
+              else
+                echo "❌ Failed to create label: $label (HTTP $HTTP_CODE)"
+              fi
+            else
+              # Update existing label
+              RESPONSE=$(curl -s -w "%{http_code}" \
+                -X PATCH \
+                -H "Authorization: Bearer $GITHUB_TOKEN" \
+                -H "Accept: application/vnd.github+json" \
+                -d "{\"color\":\"${color#\#}\",\"description\":\"$description\"}" \
+                "https://api.github.com/repos/$REPO/labels/$label")
+              
+              HTTP_CODE="${RESPONSE: -3}"
+              if [ "$HTTP_CODE" = "200" ]; then
+                echo "🔄 Updated label: $label"
+              else
+                echo "❌ Failed to update label: $label (HTTP $HTTP_CODE)"
+              fi
+            fi
+          done
+          
+          echo "🎉 Label setup completed!"
