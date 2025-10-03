@@ -11,12 +11,12 @@ const Footer = () => {
       </a>
       <div className="social-media flex justify-center space-x-4 mt-2">
         <a
-          href="https://twitter.com/vatsalsinghkv"
+          href="https://x.com/vatsalsinghkv"
           target="_blank"
           rel="noreferrer"
           className="text-dark-2 hover:text-accent transition-colors"
         >
-          <i className="fab fa-twitter text-2xl"></i>
+          <i className="fab fa-x-twitter text-2xl"></i>
         </a>
         <a
           href="https://github.com/vatsalsinghkv"
@@ -41,6 +41,14 @@ const Footer = () => {
           className="text-dark-2 hover:text-accent transition-colors"
         >
           <i className="fab fa-facebook text-2xl"></i>
+        </a>
+        <a
+          href="https://www.instagram.com/vatsalsinghkv"
+          target="_blank"
+          rel="noreferrer"
+          className="text-dark-2 hover:text-accent transition-colors"
+        >
+          <i className="fab fa-instagram text-2xl"></i>
         </a>
       </div>
     </footer>
