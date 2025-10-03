@@ -9,7 +9,12 @@ type Props = {
   comments: number;
 };
 
-export const IssueData: FC<Props> = ({ date, fullName, stargazersCount, comments }) => (
+export const IssueData: FC<Props> = ({
+  date,
+  fullName,
+  stargazersCount,
+  comments,
+}) => (
   <div className='flex flex-wrap justify-between gap-1 mb-1 font-mono text-xs transition-all text-dark-2 group-hover:text-dark-1 group-focus:text-dark-1'>
     <p
       aria-label='repository-name'
@@ -18,11 +23,13 @@ export const IssueData: FC<Props> = ({ date, fullName, stargazersCount, comments
       {fullName}
     </p>
     <div className='flex items-center gap-2.5'>
-      <span
-        aria-label='comments-count'
-        className='flex items-center gap-0.5'
-      >
-        <Icon className='mt-0.5' icon='mdi:comment-outline' height={13} width={13} />
+      <span aria-label='comments-count' className='flex items-center gap-0.5'>
+        <Icon
+          className='mt-0.5'
+          icon='mdi:comment-outline'
+          height={13}
+          width={13}
+        />
         {convertToK(comments)}
       </span>
       {stargazersCount && stargazersCount > 0 ? (

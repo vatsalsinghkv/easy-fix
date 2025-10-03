@@ -1,4 +1,4 @@
-export let label = [
+export const label = [
   'none',
   'hacktoberfest',
   'hacktoberfest2025',

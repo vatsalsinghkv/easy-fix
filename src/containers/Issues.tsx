@@ -1,4 +1,11 @@
-import { Error, Issue, Label, Loader, Pagination, IssuesPerPageSelector } from '@/components';
+import {
+  Error,
+  Issue,
+  IssuesPerPageSelector,
+  Label,
+  Loader,
+  Pagination,
+} from '@/components';
 import useAsync from '@/lib/hooks/useAsync';
 import { useUrlValues } from '@/lib/hooks/useUrlValues';
 import { getTotalPages, toId } from '@/lib/utils';
@@ -80,7 +87,7 @@ const Issues = () => {
           )
         )}
       </div>
-      <div className="flex items-center justify-between py-3 mb-5">
+      <div className='flex items-center justify-between py-3 mb-5'>
         <IssuesPerPageSelector
           value={itemsPerPage}
           onChange={handleItemsPerPageChange}

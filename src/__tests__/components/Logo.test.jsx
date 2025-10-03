@@ -1,6 +1,5 @@
-import { render, screen } from '@testing-library/react';
-
 import { Logo } from '@/components';
+import { render, screen } from '@testing-library/react';
 
 describe('Logo', () => {
   it('renders the logo with the correct title', () => {

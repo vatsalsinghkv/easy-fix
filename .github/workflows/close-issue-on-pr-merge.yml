@@ -28,10 +28,10 @@ jobs:
           echo "🔍 Checking PR #$PR_NUMBER for issue references..."
           echo "PR Title: $PR_TITLE"
           echo "PR Body: $PR_BODY"
-          
+
           # Combine PR title and body for comprehensive search
           SEARCH_TEXT="$PR_TITLE $PR_BODY"
-          
+
           # Extract issue numbers from various formats:
           # - fixes #123, fix #123, fixed #123
           # - closes #123, close #123, closed #123  
@@ -39,14 +39,14 @@ jobs:
           # - addresses #123, address #123, addressed #123
           # - #123 (standalone)
           ISSUE_NUMBERS=$(echo "$SEARCH_TEXT" | grep -oiE '(fix(es|ed)?|clos(es|ed)?|resolv(es|ed)?|address(es|ed)?)?\s*#[0-9]+' | grep -oE '[0-9]+' | sort -u)
-          
+
           if [ -z "$ISSUE_NUMBERS" ]; then
             echo "No issue references found in PR title or description"
             exit 0
           fi
-          
+
           echo "Found issue references: $(echo $ISSUE_NUMBERS | tr '\n' ' ')"
-          
+
           # Close each referenced issue
           for ISSUE_NUMBER in $ISSUE_NUMBERS; do
             echo "Processing issue #$ISSUE_NUMBER..."
@@ -100,5 +100,5 @@ jobs:
               echo "Issue #$ISSUE_NUMBER has unexpected state: $ISSUE_STATE"
             fi
           done
-          
+
           echo "Issue processing completed!"

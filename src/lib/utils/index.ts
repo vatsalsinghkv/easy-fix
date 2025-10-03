@@ -63,7 +63,10 @@ export const request = async <T>(url: string): Promise<T> => {
  * @returns {Number} Total pages
  */
 
-export const getTotalPages = (length: number, itemsPerPage: number = ISSUE_PER_PAGE) => {
+export const getTotalPages = (
+  length: number,
+  itemsPerPage: number = ISSUE_PER_PAGE
+) => {
   return Math.ceil(length / itemsPerPage);
 };
 

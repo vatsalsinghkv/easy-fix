@@ -26,15 +26,15 @@ jobs:
           echo " Auto-labeling issue #$ISSUE_NUMBER"
           echo "Title: $ISSUE_TITLE"
           echo "Body: $ISSUE_BODY"
-          
+
           # Convert to lowercase for case-insensitive matching
           TITLE_LOWER=$(echo "$ISSUE_TITLE" | tr '[:upper:]' '[:lower:]')
           BODY_LOWER=$(echo "$ISSUE_BODY" | tr '[:upper:]' '[:lower:]')
           COMBINED_TEXT="$TITLE_LOWER $BODY_LOWER"
-          
+
           # Initialize labels array
           LABELS=()
-          
+
           # Type-based labels (mutually exclusive - use first match)
           if [[ "$COMBINED_TEXT" =~ (bug|error|issue|problem|broken|fail|crash|exception) ]]; then
             LABELS+=("bug")
@@ -52,7 +52,7 @@ jobs:
             LABELS+=("testing")
             echo " Detected: Testing"
           fi
-          
+
           # Priority labels
           if [[ "$COMBINED_TEXT" =~ (urgent|critical|blocker|asap|immediately) ]]; then
             LABELS+=("priority: high")
@@ -61,7 +61,7 @@ jobs:
             LABELS+=("priority: low")
             echo "Detected: Low Priority"
           fi
-          
+
           # Difficulty labels
           if [[ "$COMBINED_TEXT" =~ (beginner|easy|simple|starter|first time|good first issue) ]]; then
             LABELS+=("good first issue")
@@ -70,54 +70,54 @@ jobs:
             LABELS+=("advanced")
             echo "Detected: Advanced"
           fi
-          
+
           # Technology-specific labels
           if [[ "$COMBINED_TEXT" =~ (react|jsx|tsx|component) ]]; then
             LABELS+=("react")
             echo " Detected: React"
           fi
-          
+
           if [[ "$COMBINED_TEXT" =~ (typescript|ts|type|interface) ]]; then
             LABELS+=("typescript")
             echo "Detected: TypeScript"
           fi
-          
+
           if [[ "$COMBINED_TEXT" =~ (css|style|styling|tailwind|design) ]]; then
             LABELS+=("styling")
             echo " Detected: Styling"
           fi
-          
+
           if [[ "$COMBINED_TEXT" =~ (api|endpoint|request|response|fetch) ]]; then
             LABELS+=("api")
             echo "Detected: API"
           fi
-          
+
           if [[ "$COMBINED_TEXT" =~ (performance|slow|speed|optimize|load time) ]]; then
             LABELS+=("performance")
             echo "⚡ Detected: Performance"
           fi
-          
+
           if [[ "$COMBINED_TEXT" =~ (security|vulnerability|exploit|auth|permission) ]]; then
             LABELS+=("security")
             echo "Detected: Security"
           fi
-          
+
           if [[ "$COMBINED_TEXT" =~ (accessibility|a11y|screen reader|aria) ]]; then
             LABELS+=("accessibility")
             echo "♿ Detected: Accessibility"
           fi
-          
+
           # Default label if no specific type detected
           if [ ${#LABELS[@]} -eq 0 ]; then
             LABELS+=("help wanted")
             echo " Default: Help Wanted"
           fi
-          
+
           # Convert array to JSON format
           LABELS_JSON=$(printf '%s\n' "${LABELS[@]}" | jq -R . | jq -s .)
-          
+
           echo "Applying labels: ${LABELS[*]}"
-          
+
           # Apply labels
           RESPONSE=$(curl -s -w "%{http_code}" \
             -X POST \
@@ -126,9 +126,9 @@ jobs:
             -H "X-GitHub-Api-Version: 2022-11-28" \
             -d "{\"labels\":$LABELS_JSON}" \
             "https://api.github.com/repos/$REPO/issues/$ISSUE_NUMBER/labels")
-          
+
           HTTP_CODE="${RESPONSE: -3}"
-          
+
           if [ "$HTTP_CODE" = "200" ]; then
             echo "Successfully applied labels to issue #$ISSUE_NUMBER"
           else
