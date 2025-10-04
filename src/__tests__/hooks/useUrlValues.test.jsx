@@ -1,6 +1,8 @@
 import UrlProvider, { useUrlValues } from '@/lib/hooks/useUrlValues';
 import { composeUrl } from '@/lib/utils';
 import {
+  DEFAULT_ISSUES_PER_PAGE,
+  DEFAULT_LABEL,
   DEFAULT_LANGUAGE,
   DEFAULT_ORDERING,
   DEFAULT_PAGE,
@@ -17,6 +19,9 @@ describe('useUrlValues', () => {
   }
 
   beforeEach(() => {
+    // Clear localStorage before each test to ensure clean state
+    localStorage.clear();
+
     render(
       <UrlProvider>
         <TestComponent />
@@ -31,11 +36,15 @@ describe('useUrlValues', () => {
       ordering: DEFAULT_ORDERING,
       page: DEFAULT_PAGE,
       sortingTag: DEFAULT_SORTING_TAG,
+      label: DEFAULT_LABEL,
+      itemsPerPage: DEFAULT_ISSUES_PER_PAGE,
       url: composeUrl(
         DEFAULT_LANGUAGE,
         DEFAULT_PAGE,
         DEFAULT_SORTING_TAG,
-        DEFAULT_ORDERING
+        DEFAULT_ORDERING,
+        DEFAULT_LABEL,
+        DEFAULT_ISSUES_PER_PAGE
       ),
     });
   });
@@ -92,7 +101,9 @@ describe('useUrlValues', () => {
       DEFAULT_LANGUAGE,
       2,
       DEFAULT_SORTING_TAG,
-      DEFAULT_ORDERING
+      DEFAULT_ORDERING,
+      DEFAULT_LABEL,
+      DEFAULT_ISSUES_PER_PAGE
     );
     expect(result.url).toBe(expectedUrl);
 
@@ -103,9 +114,11 @@ describe('useUrlValues', () => {
 
     expectedUrl = composeUrl(
       'javascript',
-      2,
+      1,
       DEFAULT_SORTING_TAG,
-      DEFAULT_ORDERING
+      DEFAULT_ORDERING,
+      DEFAULT_LABEL,
+      DEFAULT_ISSUES_PER_PAGE
     );
     expect(result.url).toBe(expectedUrl);
 
@@ -114,7 +127,14 @@ describe('useUrlValues', () => {
       result.dispatch({ type: 'update-sorting-tag', payload: 'reactions' });
     });
 
-    expectedUrl = composeUrl('javascript', 1, 'reactions', DEFAULT_ORDERING);
+    expectedUrl = composeUrl(
+      'javascript',
+      1,
+      'reactions',
+      DEFAULT_ORDERING,
+      DEFAULT_LABEL,
+      DEFAULT_ISSUES_PER_PAGE
+    );
     expect(result.url).toBe(expectedUrl);
 
     act(() => {
@@ -122,7 +142,14 @@ describe('useUrlValues', () => {
       result.dispatch({ type: 'update-sorting-tag', payload: 'reactions' });
     });
 
-    expectedUrl = composeUrl('javascript', 1, 'reactions', 'asc');
+    expectedUrl = composeUrl(
+      'javascript',
+      1,
+      'reactions',
+      'asc',
+      DEFAULT_LABEL,
+      DEFAULT_ISSUES_PER_PAGE
+    );
     expect(result.url).toBe(expectedUrl);
   });
 });

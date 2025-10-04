@@ -13,6 +13,7 @@ class HttpGateway implements HttpGatewayBase {
     const text = await response.text();
 
     if (!response.ok) {
+      // Handle GitHub API rate limit
       if (response.status === 403 && text.includes('API rate limit exceeded')) {
         const resetTime = response.headers.get('x-ratelimit-reset');
         const remaining = resetTime
@@ -25,6 +26,20 @@ class HttpGateway implements HttpGatewayBase {
           )
         );
       }
+
+      // Handle GitHub abuse detection mechanism
+      if (
+        response.status === 403 &&
+        text.includes('abuse detection mechanism')
+      ) {
+        return Promise.reject<never>(
+          new Error(
+            'GitHub has detected unusual activity. Please wait a few minutes before trying again.',
+            { cause: 'abuse-detection' }
+          )
+        );
+      }
+
       return Promise.reject<never>(new Error('Something went wrong: ' + text));
     }
 

@@ -63,7 +63,10 @@ export const request = async <T>(url: string): Promise<T> => {
  * @returns {Number} Total pages
  */
 
-export const getTotalPages = (length: number, itemsPerPage: number = ISSUE_PER_PAGE) => {
+export const getTotalPages = (
+  length: number,
+  itemsPerPage: number = ISSUE_PER_PAGE
+) => {
   return Math.ceil(length / itemsPerPage);
 };
 
@@ -153,13 +156,18 @@ export const composeUrl = (
       ? `${defaultLabelQuery}`
       : defaultLabelQuery;
 
-  const searchParams = {
-    order,
+  const searchParams: Record<string, string | number> = {
     page,
     per_page: itemsPerPage,
     q: `${QUERIES}${langQuery}${labelQuery}`,
-    sort,
   };
+
+  // Only include sort and order if sort is not 'best-match'
+  // GitHub API uses best-match by default when sort is not specified
+  if (sort && sort !== 'best-match') {
+    searchParams.sort = sort;
+    searchParams.order = order;
+  }
 
   const url = new URL(ISSUE_URL);
 
