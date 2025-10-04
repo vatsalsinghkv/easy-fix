@@ -22,7 +22,7 @@ const Select: React.FC<Props> = ({ name, value, onChange, checked }) => {
         value={value}
       />
       <label
-        className='block p-3 py-1.5 font-mono text-xs capitalize transition-all border rounded cursor-pointer hover:text-accent hover:border-accent focus:text-accent focus:border-accent border-dark-2 peer-hover:border-accent peer-focus:border-accent peer-focus:text-accent peer-checked:text-accent peer-checked:border-accent peer-checked:bg-accent-light peer-focus:outline-none'
+        className='block px-4 py-2 font-mono text-sm font-semibold capitalize transition-all border-2 rounded-lg cursor-pointer hover:text-accent hover:border-accent hover:shadow-glow focus:text-accent focus:border-accent border-dark-3 peer-hover:border-accent peer-hover:scale-105 peer-focus:border-accent peer-focus:text-accent peer-checked:text-bg peer-checked:border-accent peer-checked:bg-accent peer-checked:shadow-glow peer-focus:outline-none'
         htmlFor={toId(name)}
       >
         {name}
