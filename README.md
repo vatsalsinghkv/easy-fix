@@ -40,7 +40,7 @@
 
 ## 💡 How to Contribute
 
-Join us and contribute to the project! 
+Join us and contribute to the project!
 
 [![Join Discord](https://img.shields.io/discord/702354117747146845?color=5865F2&label=Join%20Our%20Discord&logo=discord&style=for-the-badge)](https://discord.gg/St2dHg9YwA)
 
@@ -49,24 +49,27 @@ Join us and contribute to the project!
 To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) installed.
 
 1. Fork the repository and clone the project:
-    ```bash
-    git clone https://github.com/<YOUR-USERNAME>/easy-fix.git
-    ```
+
+   ```bash
+   git clone https://github.com/<YOUR-USERNAME>/easy-fix.git
+   ```
 
 2. Go to the project directory:
-    ```bash
-    cd easy-fix
-    ```
+
+   ```bash
+   cd easy-fix
+   ```
 
 3. Install dependencies:
-    ```bash
-    yarn
-    ```
+
+   ```bash
+   yarn
+   ```
 
 4. Start the development server:
-    ```bash
-    yarn dev
-    ```
+   ```bash
+   yarn dev
+   ```
 
 To change the **configuration**, edit the file: `src/lib/utils/config.js`.
 

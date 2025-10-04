@@ -1,29 +1,29 @@
 # Auto-label PRs based on files modified
 frontend:
-  - "frontend/**"
-  - "*.html"
-  - "*.css"
-  - "*.js"
+  - 'frontend/**'
+  - '*.html'
+  - '*.css'
+  - '*.js'
 
 backend:
-  - "backend/**"
-  - "*.py"
-  - "*.go"
-  - "*.java"
+  - 'backend/**'
+  - '*.py'
+  - '*.go'
+  - '*.java'
 
 documentation:
-  - "*.md"
-  - "docs/**"
+  - '*.md'
+  - 'docs/**'
 
 # Auto-label based on PR title or description content
 bugfix:
-  - "fix"
-  - "bug"
-  
+  - 'fix'
+  - 'bug'
+
 feature:
-  - "feature"
-  - "enhance"
+  - 'feature'
+  - 'enhance'
 
 # Auto-label based on PR state
 draft:
-  - "draft"
+  - 'draft'

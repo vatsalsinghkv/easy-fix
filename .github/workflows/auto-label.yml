@@ -11,10 +11,10 @@ jobs:
       contents: read
       pull-requests: write
     steps:
-    - name: Check out repository
-      uses: actions/checkout@v4
-      
-    - name: Auto-label PR based on status and content
-      uses: actions/labeler@v5
-      with:
-        configuration-path: .github/labeler.yml
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Auto-label PR based on status and content
+        uses: actions/labeler@v5
+        with:
+          configuration-path: .github/labeler.yml

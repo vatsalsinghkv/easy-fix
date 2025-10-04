@@ -1,16 +1,15 @@
 import { Icon } from '@iconify-icon/react';
-import { useMemo, FC, MouseEvent } from 'react';
-
+import { FC, MouseEvent, useMemo } from 'react';
 
 // scroll to top while navigating through web-pages
 function scroll() {
   if (window.innerWidth <= 430 && window.innerWidth >= 330) {
     window.scrollTo({ top: 730, behavior: 'smooth' });
-} else if (window.innerWidth <= 330) {
+  } else if (window.innerWidth <= 330) {
     window.scrollTo({ top: 830, behavior: 'smooth' });
-} else {
+  } else {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-}
+  }
 }
 
 interface Props {
@@ -42,13 +41,12 @@ const PaginationButton: FC<Props> = ({
     if (!type) {
       onChange(+e.currentTarget.id);
       scroll();
-    
+
       return;
     }
     if (type === 'prev') {
       onChange(currentPage - 1);
       scroll();
-
     } else if (type === 'next') {
       onChange(currentPage + 1);
       scroll();
@@ -60,13 +58,15 @@ const PaginationButton: FC<Props> = ({
   if (item?.isClickable || type) {
     return (
       <button
-        className={`flex items-center justify-center h-8 w-8 md:h-9 md:w-9 font-mono text-sm border rounded ${selected
+        className={`flex items-center justify-center h-8 w-8 md:h-9 md:w-9 font-mono text-sm border rounded ${
+          selected
             ? 'bg-accent-light text-accent border-accent'
             : 'border-slate-400'
-          } ${disable
+        } ${
+          disable
             ? 'cursor-not-allowed opacity-50'
             : 'hover:text-accent focus:border-accent focus:text-accent hover:border-accent'
-          }`}
+        }`}
         id={type || (item && String(item.label))}
         aria-label={type || (item && String(item.label))}
         onClick={clickHandler}

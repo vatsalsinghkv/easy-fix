@@ -1,12 +1,12 @@
 import useLocalStorage from '@/lib/hooks/use-local-storage';
 import { composeUrl } from '@/lib/utils';
 import {
+  DEFAULT_ISSUES_PER_PAGE,
   DEFAULT_LABEL,
   DEFAULT_LANGUAGE,
   DEFAULT_ORDERING,
   DEFAULT_PAGE,
   DEFAULT_SORTING_TAG,
-  DEFAULT_ISSUES_PER_PAGE,
 } from '@/lib/utils/config';
 import { Label } from '@/models/Label';
 import { Language } from '@/models/Language';
@@ -180,8 +180,10 @@ export const UrlProvider = ({ children }: PropsWithChildren) => {
     }
   };
 
-  const [{ language, ordering, page, sortingTag, url, label, itemsPerPage }, dispatch] =
-    useReducer<Reducer<State, Action>>(reducer, defaultState);
+  const [
+    { language, ordering, page, sortingTag, url, label, itemsPerPage },
+    dispatch,
+  ] = useReducer<Reducer<State, Action>>(reducer, defaultState);
 
   const value = useMemo(
     () => ({

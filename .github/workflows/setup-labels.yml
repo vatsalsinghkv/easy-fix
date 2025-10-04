@@ -21,7 +21,7 @@ jobs:
           REPO: ${{ github.repository }}
         run: |
           echo "🏷️ Setting up repository labels..."
-          
+
           # Define labels with their colors and descriptions
           declare -A LABELS=(
             ["bug"]="#d73a4a|Something isn't working"
@@ -42,7 +42,7 @@ jobs:
             ["security"]="#ee0701|Security related"
             ["accessibility"]="#54473f|Accessibility improvements"
           )
-          
+
           for label in "${!LABELS[@]}"; do
             IFS='|' read -r color description <<< "${LABELS[$label]}"
             
@@ -87,5 +87,5 @@ jobs:
               fi
             fi
           done
-          
+
           echo "🎉 Label setup completed!"

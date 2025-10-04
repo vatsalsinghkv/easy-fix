@@ -1,7 +1,7 @@
-import React, { useMemo } from 'react';
 import PaginationButton from '@/components/Pagination/PaginationButton';
 import { TOTAL_SIBLING_BUTTONS } from '@/lib/utils/config';
 import { Icon } from '@iconify-icon/react';
+import React, { useMemo } from 'react';
 
 interface Props {
   totalPages: number;
