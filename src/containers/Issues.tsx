@@ -80,7 +80,7 @@ const Issues = () => {
           )
         )}
       </div>
-      <div className="flex items-center justify-between py-3 mb-5">
+      <div className="flex flex-wrap items-center justify-between py-3 mb-5">
         <IssuesPerPageSelector
           value={itemsPerPage}
           onChange={handleItemsPerPageChange}

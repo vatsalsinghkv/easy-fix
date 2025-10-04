@@ -44,7 +44,7 @@ const Pagination: React.FC<Props> = ({ totalPages, currentPage, onChange }) => {
   if (totalPages <= 1) return null;
 
   return (
-    <div className='flex items-center justify-center gap-3 py-3 mb-5'>
+    <div className='flex items-center justify-center gap-3 py-3'>
       <PaginationButton
         onChange={onChange}
         currentPage={currentPage}
