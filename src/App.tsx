@@ -1,7 +1,8 @@
 import { MiniContainer } from '@/components';
 import { Filter, Issues } from '@/containers';
-import BackToTopButton from './components/BackToTopButton';
 import { Footer, Header } from '@/containers/layout';
+
+import BackToTopButton from './components/BackToTopButton';
 
 const App = () => {
   return (
@@ -21,7 +22,7 @@ const App = () => {
           <Issues />
         </div>
       </main>
-      <BackToTopButton />
+      {/* <BackToTopButton /> */}
       <Footer />
     </>
   );

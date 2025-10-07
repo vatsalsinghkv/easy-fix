@@ -38,17 +38,29 @@
     --color-dark-1: #334155;
     --color-dark-2: #64748b;
     --color-dark-3: #94a3b8;
+
+    /* Gradient colors */
+    --g-primary-s: rgba(90, 90, 181, 0.15);
+    --g-primary-e: rgba(194, 194, 255, 0.15);
+    --g-secondary-s: rgba(28, 28, 63, 0);
+    --g-secondary-e: rgba(90, 90, 181, 0.15);
   }
 
   .dark {
-    --color-bg: #1c1c3f;
-    --color-bg-secondary: theme(colors.indigo.900/0.3);
-    --color-accent: #a3a3ff;
+    --color-bg: rgb(28, 28, 63);
+    --color-bg-secondary: rgba(90, 90, 181, 0.15);
+    --color-accent: rgb(163, 163, 255);
     --color-accent-light: rgba(64, 63, 125, 0.5);
     --color-text: #d0cce3;
     --color-dark-1: #ffffff;
     --color-dark-2: theme(colors.slate.400);
-    --color-dark-3: theme(colors.slate.700);
+    --color-dark-3: rgb(64, 63, 125);
+
+    /* Gradient colors */
+    --g-primary-s: rgba(90, 90, 181, 0.15);
+    --g-primary-e: rgba(194, 194, 255, 0.15);
+    --g-secondary-s: rgba(28, 28, 63, 0);
+    --g-secondary-e: rgba(90, 90, 181, 0.15);
   }
 
   * {
@@ -60,10 +72,22 @@
   @apply w-11/12 mx-auto max-w-screen-xl;
 }
 
+.gradient-primary {
+  @apply bg-gradient-to-r from-[var(--g-primary-s)] to-[var(--g-primary-e)];
+}
+.gradient-secondary {
+  @apply bg-gradient-to-b from-[var(--g-secondary-s)] to-[var(--g-secondary-e)];
+}
+
+.border-inset-primary {
+  box-shadow: inset 0 0 0 1px rgb(64, 63, 125);
+}
+
 /* Typography */
 .heading-tertiary {
   @apply text-sm font-bold uppercase text-dark-2;
 }
+
 .back-to-top {
   position: fixed;
   bottom: 20px;
