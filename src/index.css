@@ -16,26 +16,37 @@
   /* --color-accent: theme(colors.teal.300);
   --color-accent-light: theme(colors.teal.400/0.2); */
 
-  /* Light Mode */
-  :root {
-  --color-bg: #ffffff; 
-  --color-bg-secondary: #f1f5f9; 
-  
-  --color-accent: #1E40AF; 
-  --color-accent-light: rgba(30, 64, 175, 0.15);
-  --color-text: #1e293b;   
-  --color-dark-1: #334155; 
-  --color-dark-2: #64748b; 
-  --color-dark-3: #94a3b8;
-}
-
-  .dark {
+  /* .dark {
     --color-bg: theme(colors.slate.900);
     --color-bg-secondary: theme(colors.slate.800/0.6);
     --color-accent: #00ffd5;
     --color-accent-light: rgba(0, 255, 213, 0.2);
     --color-text: theme(colors.slate.300);
     --color-dark-1: theme(colors.slate.200);
+    --color-dark-2: theme(colors.slate.400);
+    --color-dark-3: theme(colors.slate.700);
+  } */
+
+  /* Light Mode */
+  :root {
+    --color-bg: #ffffff;
+    --color-bg-secondary: #f1f5f9;
+
+    --color-accent: #1e40af;
+    --color-accent-light: #1e40af26;
+    --color-text: #1e293b;
+    --color-dark-1: #334155;
+    --color-dark-2: #64748b;
+    --color-dark-3: #94a3b8;
+  }
+
+  .dark {
+    --color-bg: #1c1c3f;
+    --color-bg-secondary: theme(colors.indigo.900/0.3);
+    --color-accent: #a3a3ff;
+    --color-accent-light: rgba(64, 63, 125, 0.5);
+    --color-text: #d0cce3;
+    --color-dark-1: #ffffff;
     --color-dark-2: theme(colors.slate.400);
     --color-dark-3: theme(colors.slate.700);
   }
@@ -55,33 +66,28 @@
 }
 .back-to-top {
   position: fixed;
-  bottom: 20px; 
-  right: 30px; 
+  bottom: 20px;
+  right: 30px;
   z-index: 99;
   background-color: #0f172a;
   color: white;
   border: 1.5px solid rgba(148, 163, 184, 1);
   padding: 1px;
   border-radius: 8px;
-  cursor: pointer; 
-  width: 50px; 
+  cursor: pointer;
+  width: 50px;
   height: 40px;
-  
 }
 .back-to-top:hover {
   border: 1.5px solid #00ffd5;
-  
 }
 .back-to-top:hover .back-to-top-icon {
   color: #00ffd5;
 }
 
-
-.back-to-top-icon
-{
+.back-to-top-icon {
   color: #94a3b8;
   position: fixed;
-  bottom: 27px; 
-  right: 42.5px; 
-   
+  bottom: 27px;
+  right: 42.5px;
 }
