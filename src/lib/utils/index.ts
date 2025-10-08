@@ -9,8 +9,8 @@ import { Label } from '@/models/Label';
 import { Language } from '@/models/Language';
 import { Ordering } from '@/models/Ordering';
 import { SortingTag } from '@/models/SortingTag';
-
-const PAT = import.meta.env.VITE_REACT_APP_GITHUB_PAT;
+import { type ClassValue, clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 /**
  * Returns a rejected Promise after given seconds
@@ -18,6 +18,12 @@ const PAT = import.meta.env.VITE_REACT_APP_GITHUB_PAT;
  * @param {number} sec - How much time before rejecting promise
  * @returns {Promise} Settled (Rejected) Promise
  */
+
+const PAT = import.meta.env.VITE_REACT_APP_GITHUB_PAT;
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
 
 export const delay = async (sec: number): Promise<never> => {
   return new Promise<never>((_, reject) => {
@@ -63,7 +69,10 @@ export const request = async <T>(url: string): Promise<T> => {
  * @returns {Number} Total pages
  */
 
-export const getTotalPages = (length: number, itemsPerPage: number = ISSUE_PER_PAGE) => {
+export const getTotalPages = (
+  length: number,
+  itemsPerPage: number = ISSUE_PER_PAGE
+) => {
   return Math.ceil(length / itemsPerPage);
 };
 
