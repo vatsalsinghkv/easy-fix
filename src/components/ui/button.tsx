@@ -8,7 +8,9 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          'font-mono flex gap-2 justify-center items-center text-sm capitalize transition-all border rounded  hover:text-accent hover:border-accent focus:text-accent focus:border-accent border-slate-400 peer-checked:text-accent hover:bg-accent-light focus:bg-accent-light',
+          'font-mono text-sm capitalize transition-all border rounded hover:text-accent hover:border-accent focus:text-accent focus:border-accent border-slate-400 peer-checked:text-accent hover:bg-accent-light focus:bg-accent-light',
+        input:
+          'font-mono text-sm capitalize transition-all border rounded hover:text-accent hover:border-accent focus:text-accent focus:border-accent border-slate-400 peer-checked:text-accent focus:bg-accent-light peer-checked:text-accent peer-checked:border-accent peer-checked:bg-accent-light peer-focus:outline-none',
         destructive:
           'bg-destructive text-white shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60',
         outline:
@@ -21,9 +23,9 @@ const buttonVariants = cva(
       },
       size: {
         default: 'p-3 py-1.5',
-        sm: 'rounded-md p-3 py-1.5 has-[>svg]:px-2.5',
+        sm: 'text-xs rounded p-3 py-1.5 has-[>svg]:px-2.5',
         lg: 'h-10 rounded-md px-6 has-[>svg]:px-4',
-        icon: 'size-9',
+        icon: 'h-8 w-8 md:h-9 md:w-9',
       },
     },
     defaultVariants: {
@@ -33,38 +35,46 @@ const buttonVariants = cva(
   }
 );
 
-interface DefaultProps {
-  children: React.ReactNode | string;
-  className?: string;
-  size?: 'lg' | 'sm';
-  center?: boolean;
-}
-
 interface LinkProps extends React.ComponentProps<'a'> {
   href: string;
   sameTab?: boolean;
 }
 
-interface ButtonProps extends React.ComponentProps<'button'> {
+interface ButtonProps extends Omit<React.ComponentProps<'button'>, 'type'> {
+  type?: 'button' | 'submit' | 'reset';
+  onClick?: (event: React.MouseEvent) => void;
+}
+
+interface InputProps extends React.ComponentProps<'input'> {
+  onClick?: (event: React.MouseEvent) => void;
+}
+
+interface LabelProps extends React.ComponentProps<'label'> {
   onClick?: (event: React.MouseEvent) => void;
 }
 
 type Props =
   | ({
-      type?: 'button';
-    } & ButtonProps &
-      DefaultProps)
+      as?: 'button';
+    } & ButtonProps)
   | ({
-      type: 'link';
-    } & LinkProps &
-      DefaultProps);
+      as: 'link';
+    } & LinkProps)
+  | ({
+      as: 'input';
+    } & InputProps)
+  | ({
+      as: 'label';
+    } & LabelProps);
 
 function Button(props: Props & VariantProps<typeof buttonVariants>) {
   const { className, variant, size, children, ...rest } = props;
-  const isLink = props.type === 'link';
+  const isLink = props.as === 'link';
+  const isInput = props.as === 'input';
+  const isLabel = props.as === 'label';
 
   if (isLink) {
-    const { href, sameTab, ...linkProps } = rest as LinkProps & DefaultProps;
+    const { href, sameTab, ...linkProps } = rest as LinkProps;
     return (
       <a
         href={href}
@@ -78,8 +88,29 @@ function Button(props: Props & VariantProps<typeof buttonVariants>) {
     );
   }
 
+  if (isInput) {
+    return (
+      <input
+        className={cn(buttonVariants({ variant, size, className }))}
+        {...(rest as InputProps)}
+      />
+    );
+  }
+
+  if (isLabel) {
+    return (
+      <label
+        className={cn(buttonVariants({ variant, size, className }))}
+        {...(rest as LabelProps)}
+      >
+        {children}
+      </label>
+    );
+  }
+
   return (
     <button
+      type='button'
       className={cn(buttonVariants({ variant, size, className }))}
       {...(rest as ButtonProps)}
     >

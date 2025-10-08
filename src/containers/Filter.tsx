@@ -1,5 +1,6 @@
 import { MiniContainer, Select } from '@/components';
 import SortingTagFilter from '@/components/SortingTagFilter';
+import { Button } from '@/components/ui/button';
 import { useFilter } from '@/lib/hooks/use-filter';
 import { toId } from '@/lib/utils';
 import { sortedLanguages } from '@/models/Language';
@@ -56,14 +57,16 @@ const Filter = () => {
             customLabelHandler(e);
           }}
         >
-          <input
+          <Button
+            as='input'
+            size={'sm' as const}
             value={customLabel}
-            type='input'
-            onChange={(e) => {
+            type='text'
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setCustomLabel(e.target.value);
             }}
             placeholder='+ add custom label'
-            className='block bg-transparent p-3 py-1.5 font-mono text-xs capitalize transition-all border rounded cursor-pointer hover:text-accent hover:border-accent focus:text-accent focus:border-accent border-dark-2 peer-hover:border-accent peer-focus:border-accent peer-focus:text-accent peer-checked:text-accent peer-checked:border-accent peer-checked:bg-accent-light peer-focus:outline-none'
+            className='block bg-transparent'
           />
         </form>
       </MiniContainer>

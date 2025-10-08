@@ -11,7 +11,7 @@ const Header = () => {
       <div className='container flex justify-between items-center'>
         <Logo title='Easy Fix' />
         <div className='flex gap-4 justify-center items-center'>
-          <Button type='link' href='https://github.com/vatsalsinghkv/easy-fix'>
+          <Button as='link' href='https://github.com/vatsalsinghkv/easy-fix'>
             <Icon icon='mdi:github' height={20} />
             Github
           </Button>
