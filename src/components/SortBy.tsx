@@ -1,4 +1,4 @@
-import { toId } from '@/lib/utils';
+import { toId } from '@/lib/utils/helper';
 import React from 'react';
 
 interface Props {
@@ -9,32 +9,24 @@ interface Props {
   onSortChange: (id: string) => void;
 }
 
-const SortBy: React.FC<Props> = ({
-  name,
-  value,
-  setOrder,
-  order,
-  onSortChange,
-}) => {
-  const activeClasses = 'text-bg border-accent bg-accent shadow-glow';
+const SortBy: React.FC<Props> = ({ name, value, setOrder, order, onSortChange }) => {
+  const activeClasses = "text-accent border-accent bg-accent-light";
   return (
     <div>
-      <div
-        className={`cursor-pointer flex px-4 py-2 font-mono text-sm font-semibold capitalize transition-all border-2 rounded-lg hover:text-accent hover:border-accent hover:shadow-glow hover:scale-105 focus:text-accent focus:border-accent border-dark-3 relative group ${
-          name === value ? activeClasses : ''
-        }`}
-        onClick={() => onSortChange(toId(name))}
-      >
-        <label className='cursor-pointer'>{name}</label>
+      <div className={`cursor-pointer flex p-3 py-1.5 font-mono text-xs capitalize transition-all border rounded hover:text-accent hover:border-accent focus:text-accent focus:border-accent border-slate-400 relative group ${name === value ? activeClasses : ''}`}
+        onClick={() => onSortChange(toId(name))}>
+        <label className='cursor-pointer'>
+          {name}
+        </label>
         <span
-          className='group ml-2 cursor-pointer'
+          className='group text-accent ml-2 cursor-pointer'
           onClick={() => setOrder(toId(name))}
           data-testid={toId(name)}
         >
           <svg
             fill='currentColor'
-            height='18px'
-            width='18px'
+            height='15px'
+            width='15px'
             version='1.1'
             id='Capa_1'
             viewBox='0 0 490 490'
@@ -51,7 +43,7 @@ const SortBy: React.FC<Props> = ({
             </g>
           </svg>
         </span>
-        <span className='absolute top-12 scale-0 transition-all rounded-lg bg-gradient-hacktober border border-accent px-3 py-2 text-xs font-medium text-white group-hover:scale-100 z-10 shadow-glow whitespace-nowrap'>
+        <span className='absolute top-10 scale-0 transition-all rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100 z-10'>
           Sort by {name} in {order}
         </span>
       </div>

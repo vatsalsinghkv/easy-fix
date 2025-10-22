@@ -63,7 +63,7 @@ const Filter = () => {
               setCustomLabel(e.target.value);
             }}
             placeholder='+ add custom label'
-            className='block bg-bg-secondary/50 backdrop-blur-sm p-3 py-2 font-mono text-sm capitalize transition-all border-2 rounded-lg cursor-text hover:border-accent focus:border-accent focus:shadow-glow border-dark-3 focus:outline-none placeholder:text-dark-2'
+            className='block bg-transparent p-3 py-1.5 font-mono text-xs capitalize transition-all border rounded cursor-pointer hover:text-accent hover:border-accent focus:text-accent focus:border-accent border-dark-2 peer-hover:border-accent peer-focus:border-accent peer-focus:text-accent peer-checked:text-accent peer-checked:border-accent peer-checked:bg-accent-light peer-focus:outline-none'
           />
         </form>
       </MiniContainer>

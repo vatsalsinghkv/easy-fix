@@ -3,60 +3,45 @@
 @tailwind utilities;
 
 @layer base {
-  /* Hacktoberfest 2025 Inspired Colors */
+  /* Color variables for future use */
+  /* --color-bg: #fcfaf8; */
+  /* --color-accent: #00ffd5; */
+  /* --color-accent-light: rgba(0, 255, 213, 0.2); */
+  /* --color-accent: #64ffda; */
+  /* --color-accent: #61dafb; */
+  /* --color-text: #383838; */
+  /* --color-dark-2: #282828; */
+  /* --color-dark-3: #a2a2a2; */
+
+  /* --color-accent: theme(colors.teal.300);
+  --color-accent-light: theme(colors.teal.400/0.2); */
 
   /* Light Mode */
   :root {
-    --color-bg: #170f1e;
-    --color-bg-secondary: #2d1b3d;
-
-    --color-accent: #00ffd5;
-    --color-accent-secondary: #ff6b9d;
-    --color-accent-tertiary: #ffb800;
-    --color-accent-light: rgba(0, 255, 213, 0.15);
-    --color-text: #e8e8e8;
-    --color-dark-1: #ffffff;
-    --color-dark-2: #b8b8b8;
-    --color-dark-3: #4a3b5c;
-
-    /* Gradient colors */
-    --gradient-start: #6b21a8;
-    --gradient-end: #1e3a8a;
-  }
+  --color-bg: #ffffff; 
+  --color-bg-secondary: #f1f5f9; 
+  
+  --color-accent: #1E40AF; 
+  --color-accent-light: rgba(30, 64, 175, 0.15);
+  --color-text: #1e293b;   
+  --color-dark-1: #334155; 
+  --color-dark-2: #64748b; 
+  --color-dark-3: #94a3b8;
+}
 
   .dark {
-    --color-bg: #170f1e;
-    --color-bg-secondary: #2d1b3d;
+    --color-bg: theme(colors.slate.900);
+    --color-bg-secondary: theme(colors.slate.800/0.6);
     --color-accent: #00ffd5;
-    --color-accent-secondary: #ff6b9d;
-    --color-accent-tertiary: #ffb800;
-    --color-accent-light: rgba(0, 255, 213, 0.15);
-    --color-text: #e8e8e8;
-    --color-dark-1: #ffffff;
-    --color-dark-2: #b8b8b8;
-    --color-dark-3: #4a3b5c;
-
-    /* Gradient colors */
-    --gradient-start: #6b21a8;
-    --gradient-end: #1e3a8a;
+    --color-accent-light: rgba(0, 255, 213, 0.2);
+    --color-text: theme(colors.slate.300);
+    --color-dark-1: theme(colors.slate.200);
+    --color-dark-2: theme(colors.slate.400);
+    --color-dark-3: theme(colors.slate.700);
   }
 
   * {
     @apply focus:outline-none outline-[3px] outline-offset-4 outline-accent;
-  }
-
-  body {
-    @apply bg-bg text-text;
-    background-image: radial-gradient(
-        circle at 20% 50%,
-        rgba(107, 33, 168, 0.15) 0%,
-        transparent 50%
-      ),
-      radial-gradient(
-        circle at 80% 80%,
-        rgba(30, 58, 138, 0.15) 0%,
-        transparent 50%
-      );
   }
 }
 
@@ -70,61 +55,33 @@
 }
 .back-to-top {
   position: fixed;
-  bottom: 20px;
-  right: 30px;
+  bottom: 20px; 
+  right: 30px; 
   z-index: 99;
-  background: linear-gradient(
-    135deg,
-    var(--gradient-start) 0%,
-    var(--gradient-end) 100%
-  );
+  background-color: #0f172a;
   color: white;
-  border: 2px solid var(--color-accent);
+  border: 1.5px solid rgba(148, 163, 184, 1);
   padding: 1px;
-  border-radius: 12px;
-  cursor: pointer;
-  width: 50px;
+  border-radius: 8px;
+  cursor: pointer; 
+  width: 50px; 
   height: 40px;
-  transition: all 0.3s ease;
-  box-shadow: 0 0 20px rgba(0, 255, 213, 0.3);
+  
 }
 .back-to-top:hover {
-  border: 2px solid var(--color-accent-secondary);
-  transform: translateY(-2px);
-  box-shadow: 0 0 30px rgba(0, 255, 213, 0.5);
+  border: 1.5px solid #00ffd5;
+  
 }
 .back-to-top:hover .back-to-top-icon {
-  color: var(--color-accent-secondary);
+  color: #00ffd5;
 }
 
-.back-to-top-icon {
-  color: var(--color-accent);
+
+.back-to-top-icon
+{
+  color: #94a3b8;
   position: fixed;
-  bottom: 27px;
-  right: 42.5px;
-  transition: all 0.3s ease;
-}
-
-/* Gradient text utility */
-.gradient-text {
-  background: linear-gradient(
-    135deg,
-    var(--color-accent) 0%,
-    var(--color-accent-secondary) 50%,
-    var(--color-accent-tertiary) 100%
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Card glow effect */
-.card-glow {
-  box-shadow: 0 0 20px rgba(0, 255, 213, 0.1);
-  transition: all 0.3s ease;
-}
-
-.card-glow:hover {
-  box-shadow: 0 0 30px rgba(0, 255, 213, 0.2);
-  transform: translateY(-2px);
+  bottom: 27px; 
+  right: 42.5px; 
+   
 }
