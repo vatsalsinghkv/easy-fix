@@ -1,4 +1,11 @@
-import { Error, Issue, Label, Loader, Pagination, IssuesPerPageSelector } from '@/components';
+import {
+  Error,
+  Issue,
+  IssuesPerPageSelector,
+  Label,
+  Loader,
+  Pagination,
+} from '@/components';
 import useAsync from '@/lib/hooks/useAsync';
 import { useUrlValues } from '@/lib/hooks/useUrlValues';
 import { getTotalPages, toId } from '@/lib/utils';
@@ -11,7 +18,7 @@ const Issues = () => {
   const { dispatch, page, url, itemsPerPage } = useUrlValues();
   const { data, error, isIdle, isPending, run } = useAsync(
     (signal) => httpGateway.Get({ url, signal }, githubIssueSearchResponse),
-    { autoFetch: true }
+    { autoFetch: false }
   );
 
   const handlePageChange = (payload: number) => {
@@ -24,7 +31,7 @@ const Issues = () => {
 
   useEffect(() => {
     run();
-  }, [url]);
+  }, [url, run]);
 
   if (isPending || isIdle) {
     return (
@@ -39,6 +46,13 @@ const Issues = () => {
       return (
         <div>
           <Error title='Rate Limit Exceeded'>{error.message}</Error>
+        </div>
+      );
+    }
+    if (error.cause === 'abuse-detection') {
+      return (
+        <div>
+          <Error title='Too Many Requests'>{error.message}</Error>
         </div>
       );
     }
@@ -80,7 +94,7 @@ const Issues = () => {
           )
         )}
       </div>
-      <div className="flex items-center justify-between py-3 mb-5">
+      <div className='flex items-center justify-between py-3 mb-5'>
         <IssuesPerPageSelector
           value={itemsPerPage}
           onChange={handleItemsPerPageChange}
