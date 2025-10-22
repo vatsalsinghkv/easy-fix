@@ -8,7 +8,7 @@ interface Props {
 const Label: React.FC<Props> = ({ children, className }) => {
   return (
     <span
-      className={`inline-flex items-center px-3 md:px-4 py-1.5 md:py-2 text-xs font-mono font-semibold capitalize rounded-full text-accent bg-accent-light border border-accent/30 transition-all hover:border-accent hover:shadow-glow ${className}`}
+      className={`inline-flex items-center px-2.5 md:px-3 py-1 md:py-1.5 text-xs font-mono font-medium capitalize rounded-full text-accent bg-accent-light  ${className}`}
     >
       {children}
     </span>
