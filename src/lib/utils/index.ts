@@ -1,10 +1,4 @@
-import {
-  INITIAL_LABELS,
-  ISSUE_PER_PAGE,
-  ISSUE_URL,
-  QUERIES,
-  TIMEOUT_SEC,
-} from '@/lib/utils/config';
+import { ISSUE_PER_PAGE, ISSUE_URL, QUERIES, TIMEOUT_SEC } from '@/lib/utils/config';
 import { Label } from '@/models/Label';
 import { Language } from '@/models/Language';
 import { Ordering } from '@/models/Ordering';
@@ -136,28 +130,70 @@ export const convertToK = (value: number) => {
 };
 
 export const composeUrl = (
-  lang: Language,
+  languages: Language[],
   page: number,
   sort: SortingTag,
   order: Ordering,
-  label: Label,
+  labels: Label[],
   itemsPerPage: number = ISSUE_PER_PAGE
 ) => {
-  const langQuery = lang && lang !== 'all' ? `+language:${lang}` : '';
-  const defaultLabelQuery = `+label:${
-    label === 'none' ? INITIAL_LABELS.join(',') : label
-  }`;
+  const hasAll = !languages || languages.length === 0 || languages.includes('all');
+  const qParts: string[] = [QUERIES.replace(/\+/g, ' ')];
 
-  const labelQuery =
-    label && label.toLocaleLowerCase() !== 'none'
-      ? `${defaultLabelQuery}`
-      : defaultLabelQuery;
+  if (!hasAll) {
+    const formatLanguage = (l: string) => {
+      switch (l) {
+        case 'javascript':
+          return 'JavaScript';
+        case 'typescript':
+          return 'TypeScript';
+        case 'css':
+          return 'CSS';
+        case 'html':
+          return 'HTML';
+        case 'python':
+          return 'Python';
+        case 'java':
+          return 'Java';
+        case 'go':
+          return 'Go';
+        case 'shell':
+          return 'Shell';
+        case 'rust':
+          return 'Rust';
+        case 'haskell':
+          return 'Haskell';
+        case 'r':
+          return 'R';
+        case 'dart':
+          return 'Dart';
+        case 'ruby':
+          return 'Ruby';
+        default:
+          return l;
+      }
+    };
+    const specific = languages.filter((l) => l !== 'all').map(formatLanguage);
+    if (specific.length === 1) {
+      qParts.push(`language:${specific[0]}`);
+    } else if (specific.length > 1) {
+      const langGroup = specific.map((l) => `language:${l}`).join(' OR ');
+      qParts.push(`(${langGroup})`);
+    }
+  }
+
+  const labelsToUse = labels?.includes('none') ? [] : labels ?? [];
+  const formatLabel = (l: string) => (l.includes(' ') ? `"${l}"` : l);
+  if (labelsToUse.length > 0) {
+    const csv = labelsToUse.map(formatLabel).join(',');
+    qParts.push(`label:${csv}`);
+  }
 
   const searchParams = {
     order,
     page,
     per_page: itemsPerPage,
-    q: `${QUERIES}${langQuery}${labelQuery}`,
+    q: qParts.join(' '),
     sort,
   };
 
@@ -167,10 +203,6 @@ export const composeUrl = (
     if (!value) return;
     url.searchParams.set(key, value.toString());
   });
-  // Unfortunately, this hack is needed because
-  // the API is not parsing the URL correctly :(
-  url.search = decodeURIComponent(url.search);
-
   console.log({ url: url.toString() });
   return url.toString();
 };

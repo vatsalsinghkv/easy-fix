@@ -8,28 +8,28 @@ import { FormEvent, createContext, useContext, useState } from 'react';
 type FilterContextType = {
   customLabel: string;
   language: Language;
-  label: string;
+  labelsSelected: Label[];
   ordering: Ordering;
   sortingTag: SortingTag;
   labels: Label[];
   customLabelHandler: (e: FormEvent) => void;
   setCustomLabel: (label: string) => void;
   languageChangeHandler: (payload: Language) => () => void;
-  labelsChangeHandler: (payload: Label) => () => void;
+  labelsToggleHandler: (payload: Label) => () => void;
   sortingTagClickHandler: (payload: SortingTag) => () => void;
 };
 
 const initialState: FilterContextType = {
   customLabel: '',
   language: 'all',
-  label: 'hacktoberfest',
+  labelsSelected: ['hacktoberfest'],
   ordering: 'asc',
   sortingTag: 'best-match',
   labels: sortedLabels,
   customLabelHandler: () => {},
   setCustomLabel: () => {},
   languageChangeHandler: () => () => {},
-  labelsChangeHandler: () => () => {},
+  labelsToggleHandler: () => () => {},
   sortingTagClickHandler: () => () => {},
 };
 
@@ -45,19 +45,19 @@ export default function FilterProvider({
 
   const customLabelHandler = (e: FormEvent) => {
     e.preventDefault();
-    setLabels([...labels, customLabel]);
-    labelsChangeHandler(customLabel as Label)();
+    setLabels([...labels, customLabel as Label]);
+    labelsToggleHandler(customLabel as Label)();
     setCustomLabel('');
   };
 
-  const { dispatch, language, ordering, sortingTag, label } = useUrlValues();
+  const { dispatch, language, ordering, sortingTag, labels: labelsSelected } = useUrlValues();
 
   const languageChangeHandler = (payload: Language) => {
     return () => dispatch({ type: 'update-language', payload });
   };
 
-  const labelsChangeHandler = (payload: Label) => {
-    return () => dispatch({ type: 'update-label', payload });
+  const labelsToggleHandler = (payload: Label) => {
+    return () => dispatch({ type: 'toggle-label', payload });
   };
 
   const sortingTagClickHandler = (payload: SortingTag) => {
@@ -68,14 +68,14 @@ export default function FilterProvider({
     <FilterContext.Provider
       value={{
         customLabel,
-        label,
+        labelsSelected,
         language,
         ordering,
         sortingTag,
         labels,
         customLabelHandler,
         languageChangeHandler,
-        labelsChangeHandler,
+        labelsToggleHandler,
         sortingTagClickHandler,
         setCustomLabel,
       }}
