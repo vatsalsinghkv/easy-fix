@@ -6,16 +6,17 @@ interface Props {
   value: string;
   checked: boolean; // Added the missing 'checked' property
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  inputType?: 'radio' | 'checkbox';
 }
 
 // Updated the component definition to include the 'checked' property
-const Select: React.FC<Props> = ({ name, value, onChange, checked }) => {
+const Select: React.FC<Props> = ({ name, value, onChange, checked, inputType = 'radio' }) => {
   return (
     <>
       <input
         checked={checked}
         className='hidden peer'
-        type='radio'
+        type={inputType}
         name={name}
         onChange={onChange}
         id={toId(name)}

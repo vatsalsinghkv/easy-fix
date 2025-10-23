@@ -30,7 +30,7 @@ type UrlContextValue = {
   ordering: Ordering;
   page: number;
   sortingTag: SortingTag;
-  label: Label;
+  labels: Label[];
   itemsPerPage: number;
   url: string;
 };
@@ -38,10 +38,7 @@ type UrlContextValue = {
 const UrlContext = createContext<UrlContextValue | undefined>(undefined);
 
 export const UrlProvider = ({ children }: PropsWithChildren) => {
-  const [initLanguage, setLanguage] = useLocalStorage<Language>(
-    'language',
-    DEFAULT_LANGUAGE
-  );
+  const [initLanguage, setLanguage] = useLocalStorage<Language>('language', DEFAULT_LANGUAGE);
   const [initOrdering, setOrdering] = useLocalStorage<Ordering>(
     'order',
     DEFAULT_ORDERING
@@ -50,7 +47,19 @@ export const UrlProvider = ({ children }: PropsWithChildren) => {
     'sortingTag',
     DEFAULT_SORTING_TAG
   );
-  const [initLabel, setLabel] = useLocalStorage<Label>('label', DEFAULT_LABEL);
+  const [initLabelsStr, setLabelsStr] = useLocalStorage<string>(
+    'labels',
+    JSON.stringify([])
+  );
+  const parseLabels = (val: string): Label[] => {
+    try {
+      const parsed = JSON.parse(val);
+      return Array.isArray(parsed) ? (parsed as Label[]) : [DEFAULT_LABEL];
+    } catch {
+      return [DEFAULT_LABEL];
+    }
+  };
+  const initLabels = parseLabels(initLabelsStr);
   const [initItemsPerPage, setItemsPerPage] = useLocalStorage<number>(
     'itemsPerPage',
     DEFAULT_ISSUES_PER_PAGE
@@ -61,14 +70,14 @@ export const UrlProvider = ({ children }: PropsWithChildren) => {
     ordering: initOrdering,
     page: DEFAULT_PAGE,
     sortingTag: initSortingTag,
-    label: initLabel,
+    labels: initLabels,
     itemsPerPage: initItemsPerPage,
     url: composeUrl(
-      initLanguage,
+      [initLanguage],
       DEFAULT_PAGE,
       initSortingTag,
       initOrdering,
-      initLabel,
+      initLabels,
       initItemsPerPage
     ),
   } as const;
@@ -84,29 +93,38 @@ export const UrlProvider = ({ children }: PropsWithChildren) => {
           language,
           page: 1,
           url: composeUrl(
-            language,
+            [language],
             1,
             state.sortingTag,
             state.ordering,
-            state.label,
+            state.labels,
             state.itemsPerPage
           ),
         };
 
-      case 'update-label':
-        const label = action.payload;
-        setLabel(label);
+      case 'toggle-label':
+        const toggled = action.payload;
+        let nextLabels: Label[];
+        if (toggled === 'none') {
+          nextLabels = ['none'] as Label[];
+        } else {
+          const withoutNone = state.labels.filter((l) => l !== 'none');
+          nextLabels = withoutNone.includes(toggled)
+            ? withoutNone.filter((l) => l !== toggled)
+            : [...withoutNone, toggled];
+        }
+        setLabelsStr(JSON.stringify(nextLabels));
 
         return {
           ...state,
-          label,
+          labels: nextLabels,
           page: 1,
           url: composeUrl(
-            state.language,
+            [state.language],
             1,
             state.sortingTag,
             state.ordering,
-            label,
+            nextLabels,
             state.itemsPerPage
           ),
         };
@@ -127,11 +145,11 @@ export const UrlProvider = ({ children }: PropsWithChildren) => {
           ordering,
           sortingTag,
           url: composeUrl(
-            state.language,
+            [state.language],
             state.page,
             sortingTag,
             ordering,
-            state.label,
+            state.labels,
             state.itemsPerPage
           ),
         };
@@ -148,11 +166,11 @@ export const UrlProvider = ({ children }: PropsWithChildren) => {
           ...state,
           page,
           url: composeUrl(
-            state.language,
+            [state.language],
             page,
             state.sortingTag,
             state.ordering,
-            state.label,
+            state.labels,
             state.itemsPerPage
           ),
         };
@@ -166,11 +184,11 @@ export const UrlProvider = ({ children }: PropsWithChildren) => {
           itemsPerPage,
           page: 1, // Reset to first page when changing items per page
           url: composeUrl(
-            state.language,
+            [state.language],
             1,
             state.sortingTag,
             state.ordering,
-            state.label,
+            state.labels,
             itemsPerPage
           ),
         };
@@ -180,7 +198,7 @@ export const UrlProvider = ({ children }: PropsWithChildren) => {
     }
   };
 
-  const [{ language, ordering, page, sortingTag, url, label, itemsPerPage }, dispatch] =
+  const [{ language, ordering, page, sortingTag, url, labels, itemsPerPage }, dispatch] =
     useReducer<Reducer<State, Action>>(reducer, defaultState);
 
   const value = useMemo(
@@ -191,10 +209,10 @@ export const UrlProvider = ({ children }: PropsWithChildren) => {
       page,
       sortingTag,
       url,
-      label,
+      labels,
       itemsPerPage,
     }),
-    [dispatch, language, ordering, page, sortingTag, label, url, itemsPerPage]
+    [dispatch, language, ordering, page, sortingTag, labels, url, itemsPerPage]
   );
   return <UrlContext.Provider value={value}>{children}</UrlContext.Provider>;
 };

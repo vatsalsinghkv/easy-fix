@@ -9,7 +9,7 @@ export type State = {
   ordering: Ordering;
   page: number;
   sortingTag: SortingTag;
-  label: Label;
+  labels: Label[];
   itemsPerPage: number;
   url: string;
 };
@@ -24,9 +24,14 @@ type UpdateSortingTagAction = {
   payload: SortingTag;
 };
 
-type UpdateLabel = {
-  type: 'update-label';
+type ToggleLabelAction = {
+  type: 'toggle-label';
   payload: Label;
+};
+
+type SetLabelsAction = {
+  type: 'set-labels';
+  payload: Label[];
 };
 
 type UpdatePageAction = {
@@ -43,7 +48,8 @@ export type Action =
   | UpdateLanguageAction
   | UpdateSortingTagAction
   | UpdatePageAction
-  | UpdateLabel
+  | ToggleLabelAction
+  | SetLabelsAction
   | UpdateItemsPerPageAction;
 
 export const toggleOrdering = (
