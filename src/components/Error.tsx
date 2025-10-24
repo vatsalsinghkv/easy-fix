@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+import { useTheme } from '@/lib/hooks/use-theme';
 
 interface Props {
   title: string;
@@ -10,11 +11,12 @@ interface Props {
 }
 
 const Error: React.FC<Props> = ({ title, link, children }) => {
+  const { isDarkMode } = useTheme();
   return (
     <main className='flex flex-col items-center justify-center gap-4 pt-10 pb-6 bg-base-100'>
       <div className='w-full max-w-md mx-auto '>
         <img
-          src='/crashed-error.svg'
+          src={isDarkMode ? '/crashed-error-dark.svg' : '/crashed-error-light.svg'}
           alt='error'
           className='relative z-10 w-full'
         />
