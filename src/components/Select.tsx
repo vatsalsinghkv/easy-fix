@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button';
 import { toId } from '@/lib/utils';
 
 // Resolved the conflict between the two interfaces
@@ -21,12 +22,9 @@ const Select: React.FC<Props> = ({ name, value, onChange, checked }) => {
         id={toId(name)}
         value={value}
       />
-      <label
-        className='block p-3 py-1.5 font-mono text-xs capitalize transition-all border rounded cursor-pointer hover:text-accent hover:border-accent focus:text-accent focus:border-accent border-dark-2 peer-hover:border-accent peer-focus:border-accent peer-focus:text-accent peer-checked:text-accent peer-checked:border-accent peer-checked:bg-accent-light peer-focus:outline-none'
-        htmlFor={toId(name)}
-      >
+      <Button as='label' variant='input' size='sm' htmlFor={toId(name)}>
         {name}
-      </label>
+      </Button>
     </>
   );
 };
