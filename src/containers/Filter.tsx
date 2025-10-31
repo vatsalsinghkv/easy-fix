@@ -9,14 +9,14 @@ import { sortedSortingTags } from '@/models/SortingTag';
 const Filter = () => {
   const {
     language,
-    label,
+    labelsSelected,
     labels,
     ordering,
     sortingTag,
     customLabel,
     customLabelHandler,
     languageChangeHandler,
-    labelsChangeHandler,
+    labelsToggleHandler,
     sortingTagClickHandler,
     setCustomLabel,
   } = useFilter();
@@ -44,9 +44,10 @@ const Filter = () => {
             <li key={toId(l)}>
               <Select
                 value={l}
-                checked={l === label}
+                checked={labelsSelected.includes(l)}
                 name={l}
-                onChange={labelsChangeHandler(l)}
+                onChange={labelsToggleHandler(l)}
+                inputType='checkbox'
               />
             </li>
           ))}
