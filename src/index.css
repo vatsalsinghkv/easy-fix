@@ -64,7 +64,7 @@
   }
 
   * {
-    @apply focus:outline-none outline-[3px] outline-offset-4 outline-accent;
+    @apply focus-visible:outline-none outline-[3px] outline-offset-4 outline-accent;
   }
 }
 

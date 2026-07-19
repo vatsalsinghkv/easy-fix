@@ -28,7 +28,7 @@ const IssuesPerPageSelector: React.FC<Props> = ({
       <select
         value={value.toString()}
         onChange={handleChange}
-        className='px-3 py-1.5 text-xs font-mono border rounded cursor-pointer bg-bg border-dark-2 hover:border-accent focus:border-accent focus:outline-none text-text'
+        className='px-3 py-1.5 text-xs font-mono border rounded cursor-pointer bg-bg border-dark-2 hover:border-accent focus-visible:border-accent focus-visible:outline-none text-text'
       >
         {ISSUES_PER_PAGE_OPTIONS.map((option) => (
           <option key={option.value} value={option.value}>

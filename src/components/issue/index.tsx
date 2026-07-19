@@ -28,7 +28,7 @@ export const Issue = ({
 
   return (
     <a
-      className='block p-5 border rounded-md border-dark-3 hover:bg-bg-secondary min-h-[105px] focus:bg-bg-secondary group gradient-secondary'
+      className='block p-5 border rounded-md border-dark-3 hover:bg-bg-secondary min-h-[105px] focus-visible:bg-bg-secondary group gradient-secondary'
       href={url}
       target='_blank'
       rel='noreferrer'
@@ -39,7 +39,7 @@ export const Issue = ({
         stargazersCount={data?.stargazers_count}
         comments={comments}
       />
-      <h3 className='text-base font-medium md:text-lg text-dark-1 group-hover:text-accent group-focus:text-accent'>
+      <h3 className='text-base font-medium md:text-lg text-dark-1 group-hover:text-accent group-focus-visible:text-accent'>
         {title}
       </h3>
       <div className='flex flex-wrap'>{children}</div>

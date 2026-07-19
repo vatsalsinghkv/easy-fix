@@ -16,7 +16,7 @@ export default function IssueData({
 }: Props) {
   console.dir({ fullName });
   return (
-    <div className='flex flex-wrap gap-1 justify-between mb-1 font-mono text-xs transition-all text-dark-2 group-hover:text-dark-1 group-focus:text-dark-1'>
+    <div className='flex flex-wrap gap-1 justify-between mb-1 font-mono text-xs transition-all text-dark-2 group-hover:text-dark-1 group-focus-visible:text-dark-1'>
       <p
         aria-label='repository-name'
         className='flex gap-2.5 flex-wrap font-medium'

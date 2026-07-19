@@ -8,9 +8,9 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          'font-mono text-sm capitalize transition-all border rounded hover:text-accent hover:border-accent focus:text-accent focus:border-accent border-slate-400 peer-checked:text-accent hover:bg-accent-light focus:bg-accent-light',
+          'font-mono text-sm capitalize transition-all border rounded hover:text-accent hover:border-accent focus-visible:text-accent focus-visible:border-accent border-slate-400 peer-checked:text-accent hover:bg-accent-light focus-visible:bg-accent-light',
         input:
-          'font-mono text-sm capitalize transition-all border rounded hover:text-accent hover:border-accent focus:text-accent focus:border-accent border-slate-400 peer-checked:text-accent focus:bg-accent-light peer-checked:text-accent peer-checked:border-accent peer-checked:bg-accent-light peer-focus:outline-none',
+          'font-mono text-sm capitalize transition-all border rounded hover:text-accent hover:border-accent focus-visible:text-accent focus-visible:border-accent border-slate-400 peer-checked:text-accent focus-visible:bg-accent-light peer-checked:text-accent peer-checked:border-accent peer-checked:bg-accent-light peer-focus-visible:outline-none',
         destructive:
           'bg-destructive text-white shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60',
         outline:

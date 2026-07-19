@@ -25,7 +25,7 @@ export const SortingTagFilter: FC<Props> = ({
   return (
     <>
       <button
-        className={`cursor-pointer flex p-3 py-1.5 font-mono text-xs capitalize transition-all border rounded hover:text-accent hover:border-accent focus:text-accent focus:border-accent border-dark-2 relative  ${activeClasses}`}
+        className={`cursor-pointer flex p-3 py-1.5 font-mono text-xs capitalize transition-all border rounded hover:text-accent hover:border-accent focus-visible:text-accent focus-visible:border-accent border-dark-2 relative  ${activeClasses}`}
         onClick={onClick}
         type='button'
       >
